@@ -41,6 +41,5 @@ urlpatterns = [
     path(r'report_delete/', views.report_delete, name='report_delete'),
     
     path(r'find_data/', views.find_data, name='find_data'),
-    # path(r'assert_api_function_exist/', views.assert_api_function_exist)
 
 ]
