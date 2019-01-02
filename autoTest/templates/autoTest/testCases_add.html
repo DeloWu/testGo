@@ -1,0 +1,666 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 添加用例集 {% endblock %}
+{% block beforehead %}
+    <style type="text/css">
+        .block__list {
+        padding: 20px 0;
+        max-width: 360px;
+        margin-top: -8px;
+        margin-left: 5px;
+        background-color: #fff;
+    }
+    .block__list-title {
+        /*margin: -20px 0 0;*/
+        padding: 10px;
+        text-align: center;
+        background: #1dc5a3;
+    }
+    .block__list_words li {
+        background-color: #fff;
+        padding: 10px 40px;
+    }
+    .pagination .ali {
+        padding: 0;
+    }
+    </style>
+{% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">添加用例集</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加用例集</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="testCases_name" class="col-sm-2 control-label"><span style="color: red">* </span>用例集名称:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="testCases_name" class="form-control"  id="testCases_name" placeholder="请输入内容">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="testSuite_function" class="col-sm-2 control-label"><!-- <span style="color: red">* </span> -->用例集函数:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="testSuite_function" class="form-control"  id="testSuite_function" placeholder="请输入内容">
+                            <!-- <span    class="help-block" style="color:red">e.g. testSuiteName2($page,$num)  若未填写用例集函数，此用例集便无法作为组件来拼装用例集！ </span> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label"><span style="color: red">* </span>内容描述:</label>
+                        <div class="col-sm-6">
+                            <textarea name="description" placeholder="请输入内容" class="form-control" id="description" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="setup_hooks" class="col-sm-2 control-label">setup_hooks:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="setup_hooks" class="form-control" id="setup_hooks" placeholder="请输入内容,可默认为空">
+                            <span    class="help-block" style="color:red">在整个用例开始执行前触发 hook 函数，主要用于请求前的准备工作。也可以实现对请求的 request 内容进行预处理<br />e.g. ①${hook_print(setup)} ②${setup_hook_prepare_kwargs($request)}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="teardown_hooks" class="col-sm-2 control-label">teardown_hooks:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="teardown_hooks" class="form-control" id="teardown_hooks" placeholder="请输入内容,可默认为空">
+                            <span    class="help-block" style="color:red">在 HTTP 请求发送后执行 hook 函数，主要用于测试后的清理工作；也可以实现对响应的 response 进行修改，例如进行加解密等处理。<br />e.g. ${teardown_hook_sleep_N_secs($response, 2)}</span>
+                        </div>
+                    </div>
+                    <!-- 请求头 -->
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">请求头:</label>
+                        <div class="col-sm-6">
+                            <!-- <input type="text" name="headers" class="form-control"  id="headers" placeholder="请输入内容"> -->
+                            <div>
+                                <table class="table table-bordered table-condensed" id="headers-table">
+                                    <thead>
+                                        <tr>
+                                            <th><b>Key</b></th>
+                                            <th><b>Value</b></th>
+                                            <th style="width: 100px"><b>数据类型</b></th>
+                                            <th><b>描述</b></th>
+                                            <th><b>操作</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-offset-4">
+                                <button class="btn btn-primary" onclick="add_headers_row()">添加请求头</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 公共驱动参数 -->
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">公共驱动参数:</label>
+                        <div class="col-sm-6">
+                            <!-- <input type="text" name="parameters" class="form-control"  id="parameters" placeholder="请输入内容"> -->
+                            <div>
+                                <table class="table table-bordered table-condensed" id="parameters-table">
+                                    <thead>
+                                        <tr>
+                                            <th><b>Key</b></th>
+                                            <th><b>Value</b></th>
+                                            <th style="width: 100px"><b>数据类型</b></th>
+                                            <th class="center-block"><b>描述</b></th>
+                                            <th><b>操作</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        
+                                    </tbody>
+                                </table>
+                                <span    class="help-block" style="color:red">数据驱动测试用例 e.g. ①{"user_agent": ["iOS/10.1", "iOS/10.2", "iOS/10.3"]} ②"app_version": "${P(app_version.csv)}"} ③{"os_platform": "${get_os_platform()}"}</span>
+                            </div>
+                            <div class="col-sm-offset-4">
+                                <button class="btn btn-primary" onclick="add_parameters_row()">添加公共参数</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 静态变量 -->
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">公共静态变量:</label>
+                        <div class="col-sm-6">
+                            <!-- <input type="text" name="variables" class="form-control"  id="variables" placeholder="请输入内容"> -->
+                            <div>
+                                <table class="table table-bordered table-condensed" id="variables-table">
+                                    <thead>
+                                        <tr>
+                                            <th><b>Key</b></th>
+                                            <th><b>Value</b></th>
+                                            <th style="width: 100px"><b>数据类型</b></th>
+                                            <th class="center-block"><b>描述</b></th>
+                                            <th><b>操作</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        
+                                    </tbody>
+                                </table>
+                                <span    class="help-block" style="color:red">引用前面接口提取变量的形式: "$extract_name"</span>
+                            </div>
+                            <div class="col-sm-offset-4">
+                                <button class="btn btn-primary" onclick="add_variables_row()">添加公共静态变量</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="output" class="col-sm-2 control-label">打印参数列表:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="output" class="form-control" value="[  ]"  id="output" placeholder="请输入内容">
+                            <span    class="help-block" style="color:red"> 可输出的参数包括 "公共参数" 和 "公共静态变量" e.g. ["var1", "var2"]</span>
+                        </div>
+                    </div>
+                    <!-- 拖拽窗口 -->
+                    <div class="container">
+                        <div id="advanced row">
+
+                            <div class="col-md-4 block__list block__list_words  "><!-- col-md-pull-1 -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="text" id="search_testStepName" name="testStepName" placeholder="请输入用例名称或者url地址进行模糊搜素" style="width: 314px"><button onclick="search_testStep()">搜索</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="block__list-title"><b>测试用例</b></div>
+                                        <ul id="advanced-1" style="border: 1px solid #f5f5f5">
+                                        <!-- {% for testStep in testStep_list %}
+                                            <li value="{{ testStep.testStep_id }}">{{ testStep.testStep_name }}</li>
+                                        {% endfor %} -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                <!-- 分页行 -->
+                                    <div class="col-md-12" id="testStep_page_div">
+                                            <ul class="pagination" id="testStepPagination">
+                                            </ul>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 block__list block__list_words "><!-- col-md-pull-1 -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p style="height: 16px;color: red">请按接口调用顺序拖拽两侧用例，拼装以下测试用例集</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="block__list-title"><b>测试用例集</b></div>
+                                        <ul id="advanced-2" style="border: 1px solid #f5f5f5">
+                                            <li name="blank_li"></li>
+                                            <li name="blank_li"></li>
+                                            <li name="blank_li"></li>
+                                            <li name="blank_li"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 block__list block__list_words "><!-- col-md-pull-1 -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="text" id="search_testSuiteName" name="testSuiteName" value="" placeholder="请输入测试套件名称进行模糊搜素" style="width: 314px"><button onclick="search_testSuite()">搜索</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="block__list-title"><b>测试套件</b></div>
+                                            <ul id="advanced-3" style="border: 1px solid #f5f5f5">
+                                            </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                <!-- 分页行 -->
+                                    <div class="col-md-12" id="testSuite_page_div">
+                                        <ul class="pagination" id="testSuitePagination">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-6">
+                            <button type="submit" class="btn btn-primary" onclick="submit_form()">保存</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+{% block javascript %}
+    <script src="/static/js/Sortable-master/Sortable.js"></script>
+    <script src="http://cdn.bootcss.com/angular.js/1.2.32/angular.min.js"></script>
+    <script src="/static/js/Sortable-master/st/testGo-Sortable.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var testStep_list = {{ testStep_list |safe}};
+            var testStep_list_length = testStep_list.length;
+            // console.log("testStep_list_length: ",testStep_list_length);
+            $("#advanced-1").append(testStep_list[0]);
+            $("#testStepPagination").createPage({
+                locator: "#testStepPagination",
+                totalPage:testStep_list_length,
+                currPage:1,
+                backFn:function(p){
+                    var index = p - 1;
+                    $("#advanced-1").empty();
+                    $("#advanced-1").append(testStep_list[index]);
+                    $("#testStepPagination li[class='active']").removeClass("active");
+                    var active_page_locator = "#testStepPagination li:eq(" + index +")";
+                    $("active_page_locator").attr("class","active");
+                }
+            });
+            // 默认给第一页添加选中状态
+            var active_page_locator = "#testStepPagination li:eq(" + 0 +")";
+            $(active_page_locator).attr("class","active");
+            // 测试套件部分
+            var testSuite_list = {{ testSuite_list |safe}};
+            var testSuite_list_length = testSuite_list.length;
+            // console.log("testSuite_list_length: ",testSuite_list_length);
+            $("#advanced-3").append(testSuite_list[0]);
+            $("#testSuitePagination").createPage({
+                locator: "#testSuitePagination",
+                totalPage:testSuite_list_length,
+                currPage:1,
+                backFn:function(p){
+                    var index = p - 1;
+                    $("#advanced-3").empty();
+                    $("#advanced-3").append(testSuite_list[index]);
+                    $("#testSuitePagination li[class='active']").removeClass("active");
+                    var active_page_locator = "#testSuitePagination li:eq(" + index +")";
+                    $("active_page_locator").attr("class","active");
+                }
+            });
+            // 默认给第一页添加选中状态
+            var active_page_locator = "#testSuitePagination li:eq(" + 0 +")";
+            $(active_page_locator).attr("class","active");
+        });
+
+    </script>
+    <script type="text/javascript">
+        (function(){
+            var ms = {
+                init:function(totalsubpageTmep,args){
+                    return (function(){
+                        ms.fillHtml(totalsubpageTmep,args);
+                        ms.bindEvent(totalsubpageTmep,args);
+                    })();
+                },
+                //填充html
+                fillHtml:function(totalsubpageTmep,args){
+                    return (function(){
+                        totalsubpageTmep="";
+                        // 页码大于等于4的时候，添加第一个页码元素
+                        if(args.currPage!=1 && args.currPage>=4 && args.totalPage!=4) {
+                            totalsubpageTmep += "<li class='ali'><a href='javascript:void(0);' class='geraltTb_pager' data-go='' >"+1+"</a></li>";
+                        }
+                        /* 当前页码>4, 并且<=总页码，总页码>5，添加“···”*/
+                        if(args.currPage-2>2 && args.currPage<=args.totalPage && args.totalPage>5) {
+                            totalsubpageTmep += "<li class='ali'><a href='javascript:void(0);' class='geraltTb_' data-go='' >...</a></li>";
+                        }
+                        /* 当前页码的前两页 */
+                        var start = args.currPage-2;
+                        /* 当前页码的后两页 */
+                        var end = args.currPage+2;
+
+                        if((start>1 && args.currPage<4) || args.currPage==1) {
+                            end++;
+                        }
+                        if(args.currPage>args.totalPage-4 && args.currPage>=args.totalPage) {
+                            start--;
+                        }
+                        for(; start<=end; start++) {
+                            if(start<=args.totalPage && start>=1) {
+                                totalsubpageTmep += "<li class='ali'><a href='javascript:void(0);' class='geraltTb_pager' data-go='' >"+start+"</a></li>";
+                            }
+                        }
+                        if(args.currPage+2<args.totalPage-1 && args.currPage>=1 && args.totalPage>5) {
+                            totalsubpageTmep += "<li class='ali'><a href='javascript:void(0);' class='geraltTb_' data-go='' >...</a></li>";
+                        }
+
+                        if(args.currPage!=args.totalPage && args.currPage<args.totalPage-2 && args.totalPage!=4) {
+                            totalsubpageTmep += "<li class='ali'><a href='javascript:void(0);' class='geraltTb_pager' data-go='' >"+args.totalPage+"</a></li>";
+                        }
+                        $(args.locator).html(totalsubpageTmep);
+                    })();
+                },
+                //绑定事件
+                bindEvent:function(totalsubpageTmep,args){
+                    return (function(){
+                        totalsubpageTmep.on("click","a.geraltTb_pager",function(event){
+                            var current = parseInt($(this).text());
+                            ms.fillHtml(totalsubpageTmep,{"currPage":current,"totalPage":args.totalPage,"turndown":args.turndown});
+                            if(typeof(args.backFn)=="function"){
+                                args.backFn(current);
+                            }
+                        });
+                    })();
+                }
+            }
+        $.fn.createPage = function(options){
+            ms.init(this,options);
+        }
+    })(jQuery);
+    </script>
+    <script type="text/javascript">
+        function del_row(obj) {
+        //删除行
+                var tr = obj.parentNode.parentNode;
+                var tbody = tr.parentNode;
+                tbody.removeChild(tr);
+                }
+        // 添加公共headers行
+        function add_headers_row(){
+                    var data_type_content = '<select name="headers_data_type" class="form-control">' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>';
+                    row_content = '<tr><td contenteditable="true" name="key"></td><td contenteditable="true" name="value"></td>'+ '<td contenteditable="true" name="headers_data_type">'+ data_type_content + '</td><td contenteditable="true" name="headers_description"></td><td><button class="btn btn-danger" onclick="del_row(this)">删除</button></td></tr>';
+                    $("#headers-table tbody").append(row_content);
+                }
+        // 添加公共静态变量行
+        function add_variables_row(){
+                    var data_type_content = '<select name="variables_data_type" class="form-control">' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>';
+                    row_content = '<tr><td contenteditable="true" name="key"></td><td contenteditable="true" name="value"></td><td contenteditable="true" name="variables_data_type">'+ data_type_content +'</td><td contenteditable="true" name="variables_description"></td><td><button class="btn btn-danger" onclick="del_row(this)">删除</button></td></tr>';
+                    $("#variables-table tbody").append(row_content);
+                }
+        // 添加公共驱动变量行
+        function add_parameters_row(){
+                    var data_type_content = '<select name="parameters_data_type" class="form-control">' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>';
+                    row_content = '<tr><td contenteditable="true" name="key"></td><td contenteditable="true" name="value"></td><td contenteditable="true" name="parameters_data_type">' + data_type_content + '</td>' + '<td contenteditable="true" name="parameters_description"></td><td><button class="btn btn-danger" onclick="del_row(this)">删除</button></td></tr>';
+                    $("#parameters-table tbody").append(row_content);
+                }
+        function search_testStep(){
+            // 测试用例搜索功能
+            var search_testStep_input = $("#search_testStepName").val();
+            console.log("search_testStep_input: ", search_testStep_input);
+            $.ajax({
+                    url: "/autoTest/find_data/",
+                    type: "post",
+                    data: {
+                        "model": "testStep",
+                        "data_id": search_testStep_input,
+                        "data_name": "testStep_list",
+                    },
+                    success : function(data){
+                        $("#advanced-1").empty();
+                        $("#testStepPagination").empty();
+                        // 创建新的分页
+                        var testStep_list = eval(data);
+                        var testStep_list_length = testStep_list.length;
+                        // console.log("testStep_list_length: ",testStep_list_length);
+                        $("#advanced-1").append(testStep_list[0]);
+                        $("#testStepPagination").createPage({
+                            locator: "#testStepPagination",
+                            totalPage:testStep_list_length,
+                            currPage:1,
+                            backFn:function(p){
+                                var index = p - 1;
+                                $("#advanced-1").empty();
+                                $("#advanced-1").append(testStep_list[index]);
+                                $("#testStepPagination li[class='active']").removeClass("active");
+                                var active_page_locator = "#testStepPagination li:eq(" + index +")";
+                                $("active_page_locator").attr("class","active");
+                            }
+                        });
+                        // 默认给第一页添加选中状态
+                        var active_page_locator = "#testSuitePagination li:eq(" + 0 +")";
+                        $(active_page_locator).attr("class","active");
+                    },
+                    error : function(data){
+                        console.log('error-code, input: ',search_testStep_input);
+                        console.log("查找指定测试用例接口失败");
+                }
+            });
+        }
+        function search_testSuite(){
+            // 测试用例集搜索功能
+            var search_testSuite_input = $("#search_testSuiteName").val();
+            $.ajax({
+                    url: "/autoTest/find_data/",
+                    type: "post",
+                    data: {
+                        "model": "testCases",
+                        "data_id": search_testSuite_input,
+                        "data_name": "testSuite_list",
+                    },
+                    success : function(data){
+                        $("#advanced-3").empty();
+                        $("#testSuitePagination").empty();
+                        // 创建新的分页
+                        var testSuite_list = eval(data);
+                        var testSuite_list_length = testSuite_list.length;
+                        // console.log("testSuite_list_length: ",testSuite_list_length);
+                        $("#advanced-3").append(testSuite_list[0]);
+                        $("#testSuitePagination").createPage({
+                            locator: "#testSuitePagination",
+                            totalPage:testSuite_list_length,
+                            currPage:1,
+                            backFn:function(p){
+                                var index = p - 1;
+                                $("#advanced-3").empty();
+                                $("#advanced-3").append(testSuite_list[index]);
+                                $("#testSuitePagination li[class='active']").removeClass("active");
+                                var active_page_locator = "#testSuitePagination li:eq(" + index +")";
+                                $("active_page_locator").attr("class","active");
+                            }
+                        });
+                        // 默认给第一页添加选中状态
+                        var active_page_locator = "#testSuitePagination li:eq(" + 0 +")";
+                        $(active_page_locator).attr("class","active");
+                    },
+                    error : function(data){
+                        console.log("查找指定测试用例接口失败");
+                }
+            });
+        }
+        function get_testSteps(testCases_id){
+            // 返回指定用例集包含的测试步骤列表
+            var testStep_list;
+            $.ajax({
+                    url: "/autoTest/find_data/",
+                    type: "post",
+                    data: {
+                        "model": "testCases",
+                        "data_id": testCases_id,
+                        "data_name": "testStep_list",
+                    },
+                    async : false,
+                    success : function(data){
+                        testStep_list = eval(data);
+                    },
+                    error : function(data){
+                        console.log("查找指定测试用例集接口失败");
+                }
+            });
+            return testStep_list;
+        }
+
+        // 提交表单
+        function submit_form(){
+                    var testCases_name = $("#testCases_name").val();
+                    var testSuite_function = $("#testSuite_function").val();
+                    var description = $("#description").val();
+                    var setup_hooks = $("#setup_hooks").val();
+                    var teardown_hooks = $("#teardown_hooks").val();
+                    var output = $("#output").val();
+
+                    var headers = new Object();
+                    var headers_key_list = new Array();
+                    var headers_value_list = new Array();
+                    var headers_data_type_list = new Array();
+                    var headers_description_list = new Array();
+
+                    var variables = new Object();
+                    var variables_list = new Array();
+                    var variables_key_list = new Array();
+                    var variables_value_list = new Array();
+                    var variables_data_type_list = new Array();
+                    var variables_description_list = new Array();
+
+                    var parameters = new Object();
+                    var parameters_list = new Array();
+                    var parameters_key_list = new Array();
+                    var parameters_value_list = new Array();
+                    var parameters_data_type_list = new Array();
+                    var parameters_description_list = new Array();
+
+                    var dataType_dict = new Object();
+                    var description_dict = new Object();
+
+                    // 遍历headers数据
+                    $("#headers-table tr td").each(function (i){
+                            if($(this).attr("name")==="key"){
+                               headers_key_list.push( $(this).text() );
+                            };
+                            if($(this).attr("name")==="value"){
+                               headers_value_list.push( $(this).text() );
+                            };
+                            if($(this).attr("name")==="headers_data_type"){
+                               headers_data_type_list.push( $(this).children("select").val());
+                            };
+                            if($(this).attr("name")==="headers_description"){
+                               headers_description_list.push( $(this).text() );
+                            };
+                        });
+                    $.each(headers_key_list,function(i){
+                            headers[headers_key_list[i]] = headers_value_list[i];
+                        });
+                    var headers_str = JSON.stringify(headers);
+                    dataType_dict["headers"] = headers_data_type_list;
+                    description_dict["headers"] = headers_description_list;
+                    // 遍历variables数据
+                    $("#variables-table tr td").each(function (i){
+                            if($(this).attr("name")==="key"){
+                               variables_key_list.push( $(this).text() );
+                            };
+                            if($(this).attr("name")==="value"){
+                               variables_value_list.push( $(this).text() );
+                            };
+                            if($(this).attr("name")==="variables_data_type"){
+                               variables_data_type_list.push( $(this).children("select").val());
+                            };
+                            if($(this).attr("name")==="variables_description"){
+                               variables_description_list.push( $(this).text() );
+                            };
+                        });
+                    $.each(variables_key_list,function(i){
+                            variables[variables_key_list[i]] = variables_value_list[i];
+                            variables_list.push(variables);
+                            variables = new Object;
+                        });
+                    var variables_str = JSON.stringify(variables_list);
+                    dataType_dict["variables"] = variables_data_type_list;
+                    description_dict["variables"] = variables_description_list;
+                    // 遍历parameters数据
+                    $("#parameters-table tr td").each(function (i){
+                            if($(this).attr("name")==="key"){
+                               parameters_key_list.push( $(this).text() );
+                            };
+                            if($(this).attr("name")==="value"){
+                               parameters_value_list.push( $(this).text() );
+                            };
+                            if($(this).attr("name")==="parameters_data_type"){
+                               parameters_data_type_list.push( $(this).children("select").val());
+                            };
+                            if($(this).attr("name")==="parameters_description"){
+                               parameters_description_list.push( $(this).text() );
+                            };
+                        });
+                    $.each(parameters_key_list,function(i){
+                            parameters[parameters_key_list[i]] = parameters_value_list[i];
+                            parameters_list.push(parameters);
+                            parameters = new Object;
+                        });
+                    var parameters_str = JSON.stringify(parameters_list);
+                    dataType_dict["parameters"] = parameters_data_type_list;
+                    description_dict["parameters"] = parameters_description_list;
+                    // 遍历testCases_list数据
+                    var testCases_list = new Array;
+                    $("#advanced-2 li[value]").each(function (i,item){
+                        if(item.getAttribute('name') === 'testStep'){
+                            testCases_list.push(item.getAttribute('value'));
+                        }
+                        if(item.getAttribute('name') === 'testSuite'){
+                            var testCases_id = item.getAttribute('value');
+                            var testStep_list = get_testSteps(testCases_id);
+                            testCases_list = testCases_list.concat(testStep_list);
+                        }
+                        
+                    });
+                    var testCases_list_str = JSON.stringify(testCases_list);
+                    var dataType_dict_str = JSON.stringify(dataType_dict);
+                    var description_dict_str = JSON.stringify(description_dict);
+
+                    // 提交表单
+                    $.ajax({
+                        url: "/autoTest/testCases_add/",
+                        type: "post",
+                        data: {
+                            "testCases_name": testCases_name,
+                            "testSuite_function": testSuite_function,
+                            "description": description,
+                            "setup_hooks": setup_hooks,
+                            "teardown_hooks": teardown_hooks,
+                            "headers": headers_str,
+                            "variables": variables_str,
+                            "parameters": parameters_str,
+                            "output": output,
+                            "testCases_list": testCases_list_str,
+                            "dataType_dict": dataType_dict_str,
+                            "description_dict": description_dict_str
+
+                        },
+                        success:function (){
+                            alert("保存成功!");
+                            console.log('parameters: ',parameters);
+                            window.location.replace("/autoTest/testCases_index/");
+                        },
+                        error: function(){
+                            console.log("testCases_name: ",testCases_name);
+                            console.log("\ntestSuite_function: ",testSuite_function);
+                            console.log("\ndescription: ",description);
+                            console.log("\nsetup_hooks: ",setup_hooks);
+                            console.log("\nteardown_hooks: ",teardown_hooks);
+                            console.log("\noutput: ",output);
+                            console.log("\nheaders_str: ", headers_str);
+                            console.log("\nvariables_str: ", variables_str);
+                            console.log("\ntestCases_list_str: ", testCases_list_str);
+                            console.log("\ndataType_dict: ", dataType_dict);
+                            console.log("\ndescription_dict: ", description_dict);
+                        }
+
+
+                    });
+                }
+                
+    </script>
+{% endblock %}

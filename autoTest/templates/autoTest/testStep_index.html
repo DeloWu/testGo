@@ -1,0 +1,246 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 用例管理 {% endblock %}
+{% block beforehead %}
+    <style type="text/css">
+        table { table-layout:fixed;word-break:break-all; }
+    </style>
+{% endblock %}
+
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">用例管理</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="row panel-heading">
+                <div class="col-md-2">
+                    <a href="{% url 'autoTest:testStep_add' %}" class="btn btn-primary">添加用例</a>
+                </div>
+                <div class="col-md-8"> </div>
+                <div class="col-md-2 col-md-offset-8">
+                    <div class="dropdown btn-group">
+                        <a class="btn btn-primary dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+                        {% if cur_pro %}
+                            {{ cur_pro.pro_name }}
+                        {% else %}
+                            选择所属项目
+                        {% endif %}
+                        <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{% url 'autoTest:testStep_index' %}">所有项目</a></li>
+                            {% for pro in pro_sum %}
+                                <li><a href="{% url 'autoTest:testStep_index' %}?pro_id={{ pro.pro_id }}">{{ pro.pro_name }}</a></li>
+                            {% endfor %} 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th width="50px">ID</th>
+                        <th width="250px">用例名称</th>
+                        <th width="350px">用例请求地址</th>
+                        <th width="400px">用例请求参数</th>
+                        <th width="100px">请求方式</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for testStep in testStep_list %}
+                    <tr>
+                        <td>{{ testStep.testStep_id }}</td>
+                        <td>{{ testStep.testStep_name }}</td>
+                        <td>{{ testStep.url }}</td>
+                        <td>{{ testStep.body }}</td>
+                        <td>{{ testStep.method }}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#runTestStepModal" name="{{ testStep.testStep_id }}" onclick="runTestStep(this)">调试用例</button>
+                            <a class="btn btn-sm btn-info" href="{% url 'autoTest:testStep_update' %}?testStep_id={{ testStep.testStep_id }}" role="button">编辑</a>
+                            <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="{% url 'autoTest:testStep_delete' %}?testStep_id={{ testStep.testStep_id }}">删除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9 col-lg-offset-5">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if testStep_list.has_previous %}
+                    <li><a href="{% url 'autoTest:testStep_index'  %}?page={{ previous_page_index }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                {% endif %}
+                {% for num in paginator.page_range %}
+                    {% if num == current_page %}
+                        <li class="active"><a href="{% url 'autoTest:testStep_index'  %}?page={{ num }}">{{ num }}</a></li>
+                    {% else %}
+                        <li class=""><a href="{% url 'autoTest:testStep_index'  %}?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if testStep_list.has_next %}
+                    <li><a href="{% url 'autoTest:testStep_index'  %}?page={{ next_page_index }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+ </div>
+
+
+<!-- 调试测试用例 模态框Modal -->
+<div class="modal fade" id="runTestStepModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">调试用例</h4>
+            </div>
+            <div class="modal-body row">
+                <form class="form-horizontal">
+                    <input id="testStep_id" name="testStep_id" hidden>
+                    <div class="form-group">
+                        <label for="request_url" class="col-sm-2 control-label"><font size="2">请求接口<br >地址：</font></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="request_url" placeholder="请输入请求接口地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="request_header" class="col-sm-2 control-label">Headers：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" rows="2" id="request_headers"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="request_body" class="col-sm-2 control-label">Body：</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" rows="4" id="request_body"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" id="response_content">
+                        <!-- 请求完成后填充模块 -->
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="runStyle" class="col-sm-2 control-label"><font size="2">执行方式：</font></label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="runStyle" id="runStyle">
+                                <option>执行用例 | 不生成测试报告</option>
+                                <option>执行用例 | 立即返回测试报告</option>
+                                <option>执行用例 | 后台生成测试报告</option>
+                            </select>
+                        </div>
+                    </div> -->
+                </form>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                  <button type="button" class="btn btn-primary" onclick="sendRequest()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %} 
+    <script type="text/javascript">
+        function runTestStep(obj){
+            var testStep_id = obj.getAttribute("name");
+            $.ajax({
+                url: "/autoTest/find_data/",
+                type: "post",
+                data: {
+                        "model": "testStep",
+                        "data_id": testStep_id,
+                        "data_name": "testStep_dict",
+                    },
+                success : function(data){
+                    $("#testStep_id").val(data['testStep_id']);
+                    $("#request_url").val(data['url']);
+                    $("#request_headers").text(data['headers']);
+                    $("#request_body").text(data['body']);
+                    $("#response_content").empty();
+                },
+                error : function(data){
+                    console.log("查找指定测试用例接口失败");
+                }
+            });
+        }
+
+        function sendRequest(){
+            var request_testStep_id = $("#testStep_id").val();
+            var request_url = $("#request_url").val();
+            var request_headers = $("#request_headers").text();
+            var request_body = $("#request_body").text();
+            $.ajax({
+                url: "/autoTest/testStep_run/",
+                type: "post",
+                data: {
+                        "request_testStep_id": request_testStep_id,
+                        "request_url": request_url,
+                        "request_headers": request_headers,
+                        "request_body": request_body,
+                    },
+                success : function(data){
+                    var resp_status_code = String(data['status_code']);
+                    var resp_reason = data['reason'];
+                    var resp_headers = data['headers'];
+                    var resp_body = data['body'];
+                    var horizon_html = '<hr style="width:598px">';
+                    var status_html = '';
+                    var headers_html = '';
+                    var body_html = '';
+                    if(resp_status_code[0]==2){
+                        status_html = '<div class="form-group" style="color:#2bc787">' + '<div name="status" class="col-sm-4 control-label">' + '<font size="4"><b>' + resp_status_code + '  ' + resp_reason + '</b></font><br >' + '</div></div>' ;
+                    }
+                    else if(resp_status_code[0]==4 || resp_status_code[0]==5){
+
+                        status_html = '<div class="form-group" style="color:red">' + '<label  name="status" class="col-sm-4 control-label">' + '<font size="4"><b>' + resp_status_code + '  ' + resp_reason + '</b></font><br >' + '</label></div>';
+                    }
+                    else{
+                        status_html = '<div class="form-group" style="color:blue">' + '<label name="status" class="col-sm-4 control-label">' + '<font size="4"><b>' + resp_status_code + '  ' + resp_reason + '</b></font><br >' + '</label></div>';
+                    }
+                    // 拼装返回请求头
+                    console.log('获取的headers: ', resp_headers);
+                    headers_html = '<div class="form-group">' + '<label for="response_headers" class="col-sm-2 control-label">Headers:' + '</label>' + '<div class="col-sm-9">' + '<textarea class="form-control" rows="3" id="response_headers">';
+                        headers_html = headers_html + resp_headers;
+                        headers_html = headers_html + '</textarea></div></div>';
+                    // 拼装返回请求体
+                    console.log('获取的body: ', resp_body);
+                    body_html = '<div class="form-group">' + '<label for="response_body" class="col-sm-2 control-label">body:' + '</label>' + '<div class="col-sm-9">' + '<textarea class="form-control" rows="5" id="response_body">';
+
+                        body_html = body_html + resp_body;
+                        body_html = body_html + '</textarea></div></div>';
+                    var response_content_html = horizon_html + status_html + headers_html + body_html;
+                    $("#response_content").empty();
+                    $("#response_content").append(response_content_html);
+                },
+                error : function(data){
+                    console.log("request_headers: ", request_headers);
+                    console.log("接口调用失败！");
+                }
+            });
+
+        }
+    </script>
+{% endblock %}

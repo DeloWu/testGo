@@ -1,0 +1,107 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 接口管理 {% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">接口管理</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="row panel-heading">
+                <div class="col-md-2">
+                    <a href="{% url 'autoTest:api_add' %}" class="btn btn-primary">添加接口</a>
+                </div>
+                <div class="col-md-8"> </div>
+                <div class="col-md-2 col-md-offset-8">
+                    <div class="dropdown btn-group">
+                        <a class="btn btn-primary dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+                        {% if cur_pro %}
+                            {{ cur_pro.pro_name }}
+                        {% else %}
+                            选择所属项目
+                        {% endif %}
+                        <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{% url 'autoTest:api_index' %}">所有环境</a></li>
+                            {% for pro in pro_sum %}
+                                <li><a href="{% url 'autoTest:api_index' %}?pro_id={{ pro.pro_id }}">{{ pro.pro_name }}</a></li>
+                            {% endfor %} 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>接口名称</th>
+                        <th>接口路径</th>
+                        <th>请求方式</th>
+                        <th>接口内容描述</th>
+                        <!-- <th>所属项目</th> -->
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for api in api_list %}
+                    <tr>
+                        <td>{{ api.api_id }}</td>
+                        <td>{{ api.api_name }}</td>
+                        <td>{{ api.api_path }}</td>
+                        <td>{{ api.method }}</td>
+                        <td>{{ api.description }}</td>
+                        <!-- <td>{{ api.project }}</td> -->
+                        <td>
+                            <a class="btn btn-sm btn-info" href="{% url 'autoTest:api_update' %}?api_id={{ api.api_id }}" role="button">编辑</a>
+                            <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="{% url 'autoTest:api_delete' %}?api_id={{ api.api_id }}">删除</button>
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9 col-lg-offset-5">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if api_list.has_previous %}
+                    <li><a href="{% url 'autoTest:api_index'  %}?page={{ previous_page_index }}&pro_id={{ cur_pro.pro_id }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                {% endif %}
+                {% for num in paginator.page_range %}
+                    {% if num == current_page %}
+                        <li class="active"><a href="{% url 'autoTest:api_index'  %}?page={{ num }}&pro_id={{ cur_pro.pro_id }}">{{ num }}</a></li>
+                    {% else %}
+                        <li class=""><a href="{% url 'autoTest:api_index'  %}?page={{ num }}&pro_id={{ cur_pro.pro_id }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if api_list.has_next %}
+                    <li><a href="{% url 'autoTest:api_index'  %}?page={{ next_page_index }}&pro_id={{ cur_pro.pro_id }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+ </div>
+{% endblock %}

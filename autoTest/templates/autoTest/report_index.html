@@ -1,0 +1,82 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 报告管理 {% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">报告管理</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>报告名称</th>
+                            <th>报告路径</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for report in report_list %}
+                            <tr>
+                                <td>{{ report.report_id }}</td>
+                                <td>{{ report.report_name }}</td>
+                                <td>{{ report.path |slice:"23:" }}</td>
+                                <td>{{ report.create_time |date:"Y-m-d H:i:s" }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-info" href="{% url 'autoTest:report_show' %}?report_id={{ report.report_id }}" role="button">查看报告</a>
+                                    <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="{% url 'autoTest:report_delete' %}?report_id={{ report.report_id }}">删除</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-lg-offset-5">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {% if report_list.has_previous %}
+                        <li><a href="{% url 'autoTest:report_index'  %}?page={{ previous_page_index }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    {% endif %}
+                    {% for num in paginator.page_range %}
+                        {% if num == current_page %}
+                            <li class="active"><a href="{% url 'autoTest:report_index'  %}?page={{ num }}">{{ num }}</a></li>
+                        {% else %}
+                            <li class=""><a href="{% url 'autoTest:report_index'  %}?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if report_list.has_next %}
+                        <li><a href="{% url 'autoTest:report_index'  %}?page={{ next_page_index }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock %}

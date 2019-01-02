@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<!-- VENDOR CSS -->
+
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/vendor/linearicons/style.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="/static/css/main.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="icon" type="image/png" href="/static/img/yjsLogo.jpg">
+	<title>{% block title %} {% endblock %}</title>
+	<!-- Bootstrap -->
+
+	{% block beforehead %}<!-- before head  -->{% endblock %}
+</head>
+<body>
+<div id="wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="brand">
+            <a href="/index/"><img src="/static/img/testGo-logo5.png" alt="TestGo Logo"
+                                      class="img-responsive logo" width="100%"></a>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <span style="font-size: 25px;"><b>接口测试平台</b></span>
+                <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+            </div>
+            <div id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/static/img/user.png"
+                                                                                        class="img-circle" alt="userName">
+                            <span>admin</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                            <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+                            <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                            <li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- 左侧导航栏 -->
+    <div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+                <ul class="nav">
+                    <li><a href="/index/" class=""><i class="lnr lnr-home"></i> <span>主页</span></a></li>
+                    <li>
+                        <a href="#baseinfo" data-toggle="collapse" class="active" aria-expanded="false"><i class="lnr lnr-file-empty"></i>
+                            <span>基础信息</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="baseinfo" class="collapse in" aria-expanded="true">
+                            <ul class="nav">
+                                <li><a href="{% url 'autoTest:pro_index' %}" class="">项目管理</a></li>
+                                <li><a href="{% url 'autoTest:env_index' %}" class="">环境管理</a></li>
+                                <li><a href="{% url 'autoTest:api_index' %}" class="">接口管理</a></li>
+                                <li><a href="{% url 'autoTest:testStep_index' %}" class="">用例管理</a></li>
+                                <li><a href="{% url 'autoTest:testCases_index' %}" class="">用例集管理</a></li>
+                                <li><a href="{% url 'autoTest:report_index' %}" class="">测试报告管理</a></li>
+                                <li><a href="#" class="">执行计划管理</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#system" data-toggle="collapse" class="collapsed" aria-expanded="false"><i class="lnr lnr-cog"></i> <span>系统设置</span>
+                            <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="system" class="collapse " >
+                            <ul class="nav">
+                                <li><a href="{% url 'autoTest:encry_index' %}" class="">签名管理</a></li>
+                                <li><a href="#" class="">公共函数管理</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+       <!--  <div>
+           <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+        </div> -->
+    </div>
+    <!-- END LEFT SIDEBAR -->
+    <!-- MAIN -->
+    <div class="main">
+        <div class="main-content">
+            <div class="container-fluid">
+                {% block crumbs %}
+                {% endblock %}
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 确认弹窗 -->
+    <!-- 信息删除确认 -->
+    <div class="modal fade" id="delcfmModel">
+      <div class="modal-dialog">
+        <div class="modal-content message_align">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">提示信息</h4>
+          </div>
+          <div class="modal-body">
+            <p>您确认要删除吗？</p>
+          </div>
+          <div class="modal-footer">
+             <input type="hidden" id="url"/>
+             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+             <a  onclick="urlSubmit()" class="btn btn-success" data-dismiss="modal">确定</a>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    </div>
+	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/static/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="/static/scripts/klorofil-common.js"></script>
+    <script src="/static/js/testGoApp.js"></script>
+	{% block javascript %} {% endblock %}
+</body>
+</html>

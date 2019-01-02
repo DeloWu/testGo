@@ -1,0 +1,82 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 签名管理 {% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">签名管理</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                   <a href="{% url 'autoTest:encry_add' %}" class="btn btn-primary">添加签名</a>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>签名名称</th>
+                            <th>签名函数</th>
+                            <th>签名描述</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for encry in encry_list %}
+                            <tr>
+                                <td>{{ encry.encry_id }}</td>
+                                <td>{{ encry.encry_name }}</td>
+                                <td>{{ encry.encry_function }}</td>
+                                <td>{{ encry.description }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-info" href="{% url 'autoTest:encry_update' %}?encry_id={{ encry.encry_id }}" role="button">编辑</a>
+                                    <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="{% url 'autoTest:encry_delete' %}?encry_id={{ encry.encry_id }}">删除</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-lg-offset-5">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {% if encry_list.has_previous %}
+                        <li><a href="{% url 'autoTest:encry_index'  %}?page={{ previous_page_index }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    {% endif %}
+                    {% for num in paginator.page_range %}
+                        {% if num == current_page %}
+                            <li class="active"><a href="{% url 'autoTest:encry_index'  %}?page={{ num }}">{{ num }}</a></li>
+                        {% else %}
+                            <li class=""><a href="{% url 'autoTest:encry_index'  %}?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if encry_list.has_next %}
+                        <li><a href="{% url 'autoTest:encry_index'  %}?page={{ next_page_index }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock %}

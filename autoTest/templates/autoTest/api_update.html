@@ -1,0 +1,561 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 编辑接口 {% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">编辑接口</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加接口</h3>
+            </div>
+            <div class="panel-body">
+                <!-- <form class="form-horizontal" method="post" action="{% url 'autoTest:api_add' %}"> -->
+                <div class="form-horizontal">
+                <!-- {% csrf_token %} -->
+                    <input id="api_id" name="api_id" value ={{ api.api_id }} hidden>
+                    <div class="form-group">
+                        <label for="api_name" class="col-sm-2 control-label"><span style="color: red">* </span>接口名称:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="api_name" class="form-control"  id="api_name" placeholder="请输入内容" value={{ api.api_name }}>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="api_path" class="col-sm-2 control-label"><span style="color: red">* </span>接口路径:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="api_path" class="form-control" id="api_path" placeholder="请输入内容" value={{ api.api_path }}>
+                            <span id="" class="help-block" style="color:red">格式: /aa/bb/cc</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span style="color: red">* </span>请求方式:</label>
+                        <div class="col-sm-6">
+                            <label class="radio-inline">
+                                <input type="radio" name="method" value="GET"> GET
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="method" value="POST"> POST
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="method" value="DELETE"> DELETE
+                            </label> 
+                            <label class="radio-inline">
+                                <input type="radio" name="method" value="HEAD"> HEAD
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span style="color: red">* </span>参数格式:</label>
+                        <div class="col-sm-6">
+                            <label class="radio-inline">
+                                <input type="radio" name="content_type" value="params" onclick="show_table()"> params
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="content_type" value="form-data" onclick="show_table()"> form-data
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="content_type" value="x-www-form-urlencoded" onclick="show_table();add_headers_contentType(this)"> x-www-form-urlencoded
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="content_type" value="json" onclick="show_textarea();add_headers_contentType(this)"> json
+                            </label> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">接口内容描述:</label>
+                        <div class="col-sm-6">
+                            <textarea name="description" placeholder="请输入内容" class="form-control" id="description" rows="3">{{ api.description }}</textarea>
+                        </div>
+                    </div>
+                    <!-- 请求头 -->
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">请求头:</label>
+                        <div class="col-sm-6">
+                            <!-- <input type="text" name="headers" class="form-control"  id="headers" placeholder="请输入内容"> -->
+                            <div>
+                                <table class="table table-bordered table-condensed" id="headers-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px"><b>Key</b></th>
+                                            <th style="width: 100px"><b>Value</b></th>
+                                            <th style="width: 100px"><b>是否必须</b></th>
+                                            <th style="width: 100px"><b>数据类型</b></th>
+                                            <th><b>描述</b></th>
+                                            <th style="width: 100px"><b>操作</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-offset-4">
+                                <button class="btn btn-primary" onclick="add_headers_row()">添加请求头</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 请求体 -->
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">请求体:</label>
+                        <div class="col-sm-6" id="body-textarea-div" >
+                            <textarea name="body" placeholder="请输入内容" class="form-control" id="body-textarea" rows="4">{{ api.body }}</textarea>
+                        </div>
+                        <div class="col-sm-6" id="body-table-div">
+                            <div>
+                                <table class="table table-bordered table-condensed" id="body-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px"><b>Key</b></th>
+                                            <th style="width: 100px"><b>Value</b></th>
+                                            <th style="width: 100px"><b>是否必须</b></th>
+                                            <th style="width: 100px"><b>数据类型</b></th>
+                                            <th class="center-block"><b>描述</b></th>
+                                            <th style="width: 100px"><b>操作</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-offset-4">
+                                <button class="btn btn-primary" onclick="add_body_row()">添加请求体</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 校验器 -->
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">校验器:</label>
+                        <div class="col-sm-6">
+                            <!-- <input type="text" name="validate" class="form-control"  id="validate" placeholder="请输入内容"> -->
+                            <div>
+                                <table class="table table-bordered table-condensed" id="validate-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px"><b>Key</b></th>
+                                            <th style="width: 150px"><b>比较器</b></th>
+                                            <th style="width: 150px"><b>Value</b></th>
+                                            <th style="width: 100px"><b>数据类型</b></th>
+                                            <th><b>描述</b></th>
+                                            <th style="width: 150px"><b>操作</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-offset-4">
+                                <button class="btn btn-primary" onclick="add_validate_row()">添加校验器</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span style="color: red">* </span>是否加密:</label>
+                        <div class="col-sm-3">
+                            <label class="radio-inline">
+                                <input type="radio" name="encry_flag" value="0" > 不加密
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="encry_flag" value="1"> 加密
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span style="color: red">* </span>加密方式:</label>
+                        <div class="col-sm-6">
+                            <select id="encry_id" class="form-control">
+                                <option value={{ cur_enc.encry_id }}>{{ cur_enc.encry_name }}</option>
+                                {% for encry in encry_list %}
+                                    {% if encry.encry_id != cur_enc.encry_id %}
+                                        <option value={{ encry.encry_id }}>{{ encry.encry_name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span style="color: red">* </span>所属项目:</label>
+                        <div class="col-sm-6">
+                            <select id="pro_id" class="form-control">
+                                <option value={{ cur_pro.pro_id }}>{{ cur_pro.pro_name }}</option>
+                                {% for pro in pro_list %}
+                                    {% if pro.pro_id != cur_pro.pro_id %}
+                                        <option value={{ pro.pro_id }}>{{ pro.pro_name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-6">
+                            <button type="submit" class="btn btn-primary" id="submit" onclick="submit_form()">保存</button>
+                            <button type="reset" class="btn btn-primary" id="reset" onclick="reset_form()">重置</button>
+                        </div>
+                    </div>
+                <!-- </form> -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+// 为radio添加选中状态
+$(document).ready(function () {
+    $("input[name='method'][value='{{ api.method }}']").attr("checked","checked");
+    $("input[name='content_type'][value='{{ api.content_type }}']").attr("checked","checked");
+    $("input[name='encry_flag'][value='{{ api.encry_flag }}']").attr("checked","checked");
+});
+// 自动填充headers/body/validate表格
+$(document).ready(function () {
+            // 填充headers
+            var headers = {{ api.headers|safe }};
+            var headers_necessary_flag_list = {{ api.necessaryFlag_dict|safe }}['headers'];
+            var headers_data_type_list = {{ api.dataType_dict|safe }}['headers'];
+            var headers_description_list = {{ api.description_dict|safe }}['headers'];
+            var necessary_map = {'0':'非必填', '1':'必填'};
+            var key = new String;
+            var value = new String;
+            var row_content = new String;
+            var index = 0;
+            for (key in headers){
+                value = headers[key];
+                var headers_data_type_index = headers_data_type_list[index];
+                var headers_description_index = headers_description_list[index];
+                var necessary = headers_necessary_flag_list[index];
+                // 如果之前未填写字段，则默认显示空值
+                if(necessary == undefined){
+                    necessary = '1';
+                }
+                if(headers_data_type_index == undefined){
+                    headers_data_type_index = 'string';
+                }
+                if(headers_description_index == undefined){
+                    headers_description_index = '';
+                }
+                
+                row_content = '<tr><td contenteditable="true" name="key">' + key + '</td><td contenteditable="true" name="value">' + value + '</td><td contenteditable="true" name="headers_necessary_flag">' + '<select name="headers_necessary_flag" class="form-control">' + '<option value="'+ necessary +'"> '+ necessary_map[necessary] +' </option>' + '<option value="1"> 必填 </option>' + '<option value="0"> 非必填 </option>' + '</select>' + '</td><td contenteditable="true" name="headers_data_type">' + '<select name="headers_data_type" class="form-control">' + '<option value="' + headers_data_type_index + '">' + headers_data_type_index + ' </option>' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>' + '</td><td contenteditable="true" name="headers_description">' + headers_description_index + '</td><td><button class="btn btn-danger" onclick="del_row(this)">删除</button></td></tr>';
+                index = index + 1;
+                $("#headers-table tbody").append(row_content);
+            }
+            index = 0;
+            var content_type = $("input[name='content_type']:checked").val();
+            if( content_type !== 'json'){
+                // 隐藏body_textarea
+                $("#body-textarea-div").attr("hidden", "hidden");
+                // 填充body
+                var body = {{ api.body|safe }};
+                var body_necessary_flag_list = {{ api.necessaryFlag_dict|safe }}['body'];
+                var body_data_type_list = {{ api.dataType_dict|safe }}['body'];
+                var body_description_list = {{ api.description_dict|safe }}['body'];
+                var necessary_map = {'0':'非必填', '1':'必填'};
+                var key = new String;
+                var value = new String;
+                var row_content = new String;
+                var index = 0;
+                for (key in body){
+                    value = body[key];
+                    var body_description_index = body_description_list[index];
+                    // 如果之前未填写字段，则默认显示空值
+                    if(body_description_index == undefined){
+                        body_description_index = '';
+                    }
+                    var necessary = body_necessary_flag_list[index];
+                    row_content = '<tr><td contenteditable="true" name="key">' + key + '</td><td contenteditable="true" name="value">' + value + '</td><td contenteditable="true" name="body_necessary_flag">' + '<select name="body_necessary_flag" class="form-control">' + '<option value="'+ necessary +'"> '+ necessary_map[necessary] +' </option>' + '<option value="1"> 必填 </option>' + '<option value="0"> 非必填 </option>' + '</select>' + '</td><td contenteditable="true" name="body_data_type">' + '<select name="body_data_type" class="form-control">' + '<option value="' + body_data_type_list[index] + '">' + body_data_type_list[index] + ' </option>' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>' + '</td><td contenteditable="true" name="body_description">' + body_description_index + '</td><td><button class="btn btn-danger" onclick="del_row(this)">删除</button></td></tr>';
+                    index = index + 1;
+                    $("#body-table tbody").append(row_content);
+                }
+            }
+            else{
+                $("#body-table-div").attr("hidden", "hidden");
+            }
+            // 填充校验器[{"lt":["c1","v1"]},{"contains":["c2","v2"]},{"startswith":["c3","v3"]}]
+            var validate = {{ api.validate|safe }};
+            var validate_data_type_list = {{ api.dataType_dict|safe }}['validate'];
+            var validate_description_list = {{ api.description_dict|safe }}['validate'];
+            var key = new String;
+            var value = new String;
+            var comparator = new String;
+            var row_content = new String;
+            var index = 0;
+            $.each(validate, function(i, item){  
+            // for (item in validate){
+                var validate_description_index = validate_description_list[index];
+                // 如果之前未填写字段，则默认显示空值
+                if(validate_description_index == undefined){
+                    validate_description_index = '';
+                }
+                comparator = Object.keys(item)[0];
+                key = item[comparator][0];
+                value = item[comparator][1];
+                try{
+                    var temp_validate = validate_data_type_list[index];
+                } catch(TypeError){
+                    var temp_validate = "string";
+                }
+                row_content = '<tr><td contenteditable="true" name="key">'+ key + '</td><td contenteditable="true" name="comparator">'+ '<select name="comparator" class="form-control">' + '<option value=' + comparator + '>' + comparator + '</option>'+ '<option value="eq"> = </option>' + '<option value="gt"> > </option>' + '<option value="ge"> >= </option>' + '<option value="lt"> < </option>' + '<option value="le"> <= </option>' + '<option value="len_eq">长度等于</option>' + '<option value="len_gt">长度大于</option>' + '<option value="len_lt">长度小于</option>' + '<option value="contains">包含</option>' + '<option value="contained_by">被包含</option>' + '<option value="startswith">startswith</option>' + '<option value="endswith">endswith</option>' +'</select>' + '</td>' + '<td contenteditable="true" name="value">' + value + '</td>'+ '<td contenteditable="true" name="validate_data_type">'+ '<select name="validate_data_type" class="form-control">' + '<option value="' + temp_validate + '">' + temp_validate + ' </option>' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>' + '</td>' +'<td contenteditable="true" name="validate_description">'+ validate_description_index + '</td><td><button class="btn btn-danger" onclick="del_row(this)">删除</button></td></tr>';
+                index = index + 1;
+                $("#validate-table tbody").append(row_content);
+            });
+    });
+// 重置页面
+    function reset_form(){
+        location.reload();
+    };
+//  删除行
+    function del_row(obj) {
+        var tr = obj.parentNode.parentNode;
+        var tbody = tr.parentNode;
+        tbody.removeChild(tr);
+    }
+// 添加headers行
+    function add_headers_row(){
+        var necessary_flag_content = '<select name="headers_necessary_flag" class="form-control">' + '<option value="1"> 必填 </option>' + '<option value="0"> 非必填 </option>' + '</select>';
+        var data_type_content = '<select name="headers_data_type" class="form-control">' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>';
+                row_content = '<tr><td contenteditable="true" name="key"></td><td contenteditable="true" name="value"></td><td contenteditable="true" name="headers_necessary_flag">'+ necessary_flag_content +'</td><td contenteditable="true" name="headers_data_type">'+ data_type_content +'</td><td contenteditable="true" name="headers_description"></td><td><button class="btn btn-danger" onclick="del_row(this)">删除</button></td></tr>';
+                $("#headers-table tbody").append(row_content);
+            }
+// 添加body行
+    function add_body_row(){
+        var necessary_flag_content = '<select name="body_necessary_flag" class="form-control">' + '<option value="1"> 必填 </option>' + '<option value="0"> 非必填 </option>' + '</select>';
+        var data_type_content = '<select name="body_data_type" class="form-control">' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>';
+                row_content = '<tr><td contenteditable="true" name="key"></td><td contenteditable="true" name="value"></td><td contenteditable="true" name="body_necessary_flag">'+ necessary_flag_content +'</td><td contenteditable="true" name="body_data_type">'+ data_type_content +'</td><td contenteditable="true" name="body_description"></td><td><button class="btn btn-danger" onclick="del_row(this)">删除</button></td></tr>';
+                $("#body-table tbody").append(row_content);
+            }
+// 添加校验器行
+    function add_validate_row(){
+                var data_type_content = '<select name="headers_data_type" class="form-control">' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>';
+                var select_content = '<select name="comparator" class="form-control">' + '<option value="eq"> = </option>' + '<option value="gt"> > </option>' + '<option value="ge"> >= </option>' + '<option value="lt"> < </option>' + '<option value="le"> <= </option>' + '<option value="len_eq">长度等于</option>' + '<option value="len_gt">长度大于</option>' + '<option value="len_lt">长度小于</option>' + '<option value="contains">包含</option>' + '<option value="contained_by">被包含</option>' + '<option value="startswith">startswith</option>' + '<option value="endswith">endswith</option>' +'</select>'
+                row_content = '<tr><td contenteditable="true" name="key"></td>' +'<td contenteditable="true" name="comparator">' + select_content + '</td>' + '<td contenteditable="true" name="value"></td>'+
+                '<td contenteditable="true" name="validate_data_type">'+ data_type_content + '</td>' +'<td contenteditable="true" name="validate_description"></td><td><button class="btn btn-danger" onclick="del_row(this)">删除</button></td></tr>';
+                $("#validate-table tbody").append(row_content);
+            }
+ // 若选择报文格式为json，body隐藏表格，显示textarea
+    function show_textarea(){
+        $("#body-textarea-div").removeAttr("hidden");
+        $("#body-table-div").attr("hidden", "hidden");
+    }
+
+// 若选择报文格式为非json，body显示表格，隐藏textarea
+    function show_table(){
+        $("#body-table-div").removeAttr("hidden");
+        $("#body-textarea-div").attr("hidden", "hidden");
+    }   
+
+// 提交表单
+    function submit_form(){
+        var api_id = $("#api_id").val();
+        var api_name = $("#api_name").val();
+        // var api_function = $("#api_function").val();
+        var api_path = $("#api_path").val();
+        var method = $("input[name='method']:checked").val();
+        var content_type = $("input[name='content_type']:checked").val();
+        var description = $("#description").val();
+        var encry_flag = $("input[name='encry_flag']:checked").val();
+        var encry_id = $("#encry_id").val();
+        var pro_id = $("#pro_id").val();
+        var headers = new Object();
+        var headers_key_list = new Array();
+        var headers_value_list = new Array();
+
+        var body_from_textarea = $("#body-textarea").val();
+
+        var body = new Object();
+        var body_key_list = new Array();
+        var body_value_list = new Array();
+
+        var validate_row = new Object();
+        var validate_list = new Array();
+
+        var headers_necessary_flag_list = new Array();
+        var headers_data_type_list = new Array();
+        var headers_description_list = new Array();
+
+        var body_necessary_flag_list = new Array();
+        var body_data_type_list = new Array();
+        var body_description_list = new Array();
+
+        var validate_data_type_list = new Array();
+        var validate_description_list = new Array();
+
+        var necessaryFlag_dict = new Object();
+        var dataType_dict = new Object();
+        var description_dict = new Object();
+// 遍历headers数据
+        $("#headers-table tr td").each(function (i){
+                if($(this).attr("name")==="key"){
+                   headers_key_list.push( $(this).text() );
+                };
+                if($(this).attr("name")==="value"){
+                   headers_value_list.push( $(this).text() );
+                };
+                if($(this).attr("name")==="headers_necessary_flag"){
+                   headers_necessary_flag_list.push( $(this).children("select").val());
+                };
+                if($(this).attr("name")==="headers_data_type"){
+                   headers_data_type_list.push( $(this).children("select").val());
+                };
+                if($(this).attr("name")==="headers_description"){
+                   headers_description_list.push( $(this).text() );
+                };
+            });
+        $.each(headers_key_list,function(i){
+                headers[headers_key_list[i]] = headers_value_list[i];
+            });
+        var headers_str = JSON.stringify(headers);
+        necessaryFlag_dict["headers"] = headers_necessary_flag_list;
+        dataType_dict["headers"] = headers_data_type_list;
+        description_dict["headers"] = headers_description_list;
+// 遍历body数据
+        $("#body-table tr td").each(function (i){
+                if($(this).attr("name")==="key"){
+                   // console.log("body_key_list的格式为： ",typeof(body_key_list));
+                   body_key_list.push( $(this).text() );
+                };
+                if($(this).attr("name")==="value"){
+                   body_value_list.push( $(this).text() );
+                };
+                if($(this).attr("name")==="body_necessary_flag"){
+                   body_necessary_flag_list.push( $(this).children("select").val());
+                   // console.log("body_necessary_flag_list: ", body_necessary_flag_list);
+                };
+                if($(this).attr("name")==="body_data_type"){
+                   body_data_type_list.push( $(this).children("select").val());
+                   // console.log("body_data_type_list: ", body_data_type_list);
+                };
+                if($(this).attr("name")==="body_description"){
+                   body_description_list.push( $(this).text() );
+                   // console.log("body_description_list: ", body_description_list);
+                };
+            });
+        $.each(body_key_list,function(i){
+                body[body_key_list[i]] = body_value_list[i];
+            });
+        var body_str = JSON.stringify(body);
+        necessaryFlag_dict["body"] = body_necessary_flag_list;
+        dataType_dict["body"] = body_data_type_list;
+        description_dict["body"] = body_description_list;
+        var final_body = new String();
+        if(content_type === 'json'){
+            final_body = body_from_textarea;
+        }
+        else{
+            final_body = body_str;
+        }
+// 遍历validate数据
+        $("#validate-table tbody>tr").each(function (i){
+            validate_value_list = new Array();
+            var tr_index = i;
+            var tr_css_locator = "#validate-table tbody>tr:eq("+ i +")>td[name]"
+            $(tr_css_locator).each(function (x){
+                if($(this).attr("name")==="key"){
+                    validate_value_list.push( $(this).text() );
+                };
+                if($(this).attr("name")==="value"){
+                   validate_value_list.push( $(this).text() );
+                };
+                if($(this).attr("name")==="comparator"){
+                   comparator_tmp = $(this).children("select").val();
+                };
+                if($(this).attr("name")==="validate_data_type"){
+                   validate_data_type_list.push(  $(this).children("select").val());
+                };
+                if($(this).attr("name")==="validate_description"){
+                   validate_description_list.push( $(this).text() );
+                };
+
+            });
+            
+            validate_row[comparator_tmp] = validate_value_list; 
+            comparator_tmp = new String;
+            validate_list.push( validate_row );
+            validate_row = new Object;
+        });
+        
+        dataType_dict["validate"] = validate_data_type_list;
+        console.log("dataType_dict: ",dataType_dict);
+        description_dict["validate"] = validate_description_list;
+        var validate_str = JSON.stringify(validate_list);
+        var necessaryFlag_dict_str = JSON.stringify(necessaryFlag_dict);
+        var dataType_dict_str = JSON.stringify(dataType_dict);
+        var description_dict_str = JSON.stringify(description_dict);
+        
+
+
+
+                // 提交表单
+                $.ajax({
+                    // async : false,
+                    url: "/autoTest/api_update/",
+                    type: "post",
+                    data: {
+                        "api_id": api_id,
+                        "api_name": api_name,
+                        "api_path": api_path,
+                        "method": method,
+                        "content_type": content_type,
+                        "headers": headers_str,
+                        "body": final_body,
+                        "description": description,
+                        "validate": validate_str,
+                        "encry_flag": encry_flag,
+                        "encry_id": encry_id,
+                        "pro_id": pro_id,
+                        "necessaryFlag_dict": necessaryFlag_dict_str,
+                        "dataType_dict": dataType_dict_str,
+                        "description_dict": description_dict_str
+
+                    },
+                    // dataType: "json",
+                    success: function () {
+                        alert("保存成功!");
+                        window.location.replace("/autoTest/api_index/");
+                    },
+                    error: function () {
+                        console.log(
+                            "api_id: ", api_id,
+                            "\napi_name: ", api_name,
+                            "\napi_path: ", api_path,
+                            "\nmethod: ", method,
+                            "\ncontent_type: ",content_type,
+                            "\nheaders: ", headers,
+                            "\nbody:", final_body,
+                            "\ndescription: ", description,
+                            "\nvalidate: ", validate_str,
+                            "\nencry_flag: ", encry_flag,
+                            "\nencry_id: ", encry_id,
+                            "\npro_id: ", pro_id,
+                            "\nnecessaryFlag_dict: ", necessaryFlag_dict_str,
+                            "\ndataType_dict: ", dataType_dict_str,
+                            "\ndescription_dict: ", description_dict_str
+                            );
+                        alert("保存失败!");
+                    }
+        });
+
+    }
+
+</script>
+{% endblock %}

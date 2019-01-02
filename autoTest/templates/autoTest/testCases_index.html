@@ -1,0 +1,212 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 用例集管理 {% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">用例集管理</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="row panel-heading">
+                <div class="col-md-2">
+                    <a href="{% url 'autoTest:testCases_add' %}" class="btn btn-primary">添加用例集</a>
+                </div>
+                <div class="col-md-8"> </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用例集名称</th>
+                        <th>用例集函数</th>
+                        <th>描述</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for testCases in testCases_list %}
+                    <tr>
+                        <td>{{ testCases.testCases_id }}</td>
+                        <td>{{ testCases.testCases_name }}</td>
+                        <td>{{ testCases.testSuite_function }}</td>
+                        <td>{{ testCases.description }}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#runTestCasesModal" name="{{ testCases.testCases_id }}" onclick="runTestCases(this)">运行用例集</button>
+                            <a class="btn btn-sm btn-info" href="{% url 'autoTest:testCases_update' %}?testCases_id={{ testCases.testCases_id }}" role="button">编辑</a>
+                            <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="{% url 'autoTest:testCases_delete' %}?testCases_id={{ testCases.testCases_id }}">删除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9 col-lg-offset-5">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if testCases_list.has_previous %}
+                    <li><a href="{% url 'autoTest:testCases_index'  %}?page={{ previous_page_index }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                {% endif %}
+                {% for num in paginator.page_range %}
+                    {% if num == current_page %}
+                        <li class="active"><a href="{% url 'autoTest:testCases_index'  %}?page={{ num }}">{{ num }}</a></li>
+                    {% else %}
+                        <li class=""><a href="{% url 'autoTest:testCases_index'  %}?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if testCases_list.has_next %}
+                    <li><a href="{% url 'autoTest:testCases_index'  %}?page={{ next_page_index }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+ </div>
+
+ <!-- 调试测试用例 模态框Modal -->
+<div class="modal fade" id="runTestCasesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">运行用例集</h4>
+            </div>
+            <div class="modal-body row">
+                <form class="form-horizontal">
+                    <input id="testCases_id" name="testCases_id" hidden>
+                    <div class="form-group">
+                        <label for="request_url" class="col-sm-2 control-label"><font size="2">用例集<br >名称: </font></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="testCases_name" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="request_url" class="col-sm-2 control-label"><font size="2">公共驱动<br >参数: </font></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="parameters_list" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="request_url" class="col-sm-2 control-label"><font size="2">公共静态<br >变量:</font></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="variables_list" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="request_body" class="col-sm-2 control-label"><font size="2">用例集<br >列表:</font> </label>
+                        <div class="col-sm-9" id="testCases_list">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="runStyle" class="col-sm-2 control-label"><font size="2">执行方式：</font></label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="runStyle" id="runStyle">
+                                <option value="0">执行用例集 | 不生成测试报告</option>
+                                <option value="1">执行用例集 | 立即返回测试报告</option>
+                                <option value="2">执行用例集 | 后台生成测试报告</option>
+                                <option value="3">执行用例集 | 压力测试(慎点！)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="response_content">
+                        <label class="col-sm-2 control-label"><font size="2">测试结果：</font></label>
+                        <div class="col-sm-9">
+                            <!-- <font><b>
+                                "testsRun": 2,
+                                "failures": 0,
+                                "errors": 0,
+                                "skipped": 0,
+                                "expectedFailures": 0,
+                                "unexpectedSuccesses": 0,
+                                "successes": 2
+                            </b></font> -->
+                        </div>
+
+                    </div>
+                </form>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                  <button type="button" class="btn btn-primary" onclick="sendRequest() ">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %} 
+<script type="text/javascript">
+    function runTestCases(obj){
+            var testCases_id = obj.getAttribute("name");
+            $.ajax({
+                url: "/autoTest/find_data/",
+                type: "post",
+                data: {
+                        "model": "testCases",
+                        "data_id": testCases_id,
+                        "data_name": "testCases_dict",
+                    },
+                success : function(data){
+                    console.log('data: ', data);
+                    $("#testCases_id").val(data['testCases_id']);
+                    $("#testCases_name").val(data['testCases_name']);
+                    $("#parameters_list").val(data['parameters']);
+                    $("#variables_list").val(data['variables']);
+                    $("#testCases_list").empty();
+                    $("#response_content div").empty();
+                    $("#testCases_list").append(data['testStep_name_list_html']);
+                },
+                error : function(data){
+                    console.log("查找指定测试用例集接口失败");
+                }
+            });
+        }
+
+    function sendRequest(){
+        var request_testCases_id = $("#testCases_id").val();
+        var request_runStyle = $("#runStyle").val();
+        $.ajax({
+                url: "/autoTest/testCases_run/",
+                type: "post",
+                data: {
+                        "request_testCases_id": request_testCases_id,
+                        "request_runStyle": request_runStyle,
+                    },
+                success : function(data){
+                    if(typeof(data) == 'object'){
+                        window.open(data['redirect_url']);
+                    }
+                    else{
+                        var add_content = '<font color="lightseagreen"><b>' + data + '</b></font>'
+                        $("#response_content div").empty();
+                        $("#response_content div").append(add_content);
+                        console.log('add_content: ',add_content);
+                    }
+                },
+                error : function(data){
+                    console.log("用例集运行失败！");
+                }
+            });
+        }
+</script>
+{% endblock %}

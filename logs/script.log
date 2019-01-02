@@ -1,0 +1,120 @@
+2018-12-10 10:16:29,623 [Thread-59:12028] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:16:30,652 [Thread-60:12024] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:16:38,150 [Thread-61:10312] [django.request:118] [ERROR]- Internal Server Error: /autoTest/testCases_update/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.testCases_update didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:16:39,439 [Thread-62:10112] [django.request:118] [ERROR]- Internal Server Error: /autoTest/testCases_update/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.testCases_update didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:22:03,806 [Thread-66:2876] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:22:16,592 [Thread-67:10316] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:22:25,076 [Thread-68:10996] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:24:01,854 [Thread-69:10884] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:25:13,226 [Thread-8:1856] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:36:40,803 [Thread-12:13360] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python36\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "E:\github\djangoProject\testGo\autoTest\views.py", line 681, in find_data
+    testSuite_sum = TestCases.objects.filter(TestCases_name__contains=data_id)
+  File "C:\Python36\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python36\lib\site-packages\django\db\models\query.py", line 836, in filter
+    return self._filter_or_exclude(False, *args, **kwargs)
+  File "C:\Python36\lib\site-packages\django\db\models\query.py", line 854, in _filter_or_exclude
+    clone.query.add_q(Q(*args, **kwargs))
+  File "C:\Python36\lib\site-packages\django\db\models\sql\query.py", line 1253, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Python36\lib\site-packages\django\db\models\sql\query.py", line 1277, in _add_q
+    split_subq=split_subq,
+  File "C:\Python36\lib\site-packages\django\db\models\sql\query.py", line 1153, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "C:\Python36\lib\site-packages\django\db\models\sql\query.py", line 1015, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "C:\Python36\lib\site-packages\django\db\models\sql\query.py", line 1379, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'TestCases_name' into field. Choices are: description, headers, output, parameters, setup_hooks, teardown_hooks, testCases_id, testCases_list, testCases_name, testSuite_function, variables
+2018-12-10 10:47:01,975 [Thread-6:11148] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:48:34,110 [Thread-8:1760] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:49:05,470 [Thread-18:6420] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.
+2018-12-10 10:51:30,478 [Thread-6:10496] [django.request:118] [ERROR]- Internal Server Error: /autoTest/find_data/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 139, in _get_response
+    "returned None instead." % (callback.__module__, view_name)
+ValueError: The view autoTest.views.find_data didn't return an HttpResponse object. It returned None instead.

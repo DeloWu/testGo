@@ -1,0 +1,85 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 编辑环境 {% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">编辑环境</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">编辑环境</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" method="post" action="{% url 'autoTest:env_update' %}">
+                    {% csrf_token %}
+                    <input name="env_id" value ={{ env.env_id }} hidden>
+                    <div class="form-group">
+                        <label for="env_name" class="col-sm-2 control-label"><span style="color: red">* </span>环境名称:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="env_name" value={{ env.env_name }} class="form-control"  id="env_name" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="url" class="col-sm-2 control-label"><span style="color: red">* </span>域名:</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="url" value={{ env.url }} class="form-control" id="url">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="port" class="col-sm-2 control-label"><span style="color: red">* </span>端口:</label>
+                        <div class="col-sm-2">
+                            <input type="text" name="port" value={{ env.port }} class="form-control" id="port">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span style="color: red">* </span>所属项目:</label>
+                        <div class="col-sm-6">
+                            <select name="pro_id" class="form-control">
+                                <option value={{ cur_pro.pro_id }}>{{ cur_pro.pro_name }}</option>
+                                {% for pro in pro_list %}
+                                    {% if pro.pro_id != env.project.pro_id %}
+                                        <option value={{ pro.pro_id }}>{{ pro.pro_name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">环境描述:</label>
+                        <div class="col-sm-6">
+                            <textarea name="description" class="form-control" id="description" rows="3">{{ env.description }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-6">
+                            <button type="submit" class="btn btn-primary">保存</button>
+                            <button type="reset" class="btn btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
