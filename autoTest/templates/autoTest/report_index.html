@@ -30,7 +30,7 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>序号</th>
                             <th>报告名称</th>
                             <th>报告路径</th>
                             <th>创建时间</th>
@@ -40,7 +40,7 @@
                         <tbody>
                         {% for report in report_list %}
                             <tr>
-                                <td>{{ report.report_id }}</td>
+                                <td>{{ forloop.counter }}</td>
                                 <td>{{ report.report_name }}</td>
                                 <td>{{ report.path |slice:"23:" }}</td>
                                 <td>{{ report.create_time |date:"Y-m-d H:i:s" }}</td>

@@ -51,7 +51,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>序号</th>
                         <th>接口名称</th>
                         <th>接口路径</th>
                         <th>请求方式</th>
@@ -63,7 +63,7 @@
                     <tbody>
                     {% for api in api_list %}
                     <tr>
-                        <td>{{ api.api_id }}</td>
+                        <td>{{ forloop.counter }}</td>
                         <td>{{ api.api_name }}</td>
                         <td>{{ api.api_path }}</td>
                         <td>{{ api.method }}</td>

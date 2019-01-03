@@ -39,6 +39,8 @@ urlpatterns = [
     path(r'report_index/', views.report_index, name='report_index'),
     path(r'report_show/', views.report_show, name='report_show'),
     path(r'report_delete/', views.report_delete, name='report_delete'),
+
+    path(r'plan_index/', views.plan_index, name='plan_index'),
     
     path(r'find_data/', views.find_data, name='find_data'),
 

@@ -32,7 +32,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>序号</th>
                         <th>用例集名称</th>
                         <th>用例集函数</th>
                         <th>描述</th>
@@ -42,7 +42,7 @@
                     <tbody>
                     {% for testCases in testCases_list %}
                     <tr>
-                        <td>{{ testCases.testCases_id }}</td>
+                        <td>{{ forloop.counter }}</td>
                         <td>{{ testCases.testCases_name }}</td>
                         <td>{{ testCases.testSuite_function }}</td>
                         <td>{{ testCases.description }}</td>

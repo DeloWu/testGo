@@ -1,0 +1,115 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 计划管理 {% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">计划管理</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                   <a href="/admin/django_celery_beat/periodictask/add/" class="btn btn-primary">添加计划</a>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>计划名称</th>
+                            <th>任务名称</th>
+                            <th>计划描述</th>
+                            <th>定时任务</th>
+                            <th>执行频率</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for plan in plan_list %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ plan.name }}</td>
+                                <td>{{ plan.task }}</td>
+                                <td>{{ plan.description }}</td>
+                                {% if plan.crontab_id %}
+                                    <td name='crontab_id'>{{ plan.crontab_id }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                                {% if plan.interval_id %}
+                                    <td name='interval_id'>{{ plan.interval_id }}</td>
+                                {% else %}
+                                    <td></td>
+                                {% endif %}
+                                <td>
+                                    <a class="btn btn-sm btn-info" href="/admin/django_celery_beat/periodictask/{{ plan.id }}/change/" role="button">编辑</a>
+                                    <a class="btn btn-sm btn-danger" href="/admin/django_celery_beat/periodictask/{{ plan.id }}/delete/" role="button">删除</a>
+                                    <!-- <button class="btn btn-sm btn-danger" href="/admin/django_celery_beat/periodictask/{{ plan.id }}/delete/">删除</button> -->
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-lg-offset-5">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {% if plan_list.has_previous %}
+                        <li><a href="{% url 'autoTest:plan_index'  %}?page={{ previous_page_index }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    {% endif %}
+                    {% for num in paginator.page_range %}
+                        {% if num == current_page %}
+                            <li class="active"><a href="{% url 'autoTest:plan_index'  %}?page={{ num }}">{{ num }}</a></li>
+                        {% else %}
+                            <li class=""><a href="{% url 'autoTest:plan_index'  %}?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if plan_list.has_next %}
+                        <li><a href="{% url 'autoTest:plan_index'  %}?page={{ next_page_index }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("td[name='crontab_id']").each(function(index,element){
+                var id = element.textContent;
+                element.textContent = {{crontabschedule_list|safe}}[id];
+
+            });
+            $("td[name='interval_id']").each(function(index,element){
+                var id = element.textContent;
+                element.textContent = {{intervalschedule_list|safe}}[id];
+
+            });
+        });
+    </script>
+{% endblock %}

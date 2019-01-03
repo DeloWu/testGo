@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.db import connection
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django_celery_beat.models import IntervalSchedule, CrontabSchedule, PeriodicTask
 from django.template import Context
 from httprunner import HttpRunner
 import json
@@ -34,7 +35,7 @@ def login_check(func):
 '''
 
 def index(request):
-    print('------',add.delay(23,27).get())
+    # print('------',add.delay(23,27).get())
     return render(request, 'autoTest/index.html', context={})
 
 
@@ -944,6 +945,49 @@ def report_delete(request):
             print('成功删除测试报告文件： ', file_path)
         return HttpResponseRedirect("/autoTest/report_index/")
 
+def plan_index(request):
+    plan_sum = PeriodicTask.objects.all().order_by('id')
+    paginator = Paginator(plan_sum, 10)
+    page = request.GET.get('page', 1)
+    current_page = int(page)
+    try:
+        plan_list = paginator.page(page)  # 获取当前页码的记录
+    except PageNotAnInteger:
+        plan_list = paginator.page(1)  # 如果用户输入的页码不是整数时,显示第1页的内容
+    except EmptyPage:
+        plan_list = paginator.page(paginator.num_pages)  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
+    if plan_list.has_previous():
+        previous_page_index = plan_list.previous_page_number()
+    else:
+        previous_page_index = None
+    if plan_list.has_next():
+        next_page_index = plan_list.next_page_number()
+    else:
+        next_page_index = None
+
+    # 映射时间配置
+    intervalschedule_list = ['', ]
+    for intervalschedule in IntervalSchedule.objects.all().order_by('id'):
+        time_str = str(intervalschedule.every) + ' ' + intervalschedule.period
+        intervalschedule_list.append(time_str)
+        time_str = ''
+
+    crontabschedule_list = ['', ]
+    for crontabschedule in CrontabSchedule.objects.all().order_by('id'):
+        time_str = str(crontabschedule.minute) + ' ' + str(crontabschedule.hour) + ' ' + str(
+            crontabschedule.day_of_week) + ' ' + str(crontabschedule.day_of_month) + ' ' + str(
+            crontabschedule.month_of_year) + '(m/h/d/dM/dY)'
+        crontabschedule_list.append(time_str)
+        time_str = ''
+
+    return render(request, 'autoTest/plan_index.html', context={'plan_list': plan_list,
+                                                               'paginator': paginator,
+                                                               'current_page': current_page,
+                                                               'previous_page_index': previous_page_index,
+                                                               'next_page_index': next_page_index,
+                                                               'intervalschedule_list': intervalschedule_list,
+                                                                'crontabschedule_list': crontabschedule_list,
+                                                               })
 
 @csrf_exempt
 def find_data(request):

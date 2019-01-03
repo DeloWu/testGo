@@ -57,7 +57,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th width="50px">ID</th>
+                        <th width="50px">序号</th>
                         <th width="250px">用例名称</th>
                         <th width="350px">用例请求地址</th>
                         <th width="400px">用例请求参数</th>
@@ -68,7 +68,7 @@
                     <tbody>
                     {% for testStep in testStep_list %}
                     <tr>
-                        <td>{{ testStep.testStep_id }}</td>
+                        <td>{{ forloop.counter }}</td>
                         <td>{{ testStep.testStep_name }}</td>
                         <td>{{ testStep.url }}</td>
                         <td>{{ testStep.body }}</td>

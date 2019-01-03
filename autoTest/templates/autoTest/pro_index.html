@@ -30,7 +30,7 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>序号</th>
                             <th>项目名称</th>
                             <th>项目描述</th>
                             <th>操作</th>
@@ -39,7 +39,7 @@
                         <tbody>
                         {% for pro in pro_list %}
                             <tr>
-                                <td>{{ pro.pro_id }}</td>
+                                <td>{{ forloop.counter }}</td>
                                 <td>{{ pro.pro_name }}</td>
                                 <td>{{ pro.description }}</td>
                                 <td>

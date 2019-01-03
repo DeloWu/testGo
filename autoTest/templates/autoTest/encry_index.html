@@ -30,7 +30,7 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>序号</th>
                             <th>签名名称</th>
                             <th>签名函数</th>
                             <th>签名描述</th>
@@ -40,7 +40,7 @@
                         <tbody>
                         {% for encry in encry_list %}
                             <tr>
-                                <td>{{ encry.encry_id }}</td>
+                                <td>{{ forloop.counter }}</td>
                                 <td>{{ encry.encry_name }}</td>
                                 <td>{{ encry.encry_function }}</td>
                                 <td>{{ encry.description }}</td>

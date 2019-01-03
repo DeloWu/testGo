@@ -52,7 +52,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>序号</th>
                         <th>环境名称</th>
                         <th>域名</th>
                         <th>端口</th>
@@ -64,7 +64,7 @@
                     <tbody>
                     {% for env in env_list %}
                     <tr>
-                        <td>{{ env.env_id }}</td>
+                        <td>{{ forloop.counter }}</td>
                         <td>{{ env.env_name }}</td>
                         <td>{{ env.url }}</td>
                         <td>{{ env.port }}</td>
