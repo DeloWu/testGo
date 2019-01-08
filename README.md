@@ -31,3 +31,13 @@ http://docs.celeryproject.org/en/latest/userguide/tasks.html#task-naming-relativ
 删掉项目下的celerybeat.pid文件即可
 
 mysql安装教程：https://www.cnblogs.com/wishwzp/p/7113403.html
+
+工程路径:                  /app/testGo
+工程静态文件路径:            /app/testGo/testGo/static
+wsgi.py的路径:             /app/testGo/testGo/wsgi.py
+uwsgi.ini的路径:           /app/testGo/testGo.ini
+uwsgi日志路径:             /app/testGo/uwsgi.log
+testGo.conf的路径:        /app/testGo/testGo.conf
+uwsgi_params的路径:        /app/nginx-1.6.2/conf/uwsgi_params
+nginx访问日志路径:          /app/testGo/logs/nginx.access.log
+nginx错误日志路径:          /app/testGo/logs/nginx.error.log

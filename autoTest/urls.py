@@ -4,6 +4,7 @@ from . import views
 
 app_name = 'autoTest'
 urlpatterns = [
+    path(r'index/', views.index),
     path(r'pro_index/', views.pro_index, name='pro_index'),
     path(r'pro_add/', views.pro_add, name='pro_add'),
     path(r'pro_update/', views.pro_update, name='pro_update'),

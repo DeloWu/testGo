@@ -1,0 +1,201 @@
+*** Starting uWSGI 2.0.17.1 (64bit) on [Tue Jan  8 20:26:33 2019] ***
+compiled with version: 4.8.5 20150623 (Red Hat 4.8.5-36) on 05 January 2019 04:45:13
+os: Linux-3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 2018
+nodename: Delo-host
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /app/testGo
+detected binary path: /root/.virtualenvs/env-testGo/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /app/testGo
+your processes number limit is 3882
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.6.3 (default, Jan  3 2019, 20:17:10)  [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
+Python main interpreter initialized at 0x2559e60
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 250128 bytes (244 KB) for 4 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x2559e60 pid: 16553 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 16553)
+spawned uWSGI worker 1 (pid: 16558, cores: 2)
+spawned uWSGI worker 2 (pid: 16559, cores: 2)
+[pid: 16559|app: 0|req: 1/1] 218.17.0.194 () {40 vars in 809 bytes} [Tue Jan  8 20:32:33 2019] GET /autoTest/pro_index/ => generated 8488 bytes in 163 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 0)
+[pid: 16559|app: 0|req: 2/2] 218.17.0.194 () {42 vars in 824 bytes} [Tue Jan  8 20:32:34 2019] GET /index/ => generated 6806 bytes in 3 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 16559|app: 0|req: 3/3] 218.17.0.194 () {42 vars in 828 bytes} [Tue Jan  8 20:32:35 2019] GET /autoTest/env_index/ => generated 9307 bytes in 15 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 16559|app: 0|req: 4/4] 218.17.0.194 () {42 vars in 847 bytes} [Tue Jan  8 20:32:36 2019] GET /autoTest/report_index/ => generated 8449 bytes in 9 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 0)
+[pid: 16559|app: 0|req: 5/5] 218.17.0.194 () {42 vars in 846 bytes} [Tue Jan  8 20:32:37 2019] GET /autoTest/plan_index/ => generated 10230 bytes in 13 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+*** Starting uWSGI 2.0.17.1 (64bit) on [Tue Jan  8 20:35:20 2019] ***
+compiled with version: 4.8.5 20150623 (Red Hat 4.8.5-36) on 05 January 2019 04:45:13
+os: Linux-3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 2018
+nodename: Delo-host
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /app/testGo
+detected binary path: /root/.virtualenvs/env-testGo/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /app/testGo
+your processes number limit is 3882
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.6.3 (default, Jan  3 2019, 20:17:10)  [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
+Python main interpreter initialized at 0x1647de0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 250128 bytes (244 KB) for 4 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x1647de0 pid: 17025 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 17025)
+spawned uWSGI worker 1 (pid: 17033, cores: 2)
+spawned uWSGI worker 2 (pid: 17035, cores: 2)
+[pid: 17035|app: 0|req: 1/1] 218.17.0.194 () {42 vars in 866 bytes} [Tue Jan  8 20:35:31 2019] GET /autoTest/plan_index/ => generated 10230 bytes in 140 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 17035|app: 0|req: 2/2] 218.17.0.194 () {42 vars in 852 bytes} [Tue Jan  8 20:35:32 2019] GET /autoTest/testStep_index/ => generated 16846 bytes in 12 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 17035|app: 0|req: 3/3] 218.17.0.194 () {42 vars in 846 bytes} [Tue Jan  8 20:35:33 2019] GET /autoTest/env_index/ => generated 9307 bytes in 10 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 0)
+[pid: 17035|app: 0|req: 4/4] 218.17.0.194 () {42 vars in 853 bytes} [Tue Jan  8 20:35:34 2019] GET /autoTest/testCases_index/ => generated 14727 bytes in 9 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 17035|app: 0|req: 5/5] 218.17.0.194 () {42 vars in 843 bytes} [Tue Jan  8 20:35:35 2019] GET /index/ => generated 6806 bytes in 3 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 0)
+*** Starting uWSGI 2.0.17.1 (64bit) on [Tue Jan  8 20:35:54 2019] ***
+compiled with version: 4.8.5 20150623 (Red Hat 4.8.5-36) on 05 January 2019 04:45:13
+os: Linux-3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 2018
+nodename: Delo-host
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /app/testGo
+detected binary path: /root/.virtualenvs/env-testGo/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /app/testGo
+your processes number limit is 3882
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.6.3 (default, Jan  3 2019, 20:17:10)  [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
+Python main interpreter initialized at 0x2096de0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 250128 bytes (244 KB) for 4 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x2096de0 pid: 17079 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 17079)
+spawned uWSGI worker 1 (pid: 17087, cores: 2)
+spawned uWSGI worker 2 (pid: 17088, cores: 2)
+[pid: 17088|app: 0|req: 1/1] 218.17.0.194 () {42 vars in 814 bytes} [Tue Jan  8 20:35:56 2019] GET /index/ => generated 6806 bytes in 147 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 0)
+[pid: 17088|app: 0|req: 2/2] 218.17.0.194 () {42 vars in 863 bytes} [Tue Jan  8 20:36:02 2019] GET /autoTest/api_index/ => generated 9324 bytes in 21 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 17088|app: 0|req: 3/3] 218.17.0.194 () {42 vars in 863 bytes} [Tue Jan  8 20:36:03 2019] GET /autoTest/pro_index/ => generated 8488 bytes in 8 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 0)
+[pid: 17088|app: 0|req: 4/4] 218.17.0.194 () {42 vars in 865 bytes} [Tue Jan  8 20:36:04 2019] GET /autoTest/plan_index/ => generated 10230 bytes in 13 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 17088|app: 0|req: 5/5] 218.17.0.194 () {42 vars in 848 bytes} [Tue Jan  8 20:36:04 2019] GET /autoTest/report_index/ => generated 8449 bytes in 9 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 0)
+[pid: 17088|app: 0|req: 6/6] 103.235.66.238 () {30 vars in 447 bytes} [Tue Jan  8 20:38:03 2019] GET / => generated 6806 bytes in 3 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 0)
+*** Starting uWSGI 2.0.17.1 (64bit) on [Tue Jan  8 20:39:16 2019] ***
+compiled with version: 4.8.5 20150623 (Red Hat 4.8.5-36) on 05 January 2019 04:45:13
+os: Linux-3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 2018
+nodename: Delo-host
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /app/testGo
+detected binary path: /root/.virtualenvs/env-testGo/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /app/testGo
+your processes number limit is 3882
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.6.3 (default, Jan  3 2019, 20:17:10)  [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
+Python main interpreter initialized at 0x165cde0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 250128 bytes (244 KB) for 4 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x165cde0 pid: 17277 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 17277)
+spawned uWSGI worker 1 (pid: 17286, cores: 2)
+spawned uWSGI worker 2 (pid: 17287, cores: 2)
+*** Starting uWSGI 2.0.17.1 (64bit) on [Tue Jan  8 20:41:35 2019] ***
+compiled with version: 4.8.5 20150623 (Red Hat 4.8.5-36) on 05 January 2019 04:45:13
+os: Linux-3.10.0-957.1.3.el7.x86_64 #1 SMP Thu Nov 29 14:49:43 UTC 2018
+nodename: Delo-host
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /app/testGo
+detected binary path: /root/.virtualenvs/env-testGo/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /app/testGo
+your processes number limit is 3882
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.6.3 (default, Jan  3 2019, 20:17:10)  [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]
+Python main interpreter initialized at 0x266cde0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 250128 bytes (244 KB) for 4 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x266cde0 pid: 17425 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 17425)
+spawned uWSGI worker 1 (pid: 17434, cores: 2)
+spawned uWSGI worker 2 (pid: 17435, cores: 2)
