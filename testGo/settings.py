@@ -14,6 +14,7 @@ import os
 import logging
 import django.utils.log
 import logging.handlers
+import platform
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -78,31 +79,30 @@ WSGI_APPLICATION = 'testGo.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testGo',
-        'HOST': "127.0.0.1",
-        'PORT': "3306",
-        'USER': "root",
-        'PASSWORD': "admin",
+if platform.system() == 'Windows':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'testGo',
+            'HOST': "127.0.0.1",
+            'PORT': "3306",
+            'USER': "root",
+            'PASSWORD': "admin",
+        }
     }
-}
-
-#  若使用linux数据库，注释掉上面的DATABASES
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testGo',
-        'HOST': "127.0.0.1",
-        'PORT': "3306",
-        'USER': "root",
-        'PASSWORD': "Admin123456=",
+else:
+    #  若使用linux数据库，注释掉上面的DATABASES
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'testGo',
+            'HOST': "127.0.0.1",
+            'PORT': "3306",
+            'USER': "root",
+            'PASSWORD': "Admin123456=",
+        }
     }
-}
-'''
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

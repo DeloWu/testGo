@@ -4,6 +4,7 @@ from celery import Celery
 import os
 import django
 from celery.schedules import crontab
+import platform
 
 # 启动celery命令(\djangoProject\testGo路径下):
 # celery -A testGo worker -l info -P gevent
@@ -14,10 +15,19 @@ from celery.schedules import crontab
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "testGo.settings")
 # django.setup()  会导致部署在linux环境执行manager.py报错
 
-app = Celery('testGo',
-             broker='redis://guest@172.30.3.60:6379//',
-             backend='redis://guest@172.30.3.60:6379',
-             include=['testGo.tasks'])
+if platform.system() == 'Windows':
+    app = Celery('testGo',
+                 broker='redis://guest@172.30.3.60:6379//',
+                 backend='redis://guest@172.30.3.60:6379',
+                 include=['testGo.tasks'])
+
+else:
+    # 若部署在linux上，注释掉上面app代码并替换
+    app = Celery('testGo',
+                 broker='redis://guest@127.0.0.1:6379//',
+                 backend='redis://guest@127.0.0.1:6379',
+                 include=['testGo.tasks'])
+
 
 # Optional configuration, see the application user guide.
 app.conf.update(
