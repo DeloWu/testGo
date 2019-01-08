@@ -27,7 +27,7 @@ SECRET_KEY = 'as#=r6a@-d%w0u*9t4l^e^q3#e@7rq+=5udl4xhz^yqkq+$*o6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -89,6 +89,20 @@ DATABASES = {
         'PASSWORD': "admin",
     }
 }
+
+#  若使用linux数据库，注释掉上面的DATABASES
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'testGo',
+        'HOST': "127.0.0.1",
+        'PORT': "3306",
+        'USER': "root",
+        'PASSWORD': "Admin123456=",
+    }
+}
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

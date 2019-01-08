@@ -1,11 +1,6 @@
 python3.6.3
-django2.0
-requests2.18.4
-httpRunner1.5.15
-
 bootstrap
 jquery
-
 
 -- 源码修改备注
 \testGo\manager.py
@@ -34,3 +29,5 @@ http://docs.celeryproject.org/en/latest/userguide/tasks.html#task-naming-relativ
 
 启动beat若报错： ERROR: Pidfile (celerybeat.pid) already exists
 删掉项目下的celerybeat.pid文件即可
+
+mysql安装教程：https://www.cnblogs.com/wishwzp/p/7113403.html

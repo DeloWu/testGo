@@ -12,7 +12,7 @@ from celery.schedules import crontab
 # celery -A testGo control add_consumer celery
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "testGo.settings")
-django.setup()
+# django.setup()  会导致部署在linux环境执行manager.py报错
 
 app = Celery('testGo',
              broker='redis://guest@172.30.3.60:6379//',
