@@ -14,14 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from autoTest import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
     path(r'index/', views.index),
+    path(r'', views.index),
     path(r'autoTest/', views.index),
     path(r'autoTest/', include('autoTest.urls')),
+    re_path(r'.*/', views.mock_server, name='mock_server'),#用于跳转至mock服务
 ]
+

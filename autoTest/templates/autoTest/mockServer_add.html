@@ -1,0 +1,35 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 添加mock服务 {% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">添加mock服务</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-4">
+            <label><span style="color: red">* </span>选择项目：</label>
+            <select id="pro_id" class="form-control">
+                <option value=""> </option>
+                {% for pro in pro_list %}
+                    <option value={{ pro.pro_id }}>{{ pro.pro_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+    </div>
+
+{% endblock %}

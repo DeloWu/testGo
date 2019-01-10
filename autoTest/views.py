@@ -989,6 +989,68 @@ def plan_index(request):
                                                                 'crontabschedule_list': crontabschedule_list,
                                                                })
 
+def mock_server(request):
+    # 跳转到mock服务
+    request_path = request.get_full_path()
+    mock_server_flag = Api.objects.filter(api_path=request_path).filter(mock_status='True')
+    if mock_server_flag:
+        #  开始处理mock逻辑
+        return  HttpResponse('I am mock server! ')
+    else:
+        return Http404
+
+def mockServer_index(request):
+    # 筛选api列表sql：MockServer.objects.values('relative_api').distinct().order_by('relative_api')
+    pro_sum = Project.objects.all()
+    page = request.GET.get('page', 1)
+    search_pro_id = request.GET.get('pro_id', '')
+    search_uri = request.GET.get('uri', '')
+    if search_pro_id and search_uri:
+        project = Project.objects.get(pro_id=search_pro_id)
+        api_sum = Api.objects.filter(relative_pro=search_pro_id).filter(api_path__contains=search_uri)
+    elif search_pro_id and not search_uri:
+        project = Project.objects.get(pro_id=search_pro_id)
+        api_sum = Api.objects.filter(relative_pro=search_pro_id)
+    elif not search_pro_id and search_uri:
+        project = None
+        api_sum = Api.objects.filter(api_path__contains=search_uri)
+    else:
+        project = None
+        api_sum = Api.objects.all()
+    paginator = Paginator(api_sum, 10)
+    current_page = int(page)
+    try:
+        api_list = paginator.page(page)  # 获取当前页码的记录
+    except PageNotAnInteger:
+        api_list = paginator.page(1)  # 如果用户输入的页码不是整数时,显示第1页的内容
+    except EmptyPage:
+        api_list = paginator.page(paginator.num_pages)  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
+    if api_list.has_previous():
+        previous_page_index = api_list.previous_page_number()
+    else:
+        previous_page_index = None
+    if api_list.has_next():
+        next_page_index = api_list.next_page_number()
+    else:
+        next_page_index = None
+
+    return render(request, 'autoTest/mockServer_index.html', context={'api_list': api_list,
+                                                                       'paginator': paginator,
+                                                                       'current_page': current_page,
+                                                                       'previous_page_index': previous_page_index,
+                                                                       'next_page_index': next_page_index,
+                                                                       'pro_sum': pro_sum,
+                                                                       'cur_pro': project,
+                                                                       'search_uri': search_uri,
+                                                                    })
+
+def mockServer_add(request):
+    pass
+
+def mockServer_update(request):
+    pass
+
+
 @csrf_exempt
 def find_data(request):
     model = request.POST.get('model', '')

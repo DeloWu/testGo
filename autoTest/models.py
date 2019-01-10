@@ -55,8 +55,10 @@ class Api(models.Model):
     description_dict = models.TextField(blank=True, default='{"headers":[], "body":[], "validate":[]}')
     relative_enc = models.CharField(max_length=10)
     relative_pro = models.CharField(max_length=10)
+    # 配合mock服务字段
+    mock_status = models.CharField(max_length=10, blank=True, default="False")   #'True' or 'False'
+    default_mockServer_id = models.CharField(max_length=4, blank=True, default="")    #默认mock响应状态
 
-    # project = models.ForeignKey('Project', on_delete=models.CASCADE)
     def __str__(self):
         return self.api_name
 
@@ -210,3 +212,21 @@ class Report(models.Model):
         return self.report_name
 
     __repr__ = __str__
+
+
+class MockServer(models.Model):
+    # mock服务响应集
+    mockServer_id = models.AutoField(primary_key=True, null=False)
+    mockServer_name = models.CharField(max_length=20)    # mockServer响应名称
+    uri = models.CharField(max_length=200)
+    relative_pro = models.CharField(max_length=10)
+    relative_api = models.CharField(max_length=10)
+    setup_hooks = models.CharField(max_length=200, blank=True, default='[]')    #e.g. [func1(1,2,3);func2();func3(request);func4(response)]
+    teardown_hooks = models.CharField(max_length=200, blank=True, default='[]')    #e.g. [func1(1,2,3);func2();func3(request);func4(response)]
+    expect_status_code = models.IntegerField(default=200)    #响应状态码
+    expect_headers = models.TextField(blank=True, default='')
+    expect_response_content_type = models.CharField(max_length=10, blank=True, default='json')    #响应内容格式: json/text/html/xml
+    expect_response = models.TextField(blank=True, default='')
+    status = models.CharField(max_length=2, blank=True, default='1')   #mock服务是否打开: 0关, 1开
+    conditions = models.TextField(blank=True, default='')    #e.g. [(args(data1.data2),validator,expect_value,return_mockServer_id)]
+    description = models.CharField(max_length=100, blank=True, default="")

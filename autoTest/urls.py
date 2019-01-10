@@ -5,6 +5,7 @@ from . import views
 app_name = 'autoTest'
 urlpatterns = [
     path(r'index/', views.index),
+
     path(r'pro_index/', views.pro_index, name='pro_index'),
     path(r'pro_add/', views.pro_add, name='pro_add'),
     path(r'pro_update/', views.pro_update, name='pro_update'),
@@ -42,6 +43,10 @@ urlpatterns = [
     path(r'report_delete/', views.report_delete, name='report_delete'),
 
     path(r'plan_index/', views.plan_index, name='plan_index'),
+
+    path(r'mockServer_index/', views.mockServer_index, name='mockServer_index'),
+    path(r'mockServer_add/', views.mockServer_add, name='mockServer_add'),
+    path(r'mockServer_update/', views.mockServer_update, name='mockServer_update'),
     
     path(r'find_data/', views.find_data, name='find_data'),
 

@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_celery_results',
-    'djcelery',
+    # 'djcelery',
     'autoTest',
     'django_celery_beat',
 ]
@@ -142,6 +142,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
+if platform.system() == 'Linux':
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\','/')
+    STATICFILES_DIRS = (
+    #     以下路径替换成自己"django/contrib/admin/static/"所在完整路径
+    '/root/.virtualenvs/env-testGo/lib/python3.6/site-packages/django/contrib/admin/static/',
+    )
 '''
 LOGGING = {
     'version': 1,

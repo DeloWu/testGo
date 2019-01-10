@@ -1,0 +1,166 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} mock服务管理 {% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">mock服务管理</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="row panel-heading">
+                <div class="col-md-2">
+                    <a href="{% url 'autoTest:mockServer_add' %}" class="btn btn-primary">添加mock服务</a>
+                </div>
+                <div class="col-md-8">
+                    <form class="form-inline" method="get" action="{% url 'autoTest:mockServer_index' %}">
+                        <div class="form-group">
+                            <label for="uri_search">接口路径：</label>
+                            <input type="text" class="form-control" name='uri' id="uri_search" placeholder="请输入内容">
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary" style="background-color:#1dc5a3;border-color:#1dc5a3;padding:5px 18px;color:#fff;">搜索</button>
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <div class="dropdown btn-group">
+                        <a class="btn btn-primary dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+                        {% if cur_pro %}
+                            {{ cur_pro.pro_name }}
+                        {% else %}
+                            选择所属项目
+                        {% endif %}
+                        <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{% url 'autoTest:mockServer_index' %}">所有环境</a></li>
+                            {% for pro in pro_sum %}
+                                <li><a href="{% url 'autoTest:mockServer_index' %}?pro_id={{ pro.pro_id }}&uri={{ search_uri }}">{{ pro.pro_name }}</a></li>
+                            {% endfor %} 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>接口名称</th>
+                        <th>接口路径</th>
+                        <th>请求方式</th>
+                        <th>默认响应</th>
+                        <th>mock开关</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for api in api_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ api.api_name }}</td>
+                        <td>{{ api.api_path }}</td>
+                        <td>{{ api.method }}</td>
+                        <td>
+                            <select>
+                                <option value="1">默认返回测试内容长度</option>
+                            </select>
+                        </td>
+                        {% if api.mock_status == 'True' %}
+                            <td>
+                                <input type="checkbox" name="switch-{{ api.api_id }}" checked>
+                            </td>
+                        {% else %}
+                            <td>
+                                <input type="checkbox" name="switch-{{ api.api_id }}">
+                            </td>
+                        {% endif %}
+                        <td>
+                            <a class="btn btn-sm btn-info" href="#" role="button">编辑</a>
+                            <a class="btn btn-sm btn-primary" href="#" role="button">调试</a>
+                            <a class="btn btn-sm btn-success" href="#" role="button">保存</a>
+                            <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="#">删除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9 col-lg-offset-5">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if api_list.has_previous %}
+                    <li><a href="{% url 'autoTest:mockServer_index'  %}?page={{ previous_page_index }}&pro_id={{ cur_pro.pro_id }}&uri={{ search_uri }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                {% endif %}
+                {% for num in paginator.page_range %}
+                    {% if num == current_page %}
+                        <li class="active"><a href="{% url 'autoTest:mockServer_index'  %}?page={{ num }}&pro_id={{ cur_pro.pro_id }}&uri={{ search_uri }}">{{ num }}</a></li>
+                    {% else %}
+                        <li class=""><a href="{% url 'autoTest:mockServer_index'  %}?page={{ num }}&pro_id={{ cur_pro.pro_id }}&uri={{ search_uri }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if api_list.has_next %}
+                    <li><a href="{% url 'autoTest:mockServer_index'  %}?page={{ next_page_index }}&pro_id={{ cur_pro.pro_id }}&uri={{ search_uri }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+ </div>
+{% endblock %}
+{% block javascript %}
+    <link rel="stylesheet" href="/static/bootstrap-switch-3.3.4/dist/css/bootstrap3/bootstrap-switch.min.css">
+    <script src="/static/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[name^="switch-"]').each(function(){
+                $(this).bootstrapSwitch({  
+                onColor:"info",  
+                offColor:"danger",  
+                size:"small",
+            onSwitchChange:function(event,state){
+                if(state==true){  
+                   alert('已打开');  
+                }else{  
+                    alert('已关闭');  
+                }  
+            }  
+     
+                });
+            });
+
+            // $('[name~="switch"]').bootstrapSwitch({  
+            //     // onText:"启动",  
+            //     // offText:"停止",  
+            //     onColor:"success",  
+            //     offColor:"info",  
+            //     size:"small",  
+            // onSwitchChange:function(event,state){
+            //     if(state==true){  
+            //        alert('已打开');  
+            //     }else{  
+            //         alert('已关闭');  
+            //     }  
+            // }  
+     
+            // });
+        });
+    </script>
+{% endblock %}

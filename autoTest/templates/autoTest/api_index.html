@@ -56,7 +56,6 @@
                         <th>接口路径</th>
                         <th>请求方式</th>
                         <th>接口内容描述</th>
-                        <!-- <th>所属项目</th> -->
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -68,7 +67,6 @@
                         <td>{{ api.api_path }}</td>
                         <td>{{ api.method }}</td>
                         <td>{{ api.description }}</td>
-                        <!-- <td>{{ api.project }}</td> -->
                         <td>
                             <a class="btn btn-sm btn-info" href="{% url 'autoTest:api_update' %}?api_id={{ api.api_id }}" role="button">编辑</a>
                             <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="{% url 'autoTest:api_delete' %}?api_id={{ api.api_id }}">删除</button>
