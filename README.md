@@ -1,7 +1,7 @@
 testGo
 ======
 
-python3.6.3 bootstrap jquery js httprunner
+python3.6.3 + bootstrap + jquery + js + httprunner
 
 部署：
 ======

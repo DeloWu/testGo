@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_celery_results',
-    # 'djcelery',
+    'djcelery',
     'autoTest',
     'django_celery_beat',
 ]

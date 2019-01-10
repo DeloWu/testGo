@@ -1,35 +1,128 @@
 {% extends 'autoTest/base.html' %}
 {% block title %} 添加mock服务 {% endblock %}
 {% block crumbs %}
-    <div class="row">
-        <div class="col-md-12">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="/index/">主页</a>
-                </li>
-                <li class="active">
-                    <a class="this">基础信息</a>
-                </li>
-                <li class="active">
-                    <a class="this-page">添加mock服务</a>
-                </li>
-            </ol>
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li>
+                <a href="/index/">主页</a>
+            </li>
+            <li class="active">
+                <a class="this">基础信息</a>
+            </li>
+            <li class="active">
+                <a class="this-page">添加mock服务</a>
+            </li>
+        </ol>
 
-        </div>
     </div>
+</div>
 {% endblock %}
 {% block body %}
+<div class="panel">
     <div class="row">
-        <div class="col-md-4">
-            <label><span style="color: red">* </span>选择项目：</label>
-            <select id="pro_id" class="form-control">
+        <div class="col-md-12">
+            <div class="panel-heading"><h3 class="panel-title">接口信息:</h3></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 form-inline" style="padding-left:35px;">
+            <label class="control-label"><span style="color: red">* </span>选择项目：</label>
+            <select id="pro_id" class="form-control" style="width: 250px;height: 34px;">
                 <option value=""> </option>
                 {% for pro in pro_list %}
                     <option value={{ pro.pro_id }}>{{ pro.pro_name }}</option>
                 {% endfor %}
             </select>
         </div>
+        <div class="col-md-4 form-inline">
+            <label class="control-label"><span style="color: red">* </span>选择接口：</label>
+            <select id="api_id" class="form-control" style="width: 369px;height: 34px;">
+                <option value=""> </option>
+            </select>
+        </div>
+        <div class="col-md-4 form-inline">
+            <label class="control-label">默认响应：</label>
+            <select class="form-control" style="width: 300px;height: 34px;">
+                <option value=""> 测试默认选择的响应</option>
+                {% for mockServer in  mockServer_list%}
+                    <option value="{{ mockServer.mockServer_id }}">{{ mockServer_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-heading"><h3 class="panel-title">响应集信息:</h3></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-11" style="padding-left:35px;">
+             <table class="table table-bordered table-condensed" id="mockServer-table">
+                <thead>
+                    <tr>
+                        <th style="width: 200px;">响应名称</th>
+                        <th style="width: 150px;">响应内容格式</th>
+                        <th style="width: 150px;">状态码</th>
+                        <th style="width: 200px;">响应头</th>
+                        <th>响应内容</th>
+                        <th>描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+             </table>
+        </div>
+        <div class="col-sm-offset-4">
+            <button class="btn btn-primary" onclick="add_headers_row()">添加响应集</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-heading"><h3 class="panel-title">匹配条件信息:</h3></div>
+        </div>
+    </div>
+    <div class="row" style="padding-left:35px;">
         
     </div>
+</div>
 
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#pro_id").change(function(){
+        // 若切换项目，则同步切换接口下拉列表
+        var pro_id = $("#pro_id option:selected").val();
+        $.ajax({
+            url: "/autoTest/find_data/",
+            type: "post",
+            data:{
+                "model": "pro",
+                "data_id": pro_id,
+                "data_name": "api_list",
+            },
+            success : function(data){
+                var api_list = eval(data);
+                var null_content = "<option value=''> </option>";
+                $("#api_id").empty();
+                $("#api_id").append(null_content);
+                for (var index=0;index<api_list.length;index++) {
+                    var api_object = api_list[index];
+                    var add_content = "<option value=" + api_object.api_id + ">" + api_object.api_path + "</option>";
+                    $("#api_id").append(add_content);
+                   
+                }
+            },
+            error : function(data){
+                console.log("查找指定项目接口失败")
+            }
+        });
+        });
+
+    });
+</script>
 {% endblock %}

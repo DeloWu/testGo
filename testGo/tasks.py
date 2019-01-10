@@ -20,6 +20,13 @@ def mul(x, y):
     print('--------**--------- mul function finish.')
     return x * y
 
+@app.task
+def run_testStep(testStep_id):
+    url = r'http://localhost:8000/autoTest/testStep_run/'
+    data = {'request_testStep_id': testStep_id}
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    response = requests.post(url=url, data=data, headers=headers)
+    print('*****  run_testStep-', testStep_id, ' task worked!')
 
 
 @app.task

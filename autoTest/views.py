@@ -2,7 +2,7 @@ from ast import literal_eval
 from autoTest import goFunction
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
-from .models import Project, Environment, Api, TestStep, TestCases, Report, Encryption
+from .models import Project, Environment, Api, TestStep, TestCases, Report, Encryption, MockServer
 from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
@@ -17,7 +17,6 @@ import logging
 import os
 import pprint
 import requests
-from testGo.tasks import add
 import time
 
 # logger = logging.getLogger('testGo.app')
@@ -35,7 +34,6 @@ def login_check(func):
 '''
 
 def index(request):
-    # print('------',add.delay(23,27).get())
     return render(request, 'autoTest/index.html', context={})
 
 
@@ -1045,7 +1043,12 @@ def mockServer_index(request):
                                                                     })
 
 def mockServer_add(request):
-    pass
+    api_id = request.GET.get('api_id', '')
+    pro_list = Project.objects.all()
+    mockServer_list = MockServer.objects.filter(relative_api=api_id)
+    return render(request, 'autoTest/mockServer_add.html', context={'mockServer_list': mockServer_list,
+                                                                    'pro_list': pro_list,
+                                                                   })
 
 def mockServer_update(request):
     pass
