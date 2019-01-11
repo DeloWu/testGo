@@ -225,6 +225,8 @@ def api_add(request):
     if request.method == 'POST':
         api_name = request.POST['api_name']
         api_path = request.POST['api_path']
+        if not api_path.endswith(r'/'):
+            api_path = api_path + r'/'
         method = request.POST['method']
         content_type = request.POST['content_type']
         headers = request.POST['headers']
@@ -288,6 +290,8 @@ def api_update(request):
         api_id = request.POST['api_id']
         api_name = request.POST['api_name']
         api_path = request.POST['api_path']
+        if not api_path.endswith(r'/'):
+            api_path = api_path + r'/'
         method = request.POST['method']
         content_type = request.POST['content_type']
         headers = request.POST['headers']
@@ -990,7 +994,7 @@ def plan_index(request):
 def mock_server(request):
     # 跳转到mock服务
     request_path = request.get_full_path()
-    mock_server_flag = Api.objects.filter(api_path=request_path).filter(mock_status='True')
+    mock_server_flag = Api.objects.filter(api_path=request_path).filter(mock_status='1')
     if mock_server_flag:
         #  开始处理mock逻辑
         return  HttpResponse('I am mock server! ')
@@ -1043,16 +1047,41 @@ def mockServer_index(request):
                                                                     })
 
 def mockServer_add(request):
-    api_id = request.GET.get('api_id', '')
-    pro_list = Project.objects.all()
-    mockServer_list = MockServer.objects.filter(relative_api=api_id)
-    return render(request, 'autoTest/mockServer_add.html', context={'mockServer_list': mockServer_list,
-                                                                    'pro_list': pro_list,
-                                                                   })
+    api_flag = request.POST.get('api_flag', '')
+    if request.method == 'GET':
+        api_id = request.GET.get('api_id', '')
+        pro_list = Project.objects.all()
+        mockServer_list = MockServer.objects.filter(relative_api=api_id)
+        return render(request, 'autoTest/mockServer_add.html', context={'mockServer_list': mockServer_list,
+                                                                        'pro_list': pro_list,
+                                                                       })
+    if request.method == 'POST' and api_flag == 'add_single_mockServer':
+        relative_api = request.POST.get('relative_api', '')
+        setup_hooks = request.POST.get('setup_hooks', '')
+        teardown_hooks = request.POST.get('teardown_hooks', '')
+        mockServer_name = request.POST.get('mockServer_name', '')
+        content_type = request.POST.get('content_type', '')
+        status_code = request.POST.get('status_code', '')
+        mockServer_headers = request.POST.get('mockServer_headers', '')
+        if not (mockServer_headers.startswith('{') and mockServer_headers.endswith('}')):
+            mockServer_headers = '{' + mockServer_headers + '}'
+        mockServer_content = request.POST.get('mockServer_content', '')
+        description = request.POST.get('description', '')
+        mock_status = request.POST.get('mock_status', '1')
+        api_object = Api.objects.get(api_id=relative_api)
+        uri = api_object.api_path
+        relative_pro =api_object.relative_pro
+        mockServer = MockServer(mockServer_name=mockServer_name, uri=uri, relative_pro=relative_pro, relative_api=relative_api, setup_hooks=setup_hooks, teardown_hooks=teardown_hooks, expect_status_code=status_code, expect_headers=mockServer_headers, expect_response_content_type=content_type, expect_response=mockServer_content, mock_status=mock_status, description=description)
+        mockServer.save()
+        mockServer_id = mockServer.mockServer_id
+        return JsonResponse({'mockServer_id':mockServer_id}, safe=False)
+
 
 def mockServer_update(request):
     pass
 
+def mockServer_delete(request):
+    pass
 
 @csrf_exempt
 def find_data(request):

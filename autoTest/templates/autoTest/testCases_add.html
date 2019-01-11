@@ -374,12 +374,6 @@
     })(jQuery);
     </script>
     <script type="text/javascript">
-        function del_row(obj) {
-        //删除行
-                var tr = obj.parentNode.parentNode;
-                var tbody = tr.parentNode;
-                tbody.removeChild(tr);
-                }
         // 添加公共headers行
         function add_headers_row(){
                     var data_type_content = '<select name="headers_data_type" class="form-control">' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>';

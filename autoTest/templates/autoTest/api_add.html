@@ -227,12 +227,6 @@
 
 {% block javascript %}
 <script type="text/javascript">
-    function del_row(obj) {
-        //删除行
-        var tr = obj.parentNode.parentNode;
-        var tbody = tr.parentNode;
-        tbody.removeChild(tr);
-    }
 // 添加headers行
     function add_headers_row(){
         var necessary_flag_content = '<select name="headers_necessary_flag" class="form-control">' + '<option value="1"> 必填 </option>' + '<option value="0"> 非必填 </option>' + '</select>';

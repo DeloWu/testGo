@@ -43,17 +43,27 @@
         </div>
         <div class="col-md-4 form-inline">
             <label class="control-label">默认响应：</label>
-            <select class="form-control" style="width: 300px;height: 34px;">
+            <select class="form-control" style="width: 300px;height: 34px;" id="default_mockServer">
                 <option value=""> 测试默认选择的响应</option>
                 {% for mockServer in  mockServer_list%}
                     <option value="{{ mockServer.mockServer_id }}">{{ mockServer_name }}</option>
                 {% endfor %}
             </select>
         </div>
-
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-inline" style="padding-left:35px;">
+            <label class="control-label" for="setup_hooks">setup_hooks：</label>
+            <input type="text" class="form-control" name="setup_hooks" placeholder="若无setUp函数，可为空" id="setup_hooks" style="width: 300px;">
+        </div>
+        <div class="col-md-6 form-inline col-md-pull-2" style="padding-left:35px;">
+            <label class="control-label" for="teardown_hooks">teardown_hooks：</label>
+            <input type="text" class="form-control" name="teardown_hooks" placeholder="若无setUp函数，可为空" id="teardown_hooks" style="width: 300px;">
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
+            <hr>
             <div class="panel-heading"><h3 class="panel-title">响应集信息:</h3></div>
         </div>
     </div>
@@ -66,8 +76,9 @@
                         <th style="width: 150px;">响应内容格式</th>
                         <th style="width: 150px;">状态码</th>
                         <th style="width: 200px;">响应头</th>
-                        <th>响应内容</th>
-                        <th>描述</th>
+                        <th style="width: 250px;">响应内容</th>
+                        <th style="width: 200px;">描述</th>
+                        <th>开关</th>
                         <th style="width: 200px;">操作</th>
                     </tr>
                 </thead>
@@ -85,6 +96,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            <hr>
             <div class="panel-heading"><h3 class="panel-title">匹配响应条件信息:</h3></div>
         </div>
     </div>
@@ -96,6 +108,7 @@
                         <th style="width: 200px;">请求参数</th>
                         <th style="width: 150px;">条件</th>
                         <th style="width: 150px;">期望结果</th>
+                        <th style="width: 150px;">数据类型</th>
                         <th style="width: 250px;">返回响应</th>
                         <th  style="width: 200px;">操作</th>
                     </tr>
@@ -112,11 +125,19 @@
             <button class="btn btn-primary" onclick="add_mockSever_condition_row()">添加匹配响应条件</button>
         </div>
     </div>
+    <div class="row">
+        <hr>
+        <div class="col-sm-offset-4">
+            <button class="btn btn-info btn-lg" onclick="">全部保存</button>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
 
 {% block javascript %}
+<link rel="stylesheet" href="/static/bootstrap-switch-3.3.4/dist/css/bootstrap3/bootstrap-switch.min.css">
+<script src="/static/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $("#pro_id").change(function(){

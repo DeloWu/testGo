@@ -80,7 +80,7 @@
                                 <option value="1">默认返回测试内容长度</option>
                             </select>
                         </td>
-                        {% if api.mock_status == 'True' %}
+                        {% if api.mock_status == '1' %}
                             <td>
                                 <input type="checkbox" name="switch-{{ api.api_id }}" checked>
                             </td>
@@ -146,21 +146,6 @@
                 });
             });
 
-            // $('[name~="switch"]').bootstrapSwitch({  
-            //     // onText:"启动",  
-            //     // offText:"停止",  
-            //     onColor:"success",  
-            //     offColor:"info",  
-            //     size:"small",  
-            // onSwitchChange:function(event,state){
-            //     if(state==true){  
-            //        alert('已打开');  
-            //     }else{  
-            //         alert('已关闭');  
-            //     }  
-            // }  
-     
-            // });
         });
     </script>
 {% endblock %}

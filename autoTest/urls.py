@@ -47,6 +47,7 @@ urlpatterns = [
     path(r'mockServer_index/', views.mockServer_index, name='mockServer_index'),
     path(r'mockServer_add/', views.mockServer_add, name='mockServer_add'),
     path(r'mockServer_update/', views.mockServer_update, name='mockServer_update'),
+    path(r'mockServer_delete/', views.mockServer_delete, name='mockServer_delete'),
     
     path(r'find_data/', views.find_data, name='find_data'),
 

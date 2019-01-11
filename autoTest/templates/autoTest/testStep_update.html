@@ -465,12 +465,6 @@ $(document).ready(function () {
     function reset_form(){
         location.reload();
     };
-//  删除行
-    function del_row(obj) {
-        var tr = obj.parentNode.parentNode;
-        var tbody = tr.parentNode;
-        tbody.removeChild(tr);
-    }
 // 添加headers行
     function add_headers_row(){
         var necessary_flag_content = '<select name="headers_necessary_flag" class="form-control">' + '<option value="1"> 必填 </option>' + '<option value="0"> 非必填 </option>' + '</select>';
