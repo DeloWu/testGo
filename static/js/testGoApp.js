@@ -9,6 +9,14 @@ function urlSubmit(){
     window.location.href=url;  
 }
 
+// 删除表格的单行
+function del_row(obj) {
+        //删除行
+        var tr = obj.parentNode.parentNode;
+        var tbody = tr.parentNode;
+        tbody.removeChild(tr);
+}
+
 // 若选择json或者application/x-www-form-urlencoded，自动添加headers行
 function add_headers_contentType(obj){
     var contentType_value = 'application/'+ obj.value;
@@ -29,4 +37,23 @@ function add_headers_contentType(obj){
     }catch(err){
         
     }
+}
+
+// 添加mockServer行
+function add_mockServer_row(){
+    console.log('add_mockServer_row function worked!');
+    var content_type = '<select name="mockServer_row" class="form-control">' + '<option value="json"> json </option>' + '<option value="text"> text </option>' + '<option value="xml"> xml </option>' + '<option value="html"> html </option>' + '</select>';
+    var status_code = '<select name="mockServer_row" class="form-control">' + '<option value="200"> 200 OK </option>' + '<option value="301"> 301 Moved  </option>' + '<option value="302"> 302 Moved  </option>' + '<option value="400"> 400 Bad Request </option>' + '<option value="403"> 403 Forbidden </option>' + '<option value="404"> 404 Not Found </option>' + '<option value="405"> 405 Method Not Allowed </option>' + '<option value="500"> 500 Internal Server Error </option>' + '<option value="502"> 502 Bad Gateway </option>' + '<option value="504"> 504 Gateway Timeout </option>' + '</select>';
+    var row_content = '<tr>' + '<td contenteditable="true" name="mockServer_name"></td>' + '<td contenteditable="true" name="content_type">' + content_type + '</td>' + '<td contenteditable="true" name="status_code">' + status_code + '</td>' + '<td contenteditable="true" name="mockServer_headers"></td>' + '<td contenteditable="true" name="mockServer_content"></td>' + '<td contenteditable="true" name="description"></td>' + '<td><button class="btn btn-success" onclick="">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>' + '</tr>';
+    $("#mockServer-table tbody").append(row_content);
+}
+
+// 添加mockServer匹配条件行
+function add_mockSever_condition_row(){
+    console.log('add_mockSever_condition_row function worked!');
+    var select_content = '<select name="comparator" class="form-control">' + '<option value="eq"> = </option>' + '<option value="gt"> > </option>' + '<option value="ge"> >= </option>' + '<option value="lt"> < </option>' + '<option value="le"> <= </option>' + '<option value="len_eq">长度等于</option>' + '<option value="len_gt">长度大于</option>' + '<option value="len_lt">长度小于</option>' + '<option value="contains">包含</option>' + '<option value="contained_by">被包含</option>' + '<option value="startswith">startswith</option>' + '<option value="endswith">endswith</option>' +'</select>';
+    //后面通过后端传mockServer_suite
+    var mockSevrer_suite = '<select name="mockServer-condition" class="form-control">' + '<option value="200"> 200 OK </option>' + '<option value="404"> 404 NOT Found </option>' + '</select>';
+    var row_content = '<tr>' + '<td contenteditable="true" name="request_args"></td>' + '<td>' + select_content + '</td>' + '<td contenteditable="true" name="expect_value"></td>' + '<td>' + mockSevrer_suite + '</td>' + '<td><button class="btn btn-success" onclick="">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>' + '</tr>';
+    $("#mockServer-conditions-table tbody").append(row_content);
 }
