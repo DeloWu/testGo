@@ -228,5 +228,5 @@ class MockServer(models.Model):
     expect_response_content_type = models.CharField(max_length=10, blank=True, default='json')    #响应内容格式: json/text/html/xml
     expect_response = models.TextField(blank=True, default='')
     mock_status = models.CharField(max_length=2, blank=True, default='1')   #mock服务是否打开: 0关, 1开
-    conditions = models.TextField(blank=True, default='')    #e.g. (single_arg,validator,expect_value,value_type,return_mockServer_id)
+    conditions = models.TextField(blank=True, default='')    #e.g. [single_arg, validator,  expect_value, data_type, return_mockServer_id]
     description = models.CharField(max_length=100, blank=True, default="")

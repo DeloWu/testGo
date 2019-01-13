@@ -44,7 +44,7 @@
         <div class="col-md-4 form-inline">
             <label class="control-label">默认响应：</label>
             <select class="form-control" style="width: 300px;height: 34px;" id="default_mockServer">
-                <option value=""> 测试默认选择的响应</option>
+                <option value=""></option>
                 {% for mockServer in  mockServer_list%}
                     <option value="{{ mockServer.mockServer_id }}">{{ mockServer_name }}</option>
                 {% endfor %}
@@ -165,6 +165,34 @@
             },
             error : function(data){
                 console.log("查找指定项目接口失败")
+            }
+        });
+        });
+        $("#api_id").change(function(){
+            // 若切换接口，重新填充接口信息
+            var api_id = $("#api_id option:selected").val();
+            $.ajax({
+            url: "/autoTest/find_data/",
+            type: "post",
+            data:{
+                "model": "mockServer",
+                "data_id": api_id,
+                "data_name": "mockServer_content",
+            },
+            success : function(data){
+                // var data = JSON.parse(data);
+                var default_mockServer_html = data['default_mockServer_html'];
+                var mockServer_table_html = data['mockServer_table_html'];
+                var mockServer_conditions_table_html = data['mockServer_conditions_table_html'];
+                $("#default_mockServer").empty();
+                $("#default_mockServer").append(default_mockServer_html);
+                $("#mockServer-table tbody").empty();
+                $("#mockServer-table tbody").append(mockServer_table_html);
+                $("#mockServer-conditions-table tbody").empty();
+                $("#mockServer-conditions-table tbody").append(mockServer_conditions_table_html);
+            },
+            error : function(data){
+                console.log("查找指定接口失败")
             }
         });
         });

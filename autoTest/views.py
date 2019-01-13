@@ -1048,6 +1048,7 @@ def mockServer_index(request):
 
 def mockServer_add(request):
     api_flag = request.POST.get('api_flag', '')
+    mockServer_id = request.POST.get('mockServer_id', '')
     if request.method == 'GET':
         api_id = request.GET.get('api_id', '')
         pro_list = Project.objects.all()
@@ -1055,6 +1056,7 @@ def mockServer_add(request):
         return render(request, 'autoTest/mockServer_add.html', context={'mockServer_list': mockServer_list,
                                                                         'pro_list': pro_list,
                                                                        })
+    #  添加单个mockServer响应
     if request.method == 'POST' and api_flag == 'add_single_mockServer':
         relative_api = request.POST.get('relative_api', '')
         setup_hooks = request.POST.get('setup_hooks', '')
@@ -1071,12 +1073,31 @@ def mockServer_add(request):
         api_object = Api.objects.get(api_id=relative_api)
         uri = api_object.api_path
         relative_pro =api_object.relative_pro
-        mockServer = MockServer(mockServer_name=mockServer_name, uri=uri, relative_pro=relative_pro, relative_api=relative_api, setup_hooks=setup_hooks, teardown_hooks=teardown_hooks, expect_status_code=status_code, expect_headers=mockServer_headers, expect_response_content_type=content_type, expect_response=mockServer_content, mock_status=mock_status, description=description)
-        mockServer.save()
-        mockServer_id = mockServer.mockServer_id
+        if mockServer_id:
+            mockServer = MockServer.objects.filter(mockServer_id=mockServer_id).update(mockServer_name=mockServer_name, uri=uri, relative_pro=relative_pro, relative_api=relative_api, setup_hooks=setup_hooks, teardown_hooks=teardown_hooks, expect_status_code=status_code, expect_headers=mockServer_headers, expect_response_content_type=content_type, expect_response=mockServer_content, mock_status=mock_status, description=description)
+        else:
+            mockServer = MockServer(mockServer_name=mockServer_name, uri=uri, relative_pro=relative_pro, relative_api=relative_api, setup_hooks=setup_hooks, teardown_hooks=teardown_hooks, expect_status_code=status_code, expect_headers=mockServer_headers, expect_response_content_type=content_type, expect_response=mockServer_content, mock_status=mock_status, description=description)
+            mockServer.save()
+            mockServer_id = mockServer.mockServer_id
         return JsonResponse({'mockServer_id':mockServer_id}, safe=False)
-
-
+    # 保存单个mockServer匹配条件
+    if request.method == 'POST' and api_flag == 'save_single_mockServer_condition':
+        relative_api = request.POST.get('relative_api', '')
+        mockServer_condition_arg = request.POST.get('mockServer_condition_arg', '')
+        mockServer_condition_comparator = request.POST.get('mockServer_condition_comparator')
+        mockServer_condition_expect_value = request.POST.get('mockServer_condition_expect_value')
+        mockServer_condition_dataType = request.POST.get('mockServer_condition_dataType')
+        mockServer_condition_status_code = request.POST.get('mockServer_condition_status_code')
+        conditions = '[{},{},{},{},()]'.format(mockServer_condition_arg, mockServer_condition_comparator, mockServer_condition_expect_value, mockServer_condition_dataType, mockServer_condition_status_code)
+        if mockServer_id:
+            mockServer = MockServer.objects.filter(mockServer_id=mockServer_id).update()
+        else:
+            try:
+                mockServer_object = MockServer.objects.filter(relative_api=relative_api).filter(expect_status_code=mockServer_condition_status_code)[0]
+                new_mockServer_object = MockServer(mockServer_name=mockServer_object.mockServer_name, uri=mockServer_object.uri, relative_pro=mockServer_object.relative_pro, relative_api=mockServer_object.relative_api, setup_hooks=mockServer_object.setup_hooks, teardown_hooks=mockServer_object.teardown_hooks, expect_status_code=mockServer_object.expect_status_code, expect_headers=mockServer_object.expect_headers, expect_response_content_type=mockServer_object.expect_response_content_type, expect_response=mockServer_object.expect_response, mock_status=mockServer_object.mock_status, conditions=conditions, description=mockServer_object.description)
+                new_mockServer_object.save()
+            except:
+                print('新匹配响应条件保存失败')
 def mockServer_update(request):
     pass
 
@@ -1225,3 +1246,92 @@ def find_data(request):
                 testStep_name_list_html = '<ul>' + testStep_name_list_html + "</ul>"
                 testCases_dict['testStep_name_list_html'] = testStep_name_list_html
                 return JsonResponse(testCases_dict, safe=False)
+        if model.lower() == 'mockserver':
+            if data_id and data_name == 'mockServer_content':
+                api_object = Api.objects.get(api_id=data_id)
+                default_mockServer_id = api_object.default_mockServer_id  #默认mockServer响应id
+                default_mockServer_object = MockServer.objects.get(mockServer_id=default_mockServer_id)
+                default_mockServer_name = default_mockServer_object.mockServer_name
+                # 填充 默认响应 的html代码
+                default_mockServer_html = r'<option value="{}">{}</option>'.format(default_mockServer_id, default_mockServer_name)
+                mockServer_suite = MockServer.objects.filter(relative_api=data_id)
+                # 填充 响应集信息 的html代码
+                mockServer_table_html = ''
+                # 填充 匹配响应条件信息 的html代码
+                mockServer_conditions_table_html = ''
+                comparator_map = {'eq':'=', 'ge':'>=', 'lt':'<', 'le':'<=', 'len_eq': '长度等于', 'len_gt':'长度大于', 'len_lt':'长度小于', 'contains': '包含', 'contained_by':'被包含', 'startswith': 'startswith', 'endswith':'endswith'}
+                try:
+                    for mockServer_object in mockServer_suite:
+                        row_1 = r'<td contenteditable="true" name="mockServer_name">{}</td>'.format(mockServer_object.mockServer_name)
+                        row_2 = r'<td contenteditable="true" name="content_type"><select name="mockServer_row" class="form-control">'
+                        content_type_list = ['json', 'text', 'xml', 'html']
+                        temp_expect_response_content_type = mockServer_object.expect_response_content_type
+                        for content_type in content_type_list:
+                            if content_type == temp_expect_response_content_type:
+                                temp_row_2_option = r'<option value="{}" selected> {} </option>'.format(content_type, content_type)
+                                row_2 = row_2 + temp_row_2_option
+                            else:
+                                temp_row_2_option = r'<option value="{}"> {} </option>'.format(content_type, content_type)
+                                row_2 = row_2 + temp_row_2_option
+                        row_2 = row_2 + r'</select></td>'
+                        row_3 = r'<td contenteditable="true" name="status_code"><select name="mockServer_row" class="form-control">'
+                        status_code_list = ['200', '301', '302', '400', '403', '404', '405', '500', '502', '504']
+                        temp_expect_status_code = mockServer_object.expect_status_code
+                        for status_code in status_code_list:
+                            if status_code == temp_expect_status_code:
+                                temp_row_3_option = r'<option value="{}" selected> {} </option>'.format(status_code, status_code)
+                                row_3 = row_3 + temp_row_3_option
+                            else:
+                                temp_row_3_option = r'<option value="{}"> {} </option>'.format(status_code, status_code)
+                                row_3 = row_3 + temp_row_3_option
+                        row_3 = row_3 + r'</select></td>'
+                        row_4 = r'<td contenteditable="true" name="mockServer_headers">{}</td>'.format(mockServer_object.expect_headers)
+                        row_5 = r'<td contenteditable="true" name="mockServer_content">{}</td>'.format(mockServer_object.expect_response)
+                        row_6 = r'<td contenteditable="true" name="description">{}</td>'.format(mockServer_object.description)
+                        if mockServer_object.mock_status == '0':
+                            row_7 = r'<td><div class="bootstrap-switch-small bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-off" style="width: 60px;"><div class="bootstrap-switch-container" style="width: 94px; margin-left: -36px;"><span class="bootstrap-switch-handle-on bootstrap-switch-info" style="width: 40px;">ON</span><span class="bootstrap-switch-label" style="width: 40px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-danger" style="width: 40px;">OFF</span><input type="checkbox" name="switch" checked=""></div></div></td>'
+                        else:
+                            row_7 = r'<td><div class="bootstrap-switch-on bootstrap-switch-small bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate" style="width: 60px;"><div class="bootstrap-switch-container" style="width: 94px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-info" style="width: 40px;">ON</span><span class="bootstrap-switch-label" style="width: 40px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-danger" style="width: 40px;">OFF</span><input type="checkbox" name="switch" checked=""></div></div></td>'
+                        row_8 = r'<td><button class="btn btn-success" onclick="save_mockServer_row(this)">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>'
+                        temp_content = r'<tr name="mockServer-{}">'.format(mockServer_object.mockServer_id) + row_1 + row_2 + row_3 + row_4 + row_5 + row_6 + row_7 + row_8
+                        mockServer_table_html = mockServer_table_html + temp_content
+                        # 遍历生成 匹配响应条件信息
+                        #格式如:(single_arg, validator,  expect_value, data_type, return_mockServer_id)
+                        conditions = literal_eval(mockServer_object.conditions)
+                        try:
+                            expect_args_list = literal_eval(api_object.body).keys()
+                        except:
+                            expect_args_list = [ ]
+                        row_01 = r'<td contenteditable="true" name="request_args"><select>'
+                        for arg in expect_args_list:
+                            if arg != conditions[0]:
+                                request_args_option = r'<option value="{}">{}</option>'.format(arg, arg)
+                                row_01 = row_01 + request_args_option
+                            else:
+                                request_args_option = r'<option value="{}" selected>{}</option>'.format(arg, arg)
+                                row_01 = row_01 + request_args_option
+                        row_01 = row_01 + r'</select></td>'
+                        row_02 = r'<td><select name="comparator" class="form-control"><option value="{}">{}</option><option value="eq"> = </option><option value="gt"> &gt; </option><option value="ge"> &gt;= </option><option value="lt"> &lt; </option><option value="le"> &lt;= </option><option value="len_eq">长度等于</option><option value="len_gt">长度大于</option><option value="len_lt">长度小于</option><option value="contains">包含</option><option value="contained_by">被包含</option><option value="startswith">startswith</option><option value="endswith">endswith</option></select></td>'.format(conditions[1], comparator_map[conditions[1]])
+                        row_03 = r'<td contenteditable="true" name="expect_value">{}</td>'.format(conditions[2])
+                        row_04 = r'<td contenteditable="true" name="data_type"><select name="headers_data_type" class="form-control"><option value="{}">{}</option><option value="string"> string </option><option value="int"> int </option><option value="double"> double </option><option value="list"> list </option><option value="dict"> dict </option></select></td>'.format(conditions[3], conditions[3])
+                        row_05 = r'<td><select name="mockServer-condition" class="form-control"><<option value="{}">{}</option>'.format(conditions[4], MockServer.objects.get(mockServer_id=conditions[4]).mockServer_name)
+                        row_05 = row_05 + r'<option value="200"> 200 OK </option>' + r'<option value="301"> 301 Moved  </option>' + r'<option value="302"> 302 Moved  </option>' + r'<option value="400"> 400 Bad Request </option>' + r'<option value="403"> 403 Forbidden </option>' + r'<option value="404"> 404 Not Found </option>' + r'<option value="405"> 405 Method Not Allowed </option>' + r'<option value="500"> 500 Internal Server Error </option>' + r'<option value="502"> 502 Bad Gateway </option>' + r'<option value="504"> 504 Gateway Timeout </option>' + r'</select></td>'
+                        row_06 = r'<td><button class="btn btn-success" onclick="save_mockServer_condition_row(this)">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>'
+                        temp_content2 = r'<tr name="mockServer-{}">'.format(mockServer_object.mockServer_id) + row_01 + row_02 + row_03 + row_04 + row_05 + row_06 + '</tr>'
+                        mockServer_conditions_table_html = mockServer_conditions_table_html + temp_content2
+                    final_data = {'default_mockServer_html':default_mockServer_html, 'mockServer_table_html':mockServer_table_html, 'mockServer_conditions_table_html':mockServer_conditions_table_html}
+                except:
+                    final_data = {'default_mockServer_html': '', 'mockServer_table_html': '','mockServer_conditions_table_html': ''}
+                return JsonResponse(final_data, safe=False)
+            #  添加匹配响应条件行，获取接口请求参数列表
+            if data_id and data_name == 'add_mockServer_condition':
+                api_object = Api.objects.get(api_id=data_id)
+                try:
+                    expect_args_list = literal_eval(api_object.body).keys()
+                except:
+                    expect_args_list = []
+                mockServer_default_condition_html = r'<td contenteditable="true" name="request_args"><select><option value=""></option>'
+                for arg in expect_args_list:
+                    mockServer_default_condition_html = mockServer_default_condition_html +  r'<option value="{}">{}</option>'.format(arg, arg)
+                mockServer_default_condition_html = mockServer_default_condition_html + r'</select></td>'
+                return JsonResponse({'mockServer_default_condition_html':mockServer_default_condition_html}, safe=False)
