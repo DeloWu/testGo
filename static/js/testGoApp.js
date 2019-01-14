@@ -11,9 +11,10 @@ function urlSubmit(){
 
 // 删除表格的单行
 function del_row(obj) {
-        var tr = obj.parentNode.parentNode;
-        var tbody = tr.parentNode;
-        tbody.removeChild(tr);
+    var tr = obj.parentNode.parentNode;
+    var tbody = tr.parentNode;
+    tbody.removeChild(tr);
+    console.log("del_row function worked!");
 }
 
 
@@ -41,6 +42,7 @@ function add_headers_contentType(obj){
 
 // 添加mockServer行
 function add_mockServer_row(){
+    console.error('add_mockServer_row function worked!');
     var content_type = '<select name="mockServer_row" class="form-control">' + '<option value="json"> json </option>' + '<option value="text"> text </option>' + '<option value="xml"> xml </option>' + '<option value="html"> html </option>' + '</select>';
     var status_code = '<select name="mockServer_row" class="form-control">' + '<option value="200"> 200 OK </option>' + '<option value="301"> 301 Moved  </option>' + '<option value="302"> 302 Moved  </option>' + '<option value="400"> 400 Bad Request </option>' + '<option value="403"> 403 Forbidden </option>' + '<option value="404"> 404 Not Found </option>' + '<option value="405"> 405 Method Not Allowed </option>' + '<option value="500"> 500 Internal Server Error </option>' + '<option value="502"> 502 Bad Gateway </option>' + '<option value="504"> 504 Gateway Timeout </option>' + '</select>';
     var row_content = '<tr>' + '<td contenteditable="true" name="mockServer_name"></td>' + '<td contenteditable="true" name="content_type">' + content_type + '</td>' + '<td contenteditable="true" name="status_code">' + status_code + '</td>' + '<td contenteditable="true" name="mockServer_headers"></td>' + '<td contenteditable="true" name="mockServer_content"></td>' + '<td contenteditable="true" name="description"></td>' + '<td><input type="checkbox" name="switch" checked></td>' + '<td><button class="btn btn-success" onclick="save_mockServer_row(this)">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>' + '</tr>';
@@ -63,46 +65,46 @@ function add_mockServer_row(){
 }
 
 // 添加mockServer匹配条件行
-function add_mockSever_condition_row(){
-    var comparator_content = '<select name="comparator" class="form-control" style="width: 200px;">' + '<option value="eq"> = </option>' + '<option value="gt"> > </option>' + '<option value="ge"> >= </option>' + '<option value="lt"> < </option>' + '<option value="le"> <= </option>' + '<option value="len_eq">长度等于</option>' + '<option value="len_gt">长度大于</option>' + '<option value="len_lt">长度小于</option>' + '<option value="contains">包含</option>' + '<option value="contained_by">被包含</option>' + '<option value="startswith">startswith</option>' + '<option value="endswith">endswith</option>' +'</select>';
-    //后面通过后端传mockServer_suite
-    var status_code = '<select name="mockServer-condition" class="form-control">' + '<option value="200"> 200 OK </option>' + '<option value="301"> 301 Moved  </option>' + '<option value="302"> 302 Moved  </option>' + '<option value="400"> 400 Bad Request </option>' + '<option value="403"> 403 Forbidden </option>' + '<option value="404"> 404 Not Found </option>' + '<option value="405"> 405 Method Not Allowed </option>' + '<option value="500"> 500 Internal Server Error </option>' + '<option value="502"> 502 Bad Gateway </option>' + '<option value="504"> 504 Gateway Timeout </option>' + '</select>';
-    var data_type_content = '<select name="headers_data_type" class="form-control">' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>';
-    // var row_content = '<tr>' + data + '<td>' + comparator_content + '</td>' + '<td contenteditable="true" name="expect_value"></td>'+ '<td contenteditable="true" name="data_type">' + data_type_content + '</td>' + '<td>' + status_code + '</td>' + '<td><button class="btn btn-success" onclick="save_mockServer_condition_row(this)">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>' + '</tr>';
-    $("#api_id").change(function(){
-            // 若切换接口，重新填充接口信息
-            var api_id = $("#api_id option:selected").val();
-            $.ajax({
-            url: "/autoTest/find_data/",
-            type: "post",
-            data:{
-                "model": "mockServer",
-                "data_id": api_id,
-                "data_name": "add_mockServer_condition",
-            },
-            success : function(data){
-                var row_content = '<tr>' + data['mockServer_default_condition_html'] + '<td>' + comparator_content + '</td>' + '<td contenteditable="true" name="expect_value"></td>'+ '<td contenteditable="true" name="data_type">' + data_type_content + '</td>' + '<td>' + status_code + '</td>' + '<td><button class="btn btn-success" onclick="save_mockServer_condition_row(this)">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>' + '</tr>';
-                $("#mockServer-conditions-table tbody").append(row_content);
-            },
-            error : function(data){
-                console.log("查找指定接口失败")
-            }
-        });
-        });
+    function add_mockSever_condition_row(){
+        console.log("add_mockSever_condition_row function worked!");
+        var api_id = $("#api_id option:selected").val();
+        var comparator_content = '<select name="comparator" class="form-control" style="width: 200px;">' + '<option value="eq"> = </option>' + '<option value="gt"> > </option>' + '<option value="ge"> >= </option>' + '<option value="lt"> < </option>' + '<option value="le"> <= </option>' + '<option value="len_eq">长度等于</option>' + '<option value="len_gt">长度大于</option>' + '<option value="len_lt">长度小于</option>' + '<option value="contains">包含</option>' + '<option value="contained_by">被包含</option>' + '<option value="startswith">startswith</option>' + '<option value="endswith">endswith</option>' +'</select>';
+        //后面通过后端传mockServer_suite
+        // var status_code = '<select name="mockServer-condition" class="form-control">' + '<option value="200"> 200 OK </option>' + '<option value="301"> 301 Moved  </option>' + '<option value="302"> 302 Moved  </option>' + '<option value="400"> 400 Bad Request </option>' + '<option value="403"> 403 Forbidden </option>' + '<option value="404"> 404 Not Found </option>' + '<option value="405"> 405 Method Not Allowed </option>' + '<option value="500"> 500 Internal Server Error </option>' + '<option value="502"> 502 Bad Gateway </option>' + '<option value="504"> 504 Gateway Timeout </option>' + '</select>';
+        var data_type_content = '<select name="headers_data_type" class="form-control">' + '<option value="string"> string </option>' + '<option value="int"> int </option>' + '<option value="double"> double </option>' + '<option value="list"> list </option>' + '<option value="dict"> dict </option>' + '</select>';
+        $.ajax({
+                url: "/autoTest/find_data/",
+                type: "post",
+                data:{
+                    "model": "mockServer",
+                    "data_id": api_id,
+                    "data_name": "add_mockServer_condition",
+                },
+                success : function(data){
+                    console.log('data:', data);
+                    var row_content = '<tr>' + data['mockServer_default_condition_html'] + '<td>' + comparator_content + '</td>' + '<td contenteditable="true" name="expect_value"></td>'+ '<td contenteditable="true" name="data_type">' + data_type_content + '</td>' + '<td name="mockServer">' + data['mockServer_select_html'] + '</td>' + '<td><button class="btn btn-success" onclick="save_mockServer_condition_row(this)">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>' + '</tr>';
+                    $("#mockServer-conditions-table tbody").append(row_content);
+                },
+                error : function(data){
+                    console.log("查找指定接口失败或者此接口没有设置请求参数！")
+                }
+            });
 
-
-
-}
+    }
 
 
 //  保存mockServer单个响应集
 function save_mockServer_row(obj){
-    var api_flag = 'add_single_mockServer';//区分多个不同接口标志
+    var api_flag = 'save_single_mockServer';//区分多个不同接口标志
     var relative_api = document.getElementById('api_id').value;
     var setup_hooks = document.getElementById('setup_hooks').value;
     var teardown_hooks = document.getElementById('teardown_hooks').value;
     var tr = obj.parentNode.parentNode;
-    var mockServer_id = tr.getAttribute("name").slice(11,);
+    try{
+        var mockServer_id = tr.getAttribute("name").slice(11,);
+    } catch (TypeError){
+        mockServer_id = '';
+    }
     var mockServer_name = tr.childNodes[0].textContent;
     var content_type = tr.childNodes[1].firstChild.value;
     var status_code = tr.childNodes[2].firstChild.value;
@@ -122,7 +124,7 @@ function save_mockServer_row(obj){
             type: "post",
             data:{
                 "mockServer_id":mockServer_id,
-                "api_flag": "add_single_mockServer",
+                "api_flag": api_flag,
                 "relative_api": relative_api,
                 "setup_hooks": setup_hooks,
                 "teardown_hooks": teardown_hooks,
@@ -137,6 +139,7 @@ function save_mockServer_row(obj){
             success : function(data){
                 // 为<tr>添加name="mockServer-**(id)"
                 tr.setAttribute("name",'mockServer-' + data["mockServer_id"]);
+                alert('保存成功!');
                 
             },
             error : function(data){
@@ -148,9 +151,14 @@ function save_mockServer_row(obj){
 
  // 保存mockServer单个匹配响应条件
 function save_mockServer_condition_row(obj){
+    var api_flag = "save_single_mockServer_condition";
     var relative_api = document.getElementById('api_id').value;
     var tr = obj.parentNode.parentNode;
-    var mockServer_id = tr.getAttribute("name").slice(11,);
+    try{
+        var mockServer_id = tr.getAttribute("name").slice(11,);
+    } catch (TypeError){
+        mockServer_id = '';
+    }
     var mockServer_condition_arg = tr.childNodes[0].firstChild.value;
     var mockServer_condition_comparator = tr.childNodes[1].firstChild.value;
     var mockServer_condition_expect_value = tr.childNodes[2].textContent;
@@ -162,7 +170,7 @@ function save_mockServer_condition_row(obj){
             data:{
                 "relative_api": relative_api,
                 "mockServer_id":mockServer_id,
-                "api_flag": "save_single_mockServer_condition",
+                "api_flag": api_flag,
                 "mockServer_condition_arg": mockServer_condition_arg,
                 "mockServer_condition_comparator": mockServer_condition_comparator,
                 "mockServer_condition_expect_value": mockServer_condition_expect_value,
@@ -172,6 +180,7 @@ function save_mockServer_condition_row(obj){
             success : function(data){
                 // 为<tr>添加name="mockServer-**(id)"
                 tr.setAttribute("name",'mockServer-' + data["mockServer_id"]);
+                alert('保存成功！');
                 
             },
             error : function(data){
@@ -179,3 +188,5 @@ function save_mockServer_condition_row(obj){
             }
         });    
 }
+
+//  自动填充最新的响应集信息
