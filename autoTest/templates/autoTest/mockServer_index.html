@@ -73,7 +73,7 @@
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ api.api_name }}</td>
-                        <td>{{ api.api_path }}</td>
+                        <td value="{{ api.api_id }}">{{ api.api_path }}</td>
                         <td>{{ api.method }}</td>
                         <td>
                             <select>
@@ -90,10 +90,10 @@
                             </td>
                         {% endif %}
                         <td>
-                            <a class="btn btn-sm btn-info" href="#" role="button">编辑</a>
+                            <a class="btn btn-sm btn-info" href="{% url 'autoTest:mockServer_update' %}?api_id={{ api.api_id }}" role="button">编辑</a>
                             <a class="btn btn-sm btn-primary" href="#" role="button">调试</a>
                             <a class="btn btn-sm btn-success" href="#" role="button">保存</a>
-                            <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="#">删除</button>
+                            <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="{% url 'autoTest:mockServer_delete' %}?api_id={{ api.api_id }}">删除</button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -124,6 +124,31 @@
         </nav>
     </div>
  </div>
+
+
+ <!-- 确认弹窗 -->
+    <!-- 信息删除确认 -->
+    <div class="modal fade" id="delcfmModel">
+      <div class="modal-dialog">
+        <div class="modal-content message_align">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">提示信息</h4>
+          </div>
+          <div class="modal-body">
+            <p>您确认要删除该接口的所有mock服务吗？</p>
+          </div>
+          <div class="modal-footer">
+             <input type="hidden" id="url"/>
+             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+             <a  onclick="urlSubmit()" class="btn btn-danger" data-dismiss="modal">确定</a>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    </div>
+
 {% endblock %}
 {% block javascript %}
     <link rel="stylesheet" href="/static/bootstrap-switch-3.3.4/dist/css/bootstrap3/bootstrap-switch.min.css">

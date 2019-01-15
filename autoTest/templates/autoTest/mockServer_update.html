@@ -1,0 +1,239 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 添加mock服务 {% endblock %}
+{% block crumbs %}
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li>
+                <a href="/index/">主页</a>
+            </li>
+            <li class="active">
+                <a class="this">基础信息</a>
+            </li>
+            <li class="active">
+                <a class="this-page">添加mock服务</a>
+            </li>
+        </ol>
+
+    </div>
+</div>
+{% endblock %}
+{% block body %}
+<div class="panel">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-heading"><h3 class="panel-title">接口信息:</h3></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 form-inline" style="padding-left:35px;">
+            <label class="control-label"><span style="color: red">* </span>选择项目：</label>
+            <select id="pro_id" class="form-control" style="width: 250px;height: 34px;">
+                <option value="{{cur_pro.pro_id}}">{{ cur_pro.pro_name }}</option>
+                {% for pro in pro_list %}
+                    <option value={{ pro.pro_id }}>{{ pro.pro_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4 form-inline">
+            <label class="control-label"><span style="color: red">* </span>选择接口：</label>
+            <select id="api_id" class="form-control" style="width: 369px;height: 34px;">
+                <option value="{{ cur_api.api_id }}">{{ cur_api.api_name }}</option>
+                {% for api in api_list %}
+                    <option value={{ api.api_id }}>{{ api.api_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4 form-inline">
+            <label class="control-label">默认响应：</label>
+            <select class="form-control" style="width: 300px;height: 34px;" id="default_mockServer" name="mockServer_select">
+            {% if default_mockServer %}
+                <option value="{{ default_mockServer.mockServer_value }}">{{ default_mockServer.mockServer_name }}}</option>
+            {% endif %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-inline" style="padding-left:35px;">
+            <label class="control-label" for="setup_hooks">setup_hooks：</label>
+            <input type="text" class="form-control" name="setup_hooks" placeholder="若无setUp函数，可为空" id="setup_hooks" style="width: 300px;">
+        </div>
+        <div class="col-md-6 form-inline col-md-pull-2" style="padding-left:35px;">
+            <label class="control-label" for="teardown_hooks">teardown_hooks：</label>
+            <input type="text" class="form-control" name="teardown_hooks" placeholder="若无setUp函数，可为空" id="teardown_hooks" style="width: 300px;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <div class="panel-heading"><h3 class="panel-title">响应集信息:</h3></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-11" style="padding-left:35px;">
+             <table class="table table-bordered table-condensed" id="mockServer-table">
+                <thead>
+                    <tr>
+                        <th style="width: 200px;">响应名称</th>
+                        <th style="width: 150px;">响应内容格式</th>
+                        <th style="width: 150px;">状态码</th>
+                        <th style="width: 200px;">响应头</th>
+                        <th style="width: 250px;">响应内容</th>
+                        <th style="width: 200px;">描述</th>
+                        <th>开关</th>
+                        <th style="width: 200px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+             </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-4">
+            <button class="btn btn-primary" onclick="add_mockServer_row()">添加响应集</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <div class="panel-heading"><h3 class="panel-title">匹配响应条件信息:</h3></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-11" style="padding-left:35px;">
+             <table class="table table-bordered table-condensed" id="mockServer-conditions-table">
+                <thead>
+                    <tr>
+                        <th style="width: 200px;">请求参数</th>
+                        <th style="width: 150px;">条件</th>
+                        <th style="width: 150px;">期望结果</th>
+                        <th style="width: 150px;">数据类型</th>
+                        <th style="width: 250px;">返回响应</th>
+                        <th  style="width: 200px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+             </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-4">
+            <button class="btn btn-primary" onclick="add_mockSever_condition_row()">添加匹配响应条件</button>
+        </div>
+    </div>
+    <div class="row">
+        <hr>
+        <div class="col-sm-offset-4">
+            <button class="btn btn-info btn-lg" onclick="save_all_mockServer()">全部保存</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<link rel="stylesheet" href="/static/bootstrap-switch-3.3.4/dist/css/bootstrap3/bootstrap-switch.min.css">
+<script src="/static/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript">
+    function show_mockServer_update_data(){
+        //  自动填充数据
+        var api_id = $("#api_id option:first").val();
+            $.ajax({
+                url: "/autoTest/find_data/",
+                type: "post",
+                data:{
+                    "model": "mockServer",
+                    "data_id": api_id,
+                    "data_name": "mockServer_content",
+                },
+                success : function(data){
+                    var default_mockServer_html = data['default_mockServer_html'];
+                    var mockServer_table_html = data['mockServer_table_html'];
+                    var mockServer_conditions_table_html = data['mockServer_conditions_table_html'];
+                    $("#default_mockServer").empty();
+                    $("#default_mockServer").append(default_mockServer_html);
+                    $("#mockServer-table tbody").empty();
+                    $("#mockServer-table tbody").append(mockServer_table_html);
+                    $("#mockServer-conditions-table tbody").empty();
+                    $("#mockServer-conditions-table tbody").append(mockServer_conditions_table_html);
+                },
+                error : function(data){
+                    console.log("查找指定接口失败");
+                    console.log('api_id: ', api_id);
+                }
+            });
+    }
+    $(document).ready(function(){
+        //  自动填充数据
+        show_mockServer_update_data();
+        $("#pro_id").change(function(){
+        // 若切换项目，则同步切换接口下拉列表
+        var pro_id = $("#pro_id option:selected").val();
+        $.ajax({
+            url: "/autoTest/find_data/",
+            type: "post",
+            data:{
+                "model": "pro",
+                "data_id": pro_id,
+                "data_name": "api_list",
+            },
+            success : function(data){
+                var api_list = eval(data);
+                var null_content = "<option value=''> </option>";
+                $("#api_id").empty();
+                $("#api_id").append(null_content);
+                for (var index=0;index<api_list.length;index++) {
+                    var api_object = api_list[index];
+                    var add_content = "<option value=" + api_object.api_id + ">" + api_object.api_path + "</option>";
+                    $("#api_id").append(add_content);
+                   
+                }
+            },
+            error : function(data){
+                console.log("查找指定项目接口失败");
+                console.log('pro_id:', pro_id);
+            }
+        });
+        });
+
+        $("#api_id").change(function(){
+            // 若切换接口，重新填充接口信息
+            var api_id = $("#api_id option:selected").val();
+            $.ajax({
+                url: "/autoTest/find_data/",
+                type: "post",
+                data:{
+                    "model": "mockServer",
+                    "data_id": api_id,
+                    "data_name": "mockServer_content",
+                },
+                success : function(data){
+                    var default_mockServer_html = data['default_mockServer_html'];
+                    var mockServer_table_html = data['mockServer_table_html'];
+                    var mockServer_conditions_table_html = data['mockServer_conditions_table_html'];
+                    $("#default_mockServer").empty();
+                    $("#default_mockServer").append(default_mockServer_html);
+                    $("#mockServer-table tbody").empty();
+                    $("#mockServer-table tbody").append(mockServer_table_html);
+                    $("#mockServer-conditions-table tbody").empty();
+                    $("#mockServer-conditions-table tbody").append(mockServer_conditions_table_html);
+                },
+                error : function(data){
+                    console.log("查找指定接口失败");
+                    console.log('api_id: ', api_id);
+                }
+            });
+
+        });
+            
+    });
+
+</script>
+
+{% endblock %}

@@ -42,12 +42,11 @@ function add_headers_contentType(obj){
 
 // 添加mockServer行
 function add_mockServer_row(){
-    console.error('add_mockServer_row function worked!');
     var content_type = '<select name="mockServer_row" class="form-control">' + '<option value="json"> json </option>' + '<option value="text"> text </option>' + '<option value="xml"> xml </option>' + '<option value="html"> html </option>' + '</select>';
     var status_code = '<select name="mockServer_row" class="form-control">' + '<option value="200"> 200 OK </option>' + '<option value="301"> 301 Moved  </option>' + '<option value="302"> 302 Moved  </option>' + '<option value="400"> 400 Bad Request </option>' + '<option value="403"> 403 Forbidden </option>' + '<option value="404"> 404 Not Found </option>' + '<option value="405"> 405 Method Not Allowed </option>' + '<option value="500"> 500 Internal Server Error </option>' + '<option value="502"> 502 Bad Gateway </option>' + '<option value="504"> 504 Gateway Timeout </option>' + '</select>';
     var row_content = '<tr>' + '<td contenteditable="true" name="mockServer_name"></td>' + '<td contenteditable="true" name="content_type">' + content_type + '</td>' + '<td contenteditable="true" name="status_code">' + status_code + '</td>' + '<td contenteditable="true" name="mockServer_headers"></td>' + '<td contenteditable="true" name="mockServer_content"></td>' + '<td contenteditable="true" name="description"></td>' + '<td><input type="checkbox" name="switch" checked></td>' + '<td><button class="btn btn-success" onclick="save_mockServer_row(this)">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>' + '</tr>';
     $("#mockServer-table tbody").append(row_content);
-    $('[name="switch"]').each(function(){
+    $('[name="switch"]:last').each(function(){
                 $(this).bootstrapSwitch({  
                 onColor:"info",  
                 offColor:"danger",  
@@ -66,7 +65,6 @@ function add_mockServer_row(){
 
 // 添加mockServer匹配条件行
     function add_mockSever_condition_row(){
-        console.log("add_mockSever_condition_row function worked!");
         var api_id = $("#api_id option:selected").val();
         var comparator_content = '<select name="comparator" class="form-control" style="width: 200px;">' + '<option value="eq"> = </option>' + '<option value="gt"> > </option>' + '<option value="ge"> >= </option>' + '<option value="lt"> < </option>' + '<option value="le"> <= </option>' + '<option value="len_eq">长度等于</option>' + '<option value="len_gt">长度大于</option>' + '<option value="len_lt">长度小于</option>' + '<option value="contains">包含</option>' + '<option value="contained_by">被包含</option>' + '<option value="startswith">startswith</option>' + '<option value="endswith">endswith</option>' +'</select>';
         //后面通过后端传mockServer_suite
@@ -81,12 +79,11 @@ function add_mockServer_row(){
                     "data_name": "add_mockServer_condition",
                 },
                 success : function(data){
-                    console.log('data:', data);
                     var row_content = '<tr>' + data['mockServer_default_condition_html'] + '<td>' + comparator_content + '</td>' + '<td contenteditable="true" name="expect_value"></td>'+ '<td contenteditable="true" name="data_type">' + data_type_content + '</td>' + '<td name="mockServer">' + data['mockServer_select_html'] + '</td>' + '<td><button class="btn btn-success" onclick="save_mockServer_condition_row(this)">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>' + '</tr>';
                     $("#mockServer-conditions-table tbody").append(row_content);
                 },
                 error : function(data){
-                    console.log("查找指定接口失败或者此接口没有设置请求参数！")
+                    alert("此接口没有设置请求参数！")
                 }
             });
 
@@ -140,12 +137,23 @@ function save_mockServer_row(obj){
                 // 为<tr>添加name="mockServer-**(id)"
                 tr.setAttribute("name",'mockServer-' + data["mockServer_id"]);
                 alert('保存成功!');
+                //  为默认响应 下拉框 和 返回响应下拉框 加上新保存的选项
+                $("select[name='mockServer_select'").each(function(index,element){
+                    var option_node = document.createElement("option");
+                    var name_text_node=document.createTextNode(data['mockServer_name']);
+                    var value_attr_node = document.createAttribute("value");
+                    value_attr_node.value = data['mockServer_id'];
+                    option_node.setAttributeNode(value_attr_node);
+                    option_node.appendChild(name_text_node);
+                    element.appendChild(option_node);
+                });
                 
             },
             error : function(data){
                 console.log("保存失败！");
             }
         });
+    
     
 }
 
@@ -235,8 +243,7 @@ function save_mockServer_condition_row(obj){
             success : function(data){
                 // 为<tr>添加name="mockServer-**(id)"
                 tr.setAttribute("name",'mockServer-' + data["mockServer_id"]);
-                alert('保存成功!');
-                
+                alert("保存成功!");
             },
             error : function(data){
                 console.log("保存失败！");
@@ -285,11 +292,10 @@ function save_mockServer_condition_row_son(obj){
 
 // mockServer页面保存全部
 function save_all_mockServer(){
-    var api_flag = 'save_all_mockServer';//区分多个不同接口标志
-    var relative_api = document.getElementById('api_id').value;
-    var default_mockServer_id = document.getElementById('default_mockServer').value;
-    var setup_hooks = document.getElementById('setup_hooks').value;
-    var teardown_hooks = document.getElementById('teardown_hooks').value;
+    // var api_flag = 'save_all_mockServer';//区分多个不同接口标志
+    // var setup_hooks = document.getElementById('setup_hooks').value;
+    // var teardown_hooks = document.getElementById('teardown_hooks').value;
+    save_default_mockServer();
     // 遍历保存响应集信息
     $('#mockServer-table tbody tr td>button[onclick="save_mockServer_row(this)"]').each(function(index, ele){
         save_mockServer_row_son(ele);
@@ -301,52 +307,26 @@ function save_all_mockServer(){
     alert("全部保存成功");
 }
 
-// 每次点击默认响应下拉框，更新最新的选项
-function load_latest_mockServer_select(ele){
-    var api_id = $("#api_id option:selected").val();
+// 保存mokServer_update的默认响应信息
+function save_default_mockServer(){
+    var api_flag = 'save_default_mockServer';//区分多个不同接口标志
+    var api_id = document.getElementById('api_id').value;
+    var default_mockServer_id = document.getElementById('default_mockServer').value;
     $.ajax({
-        url: "/autoTest/find_data/",
-        type: "post",
-        data:{
-            "model": "mockServer",
-            "data_id": api_id,
-            "data_name": "mockServer_select",
-        },
-        success : function(data){
-            var mockServer_select_html = data['mockServer_select_html'];
-            var selected_mockServer_id = ele.firstChild.value;
-            console.log('selected_mockServer_id: ', selected_mockServer_id);
-            if(ele.getAttribute('id')=='default_mockServer'){
-                //如果为点击默认响应下拉框
-                var childNodes = ele.childNodes;
-                console.log('childNodes: ', childNodes);
-                for(var i = 0; i < childNodes.length; i++){
-                    var remove_successFlag = ele.removeChild(childNodes[i]);
-                    console.log('remove_node: ', remove_successFlag);
+                url: "/autoTest/mockServer_update/",
+                type: "post",
+                data:{
+                    "api_id": api_id,
+                    "api_flag": api_flag,
+                    "default_mockServer_id": default_mockServer_id,
+                },
+                success : function(data){
+                    break;
+                },
+                error : function(data){
+                    console.log("查找指定接口失败");
+                    console.log('api_id: ', api_id);
                 }
-                ele.innerHTML=data;
-                var selected_mockServer_value = "value='" + String(selected_mockServer_id) + "'";
-                ele.getElementByAttribute(selected_mockServer_value).setAttribute("selected","True");
+            });
 
-            }else{
-                var childNodes = ele.childNodes;
-                console.log('childNodes: ', childNodes);
-                for(var i = 0; i < childNodes.length; i++){
-                    var remove_successFlag = ele.removeChild(childNodes[i]);
-                    console.log('remove_node: ', remove_successFlag);
-                }
-                ele.appendChild(selected_node);
-                console.log('append_html: ', data);
-                ele.innerHTML=data;
-
-            }
-
-        },
-        error : function(data){
-            console.log("查找指定接口失败");
-            console.log('api_id: ', api_id);
-        }
-    });
 }
-
-//  自动填充最新的响应集信息
