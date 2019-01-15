@@ -52,13 +52,13 @@ function add_mockServer_row(){
                 onColor:"info",  
                 offColor:"danger",  
                 size:"small",
-            onSwitchChange:function(event,state){
-                if(state==true){  
-                   alert('已打开');  
-                }else{  
-                    alert('已关闭');  
-                }  
-            }  
+            // onSwitchChange:function(event,state){
+            //     if(state==true){  
+            //        alert('已打开');  
+            //     }else{  
+            //         alert('已关闭');  
+            //     }  
+            // }  
      
                 });
             });
@@ -149,6 +149,61 @@ function save_mockServer_row(obj){
     
 }
 
+//  保存mockServer单个响应集--去掉保存成功提示，用于保存全部使用
+function save_mockServer_row_son(obj){
+    var api_flag = 'save_single_mockServer';//区分多个不同接口标志
+    var relative_api = document.getElementById('api_id').value;
+    var setup_hooks = document.getElementById('setup_hooks').value;
+    var teardown_hooks = document.getElementById('teardown_hooks').value;
+    var tr = obj.parentNode.parentNode;
+    try{
+        var mockServer_id = tr.getAttribute("name").slice(11,);
+    } catch (TypeError){
+        mockServer_id = '';
+    }
+    var mockServer_name = tr.childNodes[0].textContent;
+    var content_type = tr.childNodes[1].firstChild.value;
+    var status_code = tr.childNodes[2].firstChild.value;
+    var mockServer_headers = tr.childNodes[3].textContent;
+    var mockServer_content = tr.childNodes[4].textContent;
+    var description = tr.childNodes[5].textContent;
+    var mock_status_class = tr.childNodes[6].firstChild.className;
+    var mock_status = new String;
+    if(mock_status_class.search('bootstrap-switch-off')==-1){
+        mock_status = '1';
+    }
+    else{
+        mock_status = '0';
+    }
+    $.ajax({
+            url: "/autoTest/mockServer_add/",
+            type: "post",
+            data:{
+                "mockServer_id":mockServer_id,
+                "api_flag": api_flag,
+                "relative_api": relative_api,
+                "setup_hooks": setup_hooks,
+                "teardown_hooks": teardown_hooks,
+                "mockServer_name": mockServer_name,
+                "content_type": content_type,
+                "status_code": status_code,
+                "mockServer_headers": mockServer_headers,
+                "mockServer_content": mockServer_content,
+                "description": description,
+                "mock_status": mock_status,
+            },
+            success : function(data){
+                // 为<tr>添加name="mockServer-**(id)"
+                tr.setAttribute("name",'mockServer-' + data["mockServer_id"]);
+                
+            },
+            error : function(data){
+                console.log("保存失败！");
+            }
+        });
+    
+}
+
  // 保存mockServer单个匹配响应条件
 function save_mockServer_condition_row(obj){
     var api_flag = "save_single_mockServer_condition";
@@ -180,13 +235,118 @@ function save_mockServer_condition_row(obj){
             success : function(data){
                 // 为<tr>添加name="mockServer-**(id)"
                 tr.setAttribute("name",'mockServer-' + data["mockServer_id"]);
-                alert('保存成功！');
+                alert('保存成功!');
                 
             },
             error : function(data){
                 console.log("保存失败！");
             }
         });    
+}
+ // 保存mockServer单个匹配响应条件--去掉保存成功提示，用于保存全部使用
+function save_mockServer_condition_row_son(obj){
+    var api_flag = "save_single_mockServer_condition";
+    var relative_api = document.getElementById('api_id').value;
+    var tr = obj.parentNode.parentNode;
+    try{
+        var mockServer_id = tr.getAttribute("name").slice(11,);
+    } catch (TypeError){
+        mockServer_id = '';
+    }
+    var mockServer_condition_arg = tr.childNodes[0].firstChild.value;
+    var mockServer_condition_comparator = tr.childNodes[1].firstChild.value;
+    var mockServer_condition_expect_value = tr.childNodes[2].textContent;
+    var mockServer_condition_dataType = tr.childNodes[3].firstChild.value;
+    var mockServer_condition_status_code = tr.childNodes[4].firstChild.value;
+    $.ajax({
+            url: "/autoTest/mockServer_add/",
+            type: "post",
+            data:{
+                "relative_api": relative_api,
+                "mockServer_id":mockServer_id,
+                "api_flag": api_flag,
+                "mockServer_condition_arg": mockServer_condition_arg,
+                "mockServer_condition_comparator": mockServer_condition_comparator,
+                "mockServer_condition_expect_value": mockServer_condition_expect_value,
+                "mockServer_condition_dataType": mockServer_condition_dataType,
+                "mockServer_condition_status_code": mockServer_condition_status_code,
+            },
+            success : function(data){
+                // 为<tr>添加name="mockServer-**(id)"
+                tr.setAttribute("name",'mockServer-' + data["mockServer_id"]);
+                
+            },
+            error : function(data){
+                console.log("保存失败！");
+            }
+        });    
+}
+
+
+// mockServer页面保存全部
+function save_all_mockServer(){
+    var api_flag = 'save_all_mockServer';//区分多个不同接口标志
+    var relative_api = document.getElementById('api_id').value;
+    var default_mockServer_id = document.getElementById('default_mockServer').value;
+    var setup_hooks = document.getElementById('setup_hooks').value;
+    var teardown_hooks = document.getElementById('teardown_hooks').value;
+    // 遍历保存响应集信息
+    $('#mockServer-table tbody tr td>button[onclick="save_mockServer_row(this)"]').each(function(index, ele){
+        save_mockServer_row_son(ele);
+    });
+    //  遍历保存匹配响应条件信息
+    $('#mockServer-conditions-table tbody tr td>button[onclick="save_mockServer_condition_row(this)"]').each(function(index, ele){
+        save_mockServer_condition_row_son(ele);
+    });
+    alert("全部保存成功");
+}
+
+// 每次点击默认响应下拉框，更新最新的选项
+function load_latest_mockServer_select(ele){
+    var api_id = $("#api_id option:selected").val();
+    $.ajax({
+        url: "/autoTest/find_data/",
+        type: "post",
+        data:{
+            "model": "mockServer",
+            "data_id": api_id,
+            "data_name": "mockServer_select",
+        },
+        success : function(data){
+            var mockServer_select_html = data['mockServer_select_html'];
+            var selected_mockServer_id = ele.firstChild.value;
+            console.log('selected_mockServer_id: ', selected_mockServer_id);
+            if(ele.getAttribute('id')=='default_mockServer'){
+                //如果为点击默认响应下拉框
+                var childNodes = ele.childNodes;
+                console.log('childNodes: ', childNodes);
+                for(var i = 0; i < childNodes.length; i++){
+                    var remove_successFlag = ele.removeChild(childNodes[i]);
+                    console.log('remove_node: ', remove_successFlag);
+                }
+                ele.innerHTML=data;
+                var selected_mockServer_value = "value='" + String(selected_mockServer_id) + "'";
+                ele.getElementByAttribute(selected_mockServer_value).setAttribute("selected","True");
+
+            }else{
+                var childNodes = ele.childNodes;
+                console.log('childNodes: ', childNodes);
+                for(var i = 0; i < childNodes.length; i++){
+                    var remove_successFlag = ele.removeChild(childNodes[i]);
+                    console.log('remove_node: ', remove_successFlag);
+                }
+                ele.appendChild(selected_node);
+                console.log('append_html: ', data);
+                ele.innerHTML=data;
+
+            }
+
+        },
+        error : function(data){
+            console.log("查找指定接口失败");
+            console.log('api_id: ', api_id);
+        }
+    });
 }
 
 //  自动填充最新的响应集信息

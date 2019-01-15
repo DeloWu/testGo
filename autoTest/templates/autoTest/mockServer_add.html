@@ -45,9 +45,7 @@
             <label class="control-label">默认响应：</label>
             <select class="form-control" style="width: 300px;height: 34px;" id="default_mockServer">
                 <option value=""></option>
-                <!-- {% for mockServer in  mockServer_list%}
-                    <option value="{{ mockServer.mockServer_id }}">{{ mockServer_name }}</option>
-                {% endfor %} -->
+
             </select>
         </div>
     </div>
@@ -128,7 +126,7 @@
     <div class="row">
         <hr>
         <div class="col-sm-offset-4">
-            <button class="btn btn-info btn-lg" onclick="">全部保存</button>
+            <button class="btn btn-info btn-lg" onclick="save_all_mockServer()">全部保存</button>
         </div>
     </div>
 </div>
@@ -182,7 +180,6 @@
                     "data_name": "mockServer_content",
                 },
                 success : function(data){
-                    // console.log("mockServer_content:", data);
                     var default_mockServer_html = data['default_mockServer_html'];
                     var mockServer_table_html = data['mockServer_table_html'];
                     var mockServer_conditions_table_html = data['mockServer_conditions_table_html'];
@@ -198,53 +195,9 @@
                     console.log('api_id: ', api_id);
                 }
             });
-            // 选择完接口,自动变更默认响应下拉选项
-            $.ajax({
-                url: "/autoTest/find_data/",
-                type: "post",
-                data:{
-                    "model": "mockServer",
-                    "data_id": api_id,
-                    "data_name": "mockServer_select",
-                },
-                success : function(data){
-                    var mockServer_select_html = data['mockServer_select_html'];
-                    $("#default_mockServer").empty();
-                    $("#default_mockServer").append(mockServer_select_html);
-
-                },
-                error : function(data){
-                    console.log("查找指定接口失败");
-                    console.log('api_id: ', api_id);
-                }
-            });
 
         });
-        // 选择完接口,自动变更默认响应下拉选项
-
-        $("#default_mockServer").click(function(){
-            // 每次点击默认响应下拉框，更新最新的选项
-            var api_id = $("#api_id option:selected").val();
-            $.ajax({
-                url: "/autoTest/find_data/",
-                type: "post",
-                data:{
-                    "model": "mockServer",
-                    "data_id": api_id,
-                    "data_name": "mockServer_select",
-                },
-                success : function(data){
-                    var mockServer_select_html = data['mockServer_select_html'];
-                    $("#default_mockServer").empty();
-                    $("#default_mockServer").append(mockServer_select_html);
-
-                },
-                error : function(data){
-                    console.log("查找指定接口失败");
-                    console.log('api_id: ', api_id);
-                }
-            });
-            });
+            
     });
 
 </script>

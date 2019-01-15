@@ -1089,7 +1089,7 @@ def mockServer_add(request):
         mockServer_condition_dataType = request.POST.get('mockServer_condition_dataType', '')
         mockServer_id = request.POST.get('mockServer_id', '')
         mockServer_condition_status_code = request.POST.get('mockServer_condition_status_code', '')
-        conditions = '[{},{},{},{},{}]'.format(mockServer_condition_arg, mockServer_condition_comparator, mockServer_condition_expect_value, mockServer_condition_dataType, mockServer_id)
+        conditions = '[{},{},{},{},{}]'.format(mockServer_condition_arg, mockServer_condition_comparator, mockServer_condition_expect_value, mockServer_condition_dataType, mockServer_condition_status_code)
         if mockServer_id:
             mockServer = MockServer.objects.filter(mockServer_id=mockServer_id).update(conditions=conditions)
             return JsonResponse({'mockServer_id': mockServer_id}, safe=False)
@@ -1099,11 +1099,8 @@ def mockServer_add(request):
                 new_mockServer_object = MockServer(mockServer_name=mockServer_object.mockServer_name, uri=mockServer_object.uri, relative_pro=mockServer_object.relative_pro, relative_api=mockServer_object.relative_api, setup_hooks=mockServer_object.setup_hooks, teardown_hooks=mockServer_object.teardown_hooks, expect_status_code=mockServer_object.expect_status_code, expect_headers=mockServer_object.expect_headers, expect_response_content_type=mockServer_object.expect_response_content_type, expect_response=mockServer_object.expect_response, mock_status=mockServer_object.mock_status, description=mockServer_object.description)
                 new_mockServer_object.save()
                 new_mockServer_object_id = new_mockServer_object.mockServer_id
-                conditions = '[{},{},{},{},{}]'.format(mockServer_condition_arg, mockServer_condition_comparator,
-                                                       mockServer_condition_expect_value, mockServer_condition_dataType,
-                                                       new_mockServer_object_id)
-                new_mockServer_object = MockServer.objects.filter(mockServer_id=new_mockServer_object_id).update(conditions=conditions)
-                return JsonResponse({'mockServer_id': new_mockServer_object.mockServer_id}, safe=False)
+                MockServer.objects.filter(mockServer_id=new_mockServer_object_id).update(conditions=conditions)
+                return JsonResponse({'mockServer_id': new_mockServer_object_id}, safe=False)
             except Exception as e:
                 print('新匹配响应条件保存失败, ', e)
 
@@ -1258,15 +1255,30 @@ def find_data(request):
         if model.lower() == 'mockserver':
             if data_id and data_name == 'mockServer_content':
                 api_object = Api.objects.get(api_id=data_id)
+                # 只筛选出关联接口并且条件为空的默认mockServer
+                mockServer_suite = MockServer.objects.filter(relative_api=api_object.api_id).filter(conditions='')
+                default_mockServer_html = ''
+                default_mockServer_id = api_object.default_mockServer_id
+                for mockServer in mockServer_suite:
+                    if mockServer.mockServer_id == default_mockServer_id:
+                        default_mockServer_html = default_mockServer_html + r'<option value="{}"selected>{}</option>'.format(
+                            mockServer.mockServer_id, mockServer.mockServer_name)
+                    else:
+                        default_mockServer_html = default_mockServer_html + r'<option value="{}">{}</option>'.format(
+                            mockServer.mockServer_id, mockServer.mockServer_name)
+                default_mockServer_html = default_mockServer_html
+                '''   
                 try:
                     default_mockServer_id = api_object.default_mockServer_id  #默认mockServer响应id
                     default_mockServer_object = MockServer.objects.get(mockServer_id=default_mockServer_id)
                     default_mockServer_name = default_mockServer_object.mockServer_name
                     # 填充 默认响应 的html代码
-                    default_mockServer_html = r'<option value="{}">{}</option>'.format(default_mockServer_id, default_mockServer_name)
+                    default_mockServer_html = r'<option value="{}"selected>{}</option>'.format(default_mockServer_id, default_mockServer_name)
+                    
                 except:
                     print('api_id={} 没有默认响应！'.format(data_id))
                     default_mockServer_html = r'<option value=""></option>'
+                '''
                 mockServer_suite = MockServer.objects.filter(relative_api=data_id)
                 # 填充 响应集信息 的html代码
                 mockServer_table_html = ''
@@ -1330,8 +1342,12 @@ def find_data(request):
                             row_02 = r'<td><select name="comparator" class="form-control"><option value="{}">{}</option><option value="eq"> = </option><option value="gt"> &gt; </option><option value="ge"> &gt;= </option><option value="lt"> &lt; </option><option value="le"> &lt;= </option><option value="len_eq">长度等于</option><option value="len_gt">长度大于</option><option value="len_lt">长度小于</option><option value="contains">包含</option><option value="contained_by">被包含</option><option value="startswith">startswith</option><option value="endswith">endswith</option></select></td>'.format(conditions[1], comparator_map[conditions[1]])
                             row_03 = r'<td contenteditable="true" name="expect_value">{}</td>'.format(conditions[2])
                             row_04 = r'<td contenteditable="true" name="data_type"><select name="headers_data_type" class="form-control"><option value="{}" selected>{}</option><option value="string"> string </option><option value="int"> int </option><option value="double"> double </option><option value="list"> list </option><option value="dict"> dict </option></select></td>'.format(conditions[3], conditions[3])
-                            row_05 = r'<td><select name="mockServer-condition" class="form-control"><option value="{}">{}</option>'.format(conditions[4], MockServer.objects.get(mockServer_id=conditions[4]).mockServer_name)
-                            row_05 = row_05 + r'<option value="200"> 200 OK </option>' + r'<option value="301"> 301 Moved  </option>' + r'<option value="302"> 302 Moved  </option>' + r'<option value="400"> 400 Bad Request </option>' + r'<option value="403"> 403 Forbidden </option>' + r'<option value="404"> 404 Not Found </option>' + r'<option value="405"> 405 Method Not Allowed </option>' + r'<option value="500"> 500 Internal Server Error </option>' + r'<option value="502"> 502 Bad Gateway </option>' + r'<option value="504"> 504 Gateway Timeout </option>' + r'</select></td>'
+                            row_05 = r'<td><select name="mockServer-condition" class="form-control"><option value="{}" selected>{}</option>'.format(conditions[4], MockServer.objects.get(mockServer_id=conditions[4]).mockServer_name)
+                            mockServer_suite = MockServer.objects.filter(relative_api=api_object.api_id)
+                            for mockServer in mockServer_suite:
+                                if str(mockServer.mockServer_id) != str(conditions[4]):
+                                    row_05 = row_05 + r'<option value="{}">{}</option>'.format(mockServer.mockServer_id, mockServer.mockServer_name)
+                            row_05 = row_05 + r'</select></td>'
                             row_06 = r'<td><button class="btn btn-success" onclick="save_mockServer_condition_row(this)">保存</button><button class="btn btn-danger" onclick="del_row(this)">删除</button></td>'
                             temp_content2 = r'<tr name="mockServer-{}">'.format(mockServer_object.mockServer_id) + row_01 + row_02 + row_03 + row_04 + row_05 + row_06 + '</tr>'
                             mockServer_conditions_table_html = mockServer_conditions_table_html + temp_content2
@@ -1373,10 +1389,11 @@ def find_data(request):
                 try:
                     for mockServer in mockServer_suite:
                         if mockServer.conditions == '':
-                            if mockServer.mockServer_id == default_mockServer_id:
-                                mockServer_select_html = mockServer_select_html + r'<option value="{}" selected>{}</option>'.format(mockServer.mockServer_id, mockServer.mockServer_name)
-                            else:
-                                mockServer_select_html = mockServer_select_html + r'<option value="{}">{}</option>'.format(mockServer.mockServer_id, mockServer.mockServer_name)
+                            # 只筛选出默认响应，条件响应不展示
+                            # if mockServer.mockServer_id == default_mockServer_id:
+                            #     mockServer_select_html = mockServer_select_html + r'<option value="{}" selected>{}</option>'.format(mockServer.mockServer_id, mockServer.mockServer_name)
+                            # else:
+                            mockServer_select_html = mockServer_select_html + r'<option value="{}">{}</option>'.format(mockServer.mockServer_id, mockServer.mockServer_name)
                 except:
                     mockServer_select_html = r'<option value=""></option>'
                 return JsonResponse({'mockServer_select_html':mockServer_select_html}, safe=False)
