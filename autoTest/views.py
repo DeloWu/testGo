@@ -1023,8 +1023,32 @@ def mockServer_index(request):
     current_page = int(page)
     try:
         api_list = paginator.page(page)  # 获取当前页码的记录
+
+        mockServer_select_list = []
+        for api in api_list:
+            #  生成当前页面api的mock响应下拉选项
+            api_object = Api.objects.get(api_id=api.api_id)
+            default_mockServer_id = api_object.default_mockServer_id
+            # 筛选出条件为空的默认响应
+            mockServer_suite = MockServer.objects.filter(relative_api=api.api_id).filter(conditions='')
+            mockServer_loop_html = ''
+            #  先填充默认选项放在第一位
+            if default_mockServer_id:
+                default_mockServer_name = MockServer.objects.get(mockServer_id=default_mockServer_id).mockServer_name
+                default_option_html = r'<option value="{}">{}</option>'.format(default_mockServer_id,
+                                                                               default_mockServer_name)
+            else:
+                default_option_html = r'<option value=""> </option>'
+            mockServer_loop_html = mockServer_loop_html + default_option_html
+            for mockServer in mockServer_suite:
+                if str(mockServer.mockServer_id) != str(default_mockServer_id):
+                    #  排出默认mockServer响应，防止重复
+                    mockServer_loop_html = mockServer_loop_html + r'<option value="{}">{}</option>'.format(mockServer.mockServer_id, mockServer.mockServer_name)
+            mockServer_loop_html = mockServer_loop_html + r'<option value=""> </option>'
+            mockServer_select_list.append(mockServer_loop_html)
     except PageNotAnInteger:
         api_list = paginator.page(1)  # 如果用户输入的页码不是整数时,显示第1页的内容
+
     except EmptyPage:
         api_list = paginator.page(paginator.num_pages)  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
     if api_list.has_previous():
@@ -1035,7 +1059,6 @@ def mockServer_index(request):
         next_page_index = api_list.next_page_number()
     else:
         next_page_index = None
-
     return render(request, 'autoTest/mockServer_index.html', context={'api_list': api_list,
                                                                        'paginator': paginator,
                                                                        'current_page': current_page,
@@ -1044,6 +1067,7 @@ def mockServer_index(request):
                                                                        'pro_sum': pro_sum,
                                                                        'cur_pro': project,
                                                                        'search_uri': search_uri,
+                                                                      'mockServer_select_list': mockServer_select_list,
                                                                     })
 
 def mockServer_add(request):
@@ -1406,10 +1430,11 @@ def find_data(request):
                     for mockServer in mockServer_suite:
                         if mockServer.conditions == '':
                             # 只筛选出默认响应，条件响应不展示
-                            # if mockServer.mockServer_id == default_mockServer_id:
-                            #     mockServer_select_html = mockServer_select_html + r'<option value="{}" selected>{}</option>'.format(mockServer.mockServer_id, mockServer.mockServer_name)
-                            # else:
-                            mockServer_select_html = mockServer_select_html + r'<option value="{}">{}</option>'.format(mockServer.mockServer_id, mockServer.mockServer_name)
+                            if str(mockServer.mockServer_id) == str(default_mockServer_id):
+                                mockServer_select_html = mockServer_select_html + r'<option value="{}">{}</option>'.format(mockServer.mockServer_id, mockServer.mockServer_name)
+                            else:
+                                mockServer_select_html = mockServer_select_html + r'<option value="{}">{}</option>'.format(mockServer.mockServer_id, mockServer.mockServer_name)
+                    return JsonResponse({'mockServer_select_html': mockServer_select_html}, safe=False)
                 except:
                     mockServer_select_html = r'<option value=""></option>'
-                return JsonResponse({'mockServer_select_html':mockServer_select_html}, safe=False)
+                    return JsonResponse({'mockServer_select_html':mockServer_select_html}, safe=False)

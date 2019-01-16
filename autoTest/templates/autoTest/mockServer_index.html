@@ -76,8 +76,8 @@
                         <td value="{{ api.api_id }}">{{ api.api_path }}</td>
                         <td>{{ api.method }}</td>
                         <td>
-                            <select>
-                                <option value="1">默认返回测试内容长度</option>
+                            <select style="width:180px;" name="default_mockServer">
+                            
                             </select>
                         </td>
                         {% if api.mock_status == '1' %}
@@ -92,7 +92,7 @@
                         <td>
                             <a class="btn btn-sm btn-info" href="{% url 'autoTest:mockServer_update' %}?api_id={{ api.api_id }}" role="button">编辑</a>
                             <a class="btn btn-sm btn-primary" href="#" role="button">调试</a>
-                            <a class="btn btn-sm btn-success" href="#" role="button">保存</a>
+                            <a class="btn btn-sm btn-success" onclick="save_default_mockServer(this)" role="button">保存</a>
                             <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="{% url 'autoTest:mockServer_delete' %}?api_id={{ api.api_id }}">删除</button>
                         </td>
                     </tr>
@@ -171,6 +171,54 @@
                 });
             });
 
+        // 填充默认响应下拉列表
+        $("select[name='default_mockServer']").each(function(index,ele){
+            var mockServer_select_list = {{ mockServer_select_list |safe}};
+            ele.innerHTML = mockServer_select_list[index];
         });
+
+        });
+
+        function load_mockServer_select(ele){
+            var api_id = ele.parentNode.parentNode.children[2].getAttribute('value');
+            $.ajax({
+                url: "/autoTest/find_data/",
+                type: "post",
+                data:{
+                    "model": "mockServer",
+                    "data_id": api_id,
+                    "data_name": "mockServer_select",
+                },
+                success : function(data){
+                    console.log(data['mockServer_select_html']);
+                    ele.innerHTML=data['mockServer_select_html'];
+                },
+                error : function(data){
+                    console.log("接口调用失败！");
+                }
+            });
+        }
+
+        function save_default_mockServer(ele){
+            var api_id = ele.parentNode.parentNode.children[2].getAttribute('value');
+            var api_flag = 'save_default_mockServer';//区分多个不同接口标志
+            var default_mockServer_id = ele.parentNode.parentNode.children[4].children[0].value;
+            $.ajax({
+                url: "/autoTest/mockServer_update/",
+                type: "post",
+                data:{
+                    "api_id": api_id,
+                    "api_flag": api_flag,
+                    "default_mockServer_id": default_mockServer_id,
+                },
+                success : function(data){
+                    break;
+                },
+                error : function(data){
+                    console.log("查找指定接口失败");
+                    console.log('api_id: ', api_id);
+                }
+            });
+        }
     </script>
 {% endblock %}
