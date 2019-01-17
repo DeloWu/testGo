@@ -4,9 +4,12 @@ from autoTest.models import Project, Environment, Api, TestStep, TestCases, Repo
 import base64
 import codecs
 from decorator import decorator
+from django.http import HttpResponse, Http404, JsonResponse
+
 import httprunner
 import hmac
 import hashlib
+import json
 import logging
 from multiprocessing import Pool
 import os
@@ -337,26 +340,104 @@ def createJsonFile(testCasesObject):
         f.write(content)
     print('测试用例文件自动生成成功：', file_path)
     return file_path
-'''
-@decorator
-def multiprocess_pool(func, timelimit=300, *args, **kw):
-    print('Run task (%s)...' % (os.getpid()))
-    t0 = time.time()
-    pool = Pool(4)
-    result = pool.apply_async(func, args=args, kwds= kw)
-    pool.close()
-    pool.join()
-    dt = time.time() - t0
-    if dt > timelimit:
-        logging.warning('%s took %d seconds', func.__name__, dt)
-    else:
-        logging.info('%s took %d seconds', func.__name__, dt)
-    return result
 
-@multiprocess_pool
-def sleep():
-    time.sleep(random.random() * 3)
-'''
+def validate(check_value, comparator, expected_value, content_type):
+    '''
+    e.g. conditions格式：[certId,contains,X,string]
+                 [=, >, >=, <, <=, 长度等于, 长度大于, 长度小于, 包含, 被包含, startswith, endswith ]
+    comparator = [eq,gt,ge, lt,le, len_eq,   len_gt,   len_lt, contains, contained_by,startswith,endswith]
+    content_type = [ string, int, double, list, dict ]
+    :return: True or False
+    '''
+    #  根据期望结果的数据类型，变更expected_value为对应的数据类型
+    if content_type == 'string':
+        expected_value = str(expected_value)
+    elif content_type == 'int':
+        try:
+            expected_value = int(expected_value)
+        except Exception as e:
+            print(e)
+            expected_value = expected_value
+    elif content_type == 'list':
+        if str(expected_value).startswith('[') and str(expected_value).endswith(']'):
+            expected_value = list(expected_value)
+    elif content_type == 'dict':
+        if str(expected_value).startswith('{') and str(expected_value).endswith('}'):
+            expected_value = dict(expected_value)
+    elif content_type == 'double':
+        try:
+            expected_value = float(expected_value)
+        except Exception as e:
+            print(e)
+            expected_value = expected_value
+    else:
+        print(content_type,' not in [ string, int, double, list, dict ]')
+    #  根据comparator类型做不同比较
+    try:
+        if comparator == 'eq':
+            return check_value == expected_value
+        elif comparator == 'contains':
+            return expected_value in check_value
+        elif comparator == 'contained_by':
+            return check_value in expected_value
+        elif comparator == 'startswith':
+            return str(check_value).startswith(expected_value)
+        elif comparator == 'endswith':
+            return str(check_value).endswith(expected_value)
+        elif comparator == 'gt':
+            return check_value > expected_value
+        elif comparator == 'ge':
+            return check_value >= expected_value
+        elif comparator == 'lt':
+            return check_value < expected_value
+        elif comparator == 'le':
+            return check_value <= expected_value
+        elif comparator == 'len_eq':
+            return len(check_value) == len(expected_value)
+        elif comparator == 'len_gt':
+            return len(check_value) > len(expected_value)
+        elif comparator == 'len_lt':
+            return len(check_value) < len(expected_value)
+        else:
+            print(comparator ,' not in [eq,gt,ge, lt,le, len_eq,   len_gt,   len_lt, contains, contained_by,startswith,endswith]')
+            return False
+    except Exception as e:
+        print(e)
+        return False
+
+def getResponse(expect_response_content_type, expect_status_code, expect_headers, expect_response):
+    '''
+    根据mockServer保存的信息，返回特定的响应
+    :param expect_response_content_type:  [json, text, xml, html]
+    :param expect_status_code: 状态码
+    :param expect_headers: 特定的响应头 为json字符串
+    :param expect_response: 响应结果
+    :return: response
+    '''
+    if expect_response_content_type == 'text':
+        response = HttpResponse(expect_response)
+        response.status_code = int(expect_status_code)
+        if expect_headers:
+            #  如果有请求头，则添加至响应头部里
+            for key, value in json.loads(expect_headers):
+                response[key] = value
+        return response
+    elif expect_response_content_type == 'json':
+        response = JsonResponse(data=expect_response, safe=False)
+        response.status_code = int(expect_status_code)
+        if expect_headers:
+            #  如果有请求头，则添加至响应头部里
+            for key, value in json.loads(expect_headers):
+                response[key] = value
+        return response
+    elif expect_response_content_type == 'xml':
+        pass
+    elif expect_response_content_type == 'html':
+        pass
+    else:
+        print(expect_response_content_type, ' not in [json, text, xml, html]')
+
+
 if __name__ == '__main__':
     # createJsonFile(ob)
     # run_Case()

@@ -991,15 +991,133 @@ def plan_index(request):
                                                                 'crontabschedule_list': crontabschedule_list,
                                                                })
 
-def mock_server(request):
-    # 跳转到mock服务
-    request_path = request.get_full_path()
-    mock_server_flag = Api.objects.filter(api_path=request_path).filter(mock_status='1')
-    if mock_server_flag:
-        #  开始处理mock逻辑
-        return  HttpResponse('I am mock server! ')
+def getResponse(expect_response_content_type, expect_status_code, expect_headers, expect_response):
+    '''
+    根据mockServer保存的信息，返回特定的响应
+    :param expect_response_content_type:  [json, text, xml, html]
+    :param expect_status_code: 状态码
+    :param expect_headers: 特定的响应头 为json字符串
+    :param expect_response: 响应结果
+    :return: response
+    '''
+    if expect_response_content_type == 'text':
+        response = HttpResponse(expect_response)
+        response.status_code = int(expect_status_code)
+        if expect_headers:
+            #  如果有请求头，则添加至响应头部里
+            for key, value in json.loads(expect_headers):
+                response[key] = value
+        print('mock服务返回HttpResponse:', response)
+        return response
+    elif expect_response_content_type == 'json':
+        json_data = json.loads(expect_response)
+        response = JsonResponse(data=json_data, safe=False)
+        response.status_code = int(expect_status_code)
+        if expect_headers:
+            #  如果有请求头，则添加至响应头部里
+            for key, value in json.loads(expect_headers).items():
+                response[key] = value
+        print('mock服务返回JsonResponse:', response)
+        return response
+    elif expect_response_content_type == 'xml':
+        raise Http404
+    elif expect_response_content_type == 'html':
+        raise Http404
     else:
-        return Http404
+        print(expect_response_content_type, ' not in [json, text, xml, html]')
+
+def combine_response(return_mockServer):
+    #  根据mockServer，生成并返回HttpResponse objects
+    #如果请求参数条件匹配失败，给予默认响应
+    setup_hooks = return_mockServer.setup_hooks
+    teardown_hooks = return_mockServer.teardown_hooks
+    expect_response_content_type = return_mockServer.expect_response_content_type
+    expect_status_code = return_mockServer.expect_status_code
+    expect_headers = return_mockServer.expect_headers
+    expect_response = return_mockServer.expect_response
+    if setup_hooks:
+        #  在请求响应 产生前发生
+        #  如果有setup函数，先执行setup函数
+        #  暂时不做
+        pass
+    return_response = getResponse(
+        expect_response_content_type=expect_response_content_type,
+        expect_status_code=expect_status_code, expect_headers=expect_headers,
+        expect_response=expect_response)
+    if teardown_hooks:
+        # 在请求响应 产生后发生
+        #  如果有teardown函数，先执行teardown函数
+        #  暂时不做
+        pass
+    return return_response  # 发送响应结果给客户端
+
+
+def run_mock_server(request):
+    # 跳转到mock服务
+    request_uri = request.path
+    if not request_uri.endswith(r'/'):
+        request_uri = request_uri + r'/'
+    mock_server_flag = Api.objects.filter(api_path=request_uri).filter(mock_status='1')
+    if  mock_server_flag:
+        #  如果存在mockServer配置，并且开关打开情况下，开始处理mock逻辑
+        default_mockServer_id = Api.objects.filter(api_path=request_uri)[0].default_mockServer_id
+        default_mockServer = MockServer.objects.get(mockServer_id=default_mockServer_id)  # 该接口的默认响应
+        worked_mockServer_suite = MockServer.objects.filter(uri=request_uri).filter(mock_status='1').order_by('mockServer_id')
+        if worked_mockServer_suite:
+            #  mockServer有开启服务的指定mock服务
+            set_conditions_mockServer_suite = worked_mockServer_suite.exclude(conditions='')
+            not_set_conditions_mockServer_suite = worked_mockServer_suite.filter(conditions='').order_by('mockServer_id')
+            set_conditions_mockServer_suite_length = len(set_conditions_mockServer_suite)  #用于做最后一轮判断
+            loop_index = 0  #用于做最后一轮判断
+            if set_conditions_mockServer_suite:
+                for set_conditions_mockServer in set_conditions_mockServer_suite:
+                    #  e.g. conditions格式：[certId,contains,X,string,mockServerId]
+                    loop_index = loop_index + 1
+                    conditions =  set_conditions_mockServer.conditions.lstrip('[').rstrip(']').split(',')
+                    if request.method == 'GET':
+                        request_object = request.GET
+                    else:
+                        request_object = request.POST
+                    if conditions[0] in request_object:
+                        #  如果数据库存的请求参数在实际发送的request里，
+                        request_dict = request_object.dict()
+                        #请求参数条件匹配判断
+                        if goFunction.validate(check_value=request_dict[conditions[0]], comparator=conditions[1], expected_value=conditions[2], content_type=conditions[3]):
+                            #如果请求参数条件匹配成功
+                            return combine_response(set_conditions_mockServer)
+                        else:
+                            #  判断该循环是否是最后一个，如果是并且匹配失败，返回默认响应，否则跳过这次循环
+                            if loop_index == set_conditions_mockServer_suite_length:
+                                if default_mockServer:
+                                    return combine_response(default_mockServer)
+                                else:
+                                    print('uri: ', request.path, '该接口没有设置默认响应！')
+                                    raise Http404("您所访问的页面不存在！")
+                            else:
+                                continue
+                    else:
+                        #  数据库存的请求参数不在实际发送的request里，则跳过这次循环
+                        #  判断该循环是否是最后一个，如果是并且匹配失败，返回默认响应，否则跳过这次循环
+                        if loop_index == set_conditions_mockServer_suite_length:
+                            if default_mockServer:
+                                return combine_response(default_mockServer)
+                            else:
+                                print('uri: ', request.path, '该接口没有设置默认响应！')
+                                raise Http404("您所访问的页面不存在！")
+                        else:
+                            continue
+            else:
+                if default_mockServer:
+                    return combine_response(default_mockServer)
+                else:
+                    print('uri: ', request.path, '该接口没有设置默认响应！')
+                    raise Http404("您所访问的页面不存在！")
+        else:
+            print('uri: ', request.path, '该mockServer服务尚未配置或者未开启服务！')
+            raise Http404("您所访问的页面不存在！")
+    else:
+        print('uri: ', request.path, '该api-mock服务尚未配置或者未开启服务！')
+        raise Http404("您所访问的页面不存在！")
 
 def mockServer_index(request):
     # 筛选api列表sql：MockServer.objects.values('relative_api').distinct().order_by('relative_api')
@@ -1088,8 +1206,7 @@ def mockServer_add(request):
         content_type = request.POST.get('content_type', '')
         status_code = request.POST.get('status_code', '')
         mockServer_headers = request.POST.get('mockServer_headers', '')
-        if not (mockServer_headers.startswith('{') and mockServer_headers.endswith('}')):
-            mockServer_headers = '{' + mockServer_headers + '}'
+        #  headers数据库保存格式：e.g. ①json格式{'h1':'v1', 'h2':'v2'}
         mockServer_content = request.POST.get('mockServer_content', '')
         description = request.POST.get('description', '')
         mock_status = request.POST.get('mock_status', '1')

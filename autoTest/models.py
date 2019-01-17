@@ -224,6 +224,7 @@ class MockServer(models.Model):
     setup_hooks = models.CharField(max_length=200, blank=True, default='[]')    #e.g. $func1(1,2,3);func2();$func3(request);$func4(response)
     teardown_hooks = models.CharField(max_length=200, blank=True, default='[]')    #e.g. $func1(1,2,3);func2();$func3(request);$func4(response)
     expect_status_code = models.IntegerField(default=200)    #响应状态码
+    #  请求头支持的格式e.g. ①json格式{'h1':'v1', 'h2':'v2'}
     expect_headers = models.TextField(blank=True, default='')
     expect_response_content_type = models.CharField(max_length=10, blank=True, default='json')    #响应内容格式: json/text/html/xml
     expect_response = models.TextField(blank=True, default='')

@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.views.generic.base import RedirectView
 from autoTest import views
 
 
@@ -24,6 +25,7 @@ urlpatterns = [
     path(r'', views.index),
     path(r'autoTest/', views.index),
     path(r'autoTest/', include('autoTest.urls')),
-    re_path(r'.*/', views.mock_server, name='mock_server'),#用于跳转至mock服务
+    re_path(r'.*/', views.run_mock_server, name='mock_server'),#用于跳转至mock服务
+    path("favicon.ico", RedirectView.as_view(url=r'/static/img/yjsLogo.jpg')),
 ]
 
