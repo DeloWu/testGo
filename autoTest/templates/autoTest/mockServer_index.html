@@ -91,7 +91,7 @@
                         {% endif %}
                         <td>
                             <a class="btn btn-sm btn-info" href="{% url 'autoTest:mockServer_update' %}?api_id={{ api.api_id }}" role="button">编辑</a>
-                            <a class="btn btn-sm btn-primary" href="#" role="button">调试</a>
+                            <a class="btn btn-sm btn-primary" href="{{ api.api_path }}" target="_blank" role="button">调试</a>
                             <a class="btn btn-sm btn-success" onclick="save_default_mockServer(this)" role="button">保存</a>
                             <button class="btn btn-sm btn-danger" onclick="delcfm(this)" href="{% url 'autoTest:mockServer_delete' %}?api_id={{ api.api_id }}">删除</button>
                         </td>

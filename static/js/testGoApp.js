@@ -116,6 +116,25 @@ function save_mockServer_row(obj){
     else{
         mock_status = '0';
     }
+    // 判断响应头若不为空，是否为正确的json格式
+    if(mockServer_headers != ''){
+        try{
+            var headers_json = JSON.parse(mockServer_headers);
+        } catch{
+            alert("响应头json格式不正确！请检查修改后再次保存");
+            return ;
+        }
+    }
+    // 响应内容选择json格式，并且不为空，则判断是否为正确的json格式
+    if(content_type=='json' & mockServer_content != ''){
+        try{
+            var content_json = JSON.parse(mockServer_content);
+        } catch{
+            alert("响应内容json格式不正确！请检查修改后再次保存");
+            return ;
+        }
+    }
+
     $.ajax({
             url: "/autoTest/mockServer_add/",
             type: "post",

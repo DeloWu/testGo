@@ -1061,7 +1061,13 @@ def run_mock_server(request):
     if  mock_server_flag:
         #  如果存在mockServer配置，并且开关打开情况下，开始处理mock逻辑
         default_mockServer_id = Api.objects.filter(api_path=request_uri)[0].default_mockServer_id
-        default_mockServer = MockServer.objects.get(mockServer_id=default_mockServer_id)  # 该接口的默认响应
+        try:
+            default_mockServer = MockServer.objects.get(mockServer_id=default_mockServer_id)  # 该接口的默认响应
+            if default_mockServer.mock_status == '0':
+                #  默认响应服务未开启
+                default_mockServer = ''
+        except ValueError:
+            default_mockServer = ''
         worked_mockServer_suite = MockServer.objects.filter(uri=request_uri).filter(mock_status='1').order_by('mockServer_id')
         if worked_mockServer_suite:
             #  mockServer有开启服务的指定mock服务
@@ -1078,11 +1084,20 @@ def run_mock_server(request):
                         request_object = request.GET
                     else:
                         request_object = request.POST
-                    if conditions[0] in request_object:
+                    try:
+                        #  用于获取json格式的请求报文
+                        request_json_data = json.loads(request.body)
+                    except:
+                        request_json_data = ''
+                    if conditions[0] in request_object or conditions[0] in request_json_data:
                         #  如果数据库存的请求参数在实际发送的request里，
                         request_dict = request_object.dict()
+                        if request_json_data:
+                            check_value = request_json_data[conditions[0]]
+                        else:
+                            check_value = request_dict[conditions[0]]
                         #请求参数条件匹配判断
-                        if goFunction.validate(check_value=request_dict[conditions[0]], comparator=conditions[1], expected_value=conditions[2], content_type=conditions[3]):
+                        if goFunction.validate(check_value=check_value, comparator=conditions[1], expected_value=conditions[2], content_type=conditions[3]):
                             #如果请求参数条件匹配成功
                             return combine_response(set_conditions_mockServer)
                         else:
