@@ -6,6 +6,7 @@ from .models import Project, Environment, Api, TestStep, TestCases, Report, Encr
 from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import cache_page
 from django.db import connection
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_celery_beat.models import IntervalSchedule, CrontabSchedule, PeriodicTask
@@ -33,6 +34,7 @@ def login_check(func):
     return wrapper
 '''
 
+@cache_page(60 * 5)
 def index(request):
     return render(request, 'autoTest/index.html', context={})
 
@@ -80,6 +82,7 @@ def pro_delete(request):
         pro_id = request.GET['pro_id']
         Project.objects.filter(pro_id=pro_id).delete()
         return HttpResponseRedirect("/autoTest/pro_index/")
+
 
 
 def pro_update(request):
@@ -220,7 +223,6 @@ def api_index(request):
                                                                })
 
 
-@csrf_exempt
 def api_add(request):
     if request.method == 'POST':
         api_name = request.POST['api_name']
@@ -284,7 +286,6 @@ def api_delete(request):
         return HttpResponseRedirect("/autoTest/api_index/")
 
 
-@csrf_exempt
 def api_update(request):
     if request.method == 'POST':
         api_id = request.POST['api_id']
@@ -392,6 +393,7 @@ def encry_add(request):
         return render(request, "autoTest/encry_add.html", {})
 
 
+
 def encry_update(request):
     if request.method == 'POST':
         encry_id = request.POST['encry_id']
@@ -450,7 +452,6 @@ def testStep_index(request):
                                                                     })
 
 
-@csrf_exempt
 def testStep_add(request):
     if request.method == 'POST':
         testStep_name = request.POST['testStep_name']
@@ -521,7 +522,6 @@ def testStep_add(request):
         })
 
 
-@csrf_exempt
 def testStep_update(request):
     if request.method == 'POST':
         testStep_id = request.POST['testStep_id']
@@ -614,7 +614,7 @@ def testStep_delete(request):
         TestStep.objects.filter(testStep_id=testStep_id).delete()
         return HttpResponseRedirect("/autoTest/testStep_index/")
 
-@csrf_exempt
+
 def testStep_run(request):
     if request.method == 'POST':
         testStep_id = request.POST.get('request_testStep_id','')
@@ -665,7 +665,6 @@ def testCases_index(request):
                                                                      })
 
 
-@csrf_exempt
 def testCases_add(request):
     if request.method == 'POST':
         testCases_name = request.POST['testCases_name']
@@ -752,7 +751,7 @@ def testCases_add(request):
         })
 
 
-@csrf_exempt
+
 def testCases_update(request):
     if request.method == 'POST':
         testCases_id = request.POST['testCases_id']
@@ -859,7 +858,7 @@ def testCases_delete(request):
         TestCases.objects.filter(testCases_id=testCases_id).delete()
         return HttpResponseRedirect("/autoTest/testCases_index/")
 
-@csrf_exempt
+
 def testCases_run(request):
     '''
     request_runStyle: 
@@ -905,6 +904,7 @@ def testCases_run(request):
             return JsonResponse(summary, safe=False)
         return HttpResponseRedirect("/autoTest/testCases_index/")
 
+
 def report_index(request):
     report_sum = Report.objects.all().order_by('report_id')
     paginator = Paginator(report_sum, 10)
@@ -946,6 +946,7 @@ def report_delete(request):
             os.remove(file_path)
             print('成功删除测试报告文件： ', file_path)
         return HttpResponseRedirect("/autoTest/report_index/")
+
 
 def plan_index(request):
     plan_sum = PeriodicTask.objects.all().order_by('id')
@@ -1050,7 +1051,6 @@ def combine_response(return_mockServer):
         #  暂时不做
         pass
     return return_response  # 发送响应结果给客户端
-
 
 def run_mock_server(request):
     # 跳转到mock服务
@@ -1295,7 +1295,6 @@ def mockServer_delete(request):
         return HttpResponseRedirect("/autoTest/mockServer_index/")
 
 
-@csrf_exempt
 def find_data(request):
     model = request.POST.get('model', '')
     data_id = request.POST.get('data_id', '')

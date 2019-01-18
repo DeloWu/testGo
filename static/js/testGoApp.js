@@ -51,13 +51,6 @@ function add_mockServer_row(){
                 onColor:"info",  
                 offColor:"danger",  
                 size:"small",
-            // onSwitchChange:function(event,state){
-            //     if(state==true){  
-            //        alert('已打开');  
-            //     }else{  
-            //         alert('已关闭');  
-            //     }  
-            // }  
      
                 });
             });
@@ -120,7 +113,7 @@ function save_mockServer_row(obj){
     if(mockServer_headers != ''){
         try{
             var headers_json = JSON.parse(mockServer_headers);
-        } catch{
+        } catch(SyntaxError){
             alert("响应头json格式不正确！请检查修改后再次保存");
             return ;
         }
@@ -129,7 +122,7 @@ function save_mockServer_row(obj){
     if(content_type=='json' & mockServer_content != ''){
         try{
             var content_json = JSON.parse(mockServer_content);
-        } catch{
+        } catch(SyntaxError){
             alert("响应内容json格式不正确！请检查修改后再次保存");
             return ;
         }
