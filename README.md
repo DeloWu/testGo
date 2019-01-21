@@ -48,6 +48,6 @@ celery相关
     \httprunner\report.py  line97-99
     # report_dir_path = os.path.join(os.getcwd(), "reports")
     # 修改保存报告的路径为\testGo\httprunner\tests\testcases\reports
-    report_dir_path = os.path.join(os.getcwd(), r"httprunner\tests\testcases\reports")
+    report_dir_path = os.path.join(os.getcwd(), r"autoTest\templates\autoTest\reports")
 
 
