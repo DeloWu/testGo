@@ -155,6 +155,9 @@
     <script src="/static/bootstrap-switch-3.3.4/dist/js/bootstrap-switch.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $(document).ready(function () {
+                $("#baseinfo > ul > li:eq(7) > a").attr("class","active");
+            });
             $('[name^="switch-"]').each(function(){
                 $(this).bootstrapSwitch({  
                 onColor:"info",  

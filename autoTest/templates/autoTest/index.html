@@ -8,5 +8,9 @@
     </div>
 {% endblock %}
 {% block javascript %} 
-	
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#sidebar-nav > div:eq(0) > div > nav > ul > li:eq(0) >a").attr("class","active");
+	});
+</script>
 {% endblock %}

@@ -49,9 +49,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
+    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    # 'django.middleware.cache.FetchFromCacheMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -105,17 +105,17 @@ else:
         }
     }
 
-CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '127.0.0.1:11211',
-            'TIMEOUT': 3600, #  一小时缓存
-            'OPTIONS': {
-                        'server_max_value_length': 1024 * 1024 * 2,
-
-                    }
-        }
-    }
+# CACHES = {
+#         'default': {
+#             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#             'LOCATION': '127.0.0.1:11211',
+#             'TIMEOUT': 3600, #  一小时缓存
+#             'OPTIONS': {
+#                         'server_max_value_length': 1024 * 1024 * 2,
+#
+#                     }
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

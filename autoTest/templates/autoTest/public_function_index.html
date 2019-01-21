@@ -1,0 +1,30 @@
+{% extends 'autoTest/base.html' %}
+{% block title %} 签名管理 {% endblock %}
+{% block crumbs %}
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/index/">主页</a>
+                </li>
+                <li class="active">
+                    <a class="this">基础信息</a>
+                </li>
+                <li class="active">
+                    <a class="this-page">公共函数管理</a>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+
+{% endblock %}
+{% block javascript %} 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#system > ul > li:eq(1) > a").attr("class","active");
+    });
+</script>
+{% endblock %}

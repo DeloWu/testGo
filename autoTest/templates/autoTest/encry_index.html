@@ -80,3 +80,10 @@
         </div>
     </div>
 {% endblock %}
+{% block javascript %} 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#system > ul > li:eq(0) > a").attr("class","active");
+    });
+</script>
+{% endblock %}

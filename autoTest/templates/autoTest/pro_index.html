@@ -82,3 +82,10 @@
 
 
 {% endblock %}
+{% block javascript %} 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#baseinfo > ul > li:eq(0) > a").attr("class","active");
+    });
+</script>
+{% endblock %}

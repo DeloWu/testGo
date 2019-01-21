@@ -34,7 +34,7 @@ def login_check(func):
     return wrapper
 '''
 
-@cache_page(60 * 5)
+# @cache_page(60 * 5)
 def index(request):
     return render(request, 'autoTest/index.html', context={})
 

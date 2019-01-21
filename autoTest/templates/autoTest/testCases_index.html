@@ -156,6 +156,9 @@
 
 {% block javascript %} 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("#baseinfo > ul > li:eq(4) > a").attr("class","active");
+    });
     function runTestCases(obj){
             var testCases_id = obj.getAttribute("name");
             $.ajax({

@@ -98,8 +98,10 @@
 {% endblock %}
 {% block javascript %}
     <script type="text/javascript">
-
         $(document).ready(function () {
+            $(document).ready(function () {
+                $("#baseinfo > ul > li:eq(6) > a").attr("class","active");
+            });
             $("td[name='crontab_id']").each(function(index,element){
                 var id = element.textContent;
                 element.textContent = {{crontabschedule_list|safe}}[id];

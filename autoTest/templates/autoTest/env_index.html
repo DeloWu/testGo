@@ -1,5 +1,49 @@
 {% extends 'autoTest/base.html' %}
 {% block title %} 环境管理 {% endblock %}
+{% block sidebar-nav %} 
+<div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+                <ul class="nav">
+                    <li>
+                        <a href="/index/"><i class="图标"></i> <span>主页</span></a>
+                    </li>
+                    <li>
+                        <a href="#baseinfo" data-toggle="collapse" class="collapsed">
+                            <i class="图标"></i><span>基础信息</span> 
+                            <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="baseinfo" class="collapse">
+                            <ul class="nav">
+                                <li><a href="{% url 'autoTest:pro_index' %}" class="">项目管理</a></li>
+                                <li><a href="{% url 'autoTest:env_index' %}" class="">环境管理</a></li>
+                                <li><a href="{% url 'autoTest:api_index' %}" class="">接口管理</a></li>
+                                <li><a href="{% url 'autoTest:testStep_index' %}" class="">用例管理</a></li>
+                                <li><a href="{% url 'autoTest:testCases_index' %}" class="">用例集管理</a></li>
+                                <li><a href="{% url 'autoTest:report_index' %}" class="">测试报告管理</a></li>
+                                <li><a href="{% url 'autoTest:plan_index' %}" class="">执行计划管理</a></li>
+                                <li><a href="{% url 'autoTest:mockServer_index' %}" class="">mock服务管理</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#system" data-toggle="collapse" class="collapsed">
+                            <i class="图标"></i> <span>系统设置</span>
+                            <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="system" class="collapse">
+                            <ul class="nav">
+                                <li><a href="{% url 'autoTest:encry_index' %}" class="">签名管理</a></li>
+                                <li><a href="#" class="">公共函数管理</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+{% endblock %}
 {% block crumbs %}
     <div class="row">
         <div class="col-md-12">
@@ -104,4 +148,11 @@
         </nav>
     </div>
  </div>
+{% endblock %}
+{% block javascript %} 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#baseinfo > ul > li:eq(1) > a").attr("class","active");
+    });
+</script>
 {% endblock %}

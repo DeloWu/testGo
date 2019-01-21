@@ -5,7 +5,6 @@
         table { table-layout:fixed;word-break:break-all; }
     </style>
 {% endblock %}
-
 {% block crumbs %}
     <div class="row">
         <div class="col-md-12">
@@ -163,7 +162,11 @@
 </div>
 {% endblock %}
 {% block javascript %} 
+
     <script type="text/javascript">
+        $(document).ready(function () {
+            $("#baseinfo > ul > li:eq(3) > a").attr("class","active");
+        });
         function runTestStep(obj){
             var testStep_id = obj.getAttribute("name");
             $.ajax({
