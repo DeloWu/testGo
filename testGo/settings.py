@@ -82,7 +82,9 @@ WSGI_APPLICATION = 'testGo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 if platform.system() == 'Windows':
+    '''
     DATABASES = {
+        
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'testGo',
@@ -90,6 +92,17 @@ if platform.system() == 'Windows':
             'PORT': "3306",
             'USER': "root",
             'PASSWORD': "admin",
+        }
+    }
+    '''
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'testGo',
+            'HOST': "47.112.22.9",
+            'PORT': "3306",
+            'USER': "root",
+            'PASSWORD': "Admin123456=",
         }
     }
 else:
@@ -161,7 +174,7 @@ if platform.system() == 'Linux':
     #     以下路径替换成自己"django/contrib/admin/static/"所在完整路径
     '/root/.virtualenvs/env-testGo/lib/python3.6/site-packages/django/contrib/admin/static/',
     )
-'''
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
@@ -231,4 +244,3 @@ LOGGING = {
         },
     }
 }
-'''

@@ -21,7 +21,7 @@ import requests
 import time
 
 # logger = logging.getLogger('testGo.app')
-hrun_base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), r'httprunner\tests\testcases')
+hrun_base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), r'httprunner/tests/testcases')
 
 '''
 登录验证装饰器
@@ -702,7 +702,7 @@ def testCases_add(request):
         except:
             pass
         file_name = testCases_name + '_' + str(time.time())[:10] + '.json'
-        file_path = os.path.join(hrun_base_dir, file_name)
+        file_path = os.path.abspath(os.path.join(hrun_base_dir, file_name))
         testCases = TestCases(testCases_name=testCases_name, testSuite_function=testSuite_function,
                               parameters=parameters, variables=variables, headers=headers, description=description,
                               setup_hooks=setup_hooks, teardown_hooks=teardown_hooks, output=output,
@@ -877,28 +877,31 @@ def testCases_run(request):
         if request_runStyle == '3':
             # 性能测试
             runner = HttpRunner(failfast=True, http_client_session=locust.client.Session())
-            pass
         else:
             runner = HttpRunner(failfast=False)
         try:
             runner.run(file_path)
             summary = json.dumps(runner.summary['stat'])
-        except:
-            print('运行用例集报错!!')
+        except Exception:
+            logging.error(Exception)
         if request_runStyle == '0':
             # "0": 不生成测试报告
             return JsonResponse(summary, safe=False)
         if request_runStyle == '1':
             # "1": 立即返回测试报告
             report_path = runner.gen_html_report()
+            report_path.replace('\\', '/')
             report = Report(report_name=testCases_name, path=report_path, relative_testCases=request_testCases_id)
             report.save()
             report_id = str(Report.objects.filter(path=report_path)[0].report_id)
             redirect_url = r'http://127.0.0.1:8000/' + 'autoTest/report_show/?report_id=' + report_id
             return JsonResponse({'request_runStyle':'1', 'redirect_url': redirect_url}, safe=False)
+            # return HttpResponseRedirect("/autoTest/testCases_index/")
+
         if request_runStyle == '2':
             # "2": 后台生成测试报告
             report_path = runner.gen_html_report()
+            report_path.replace('\\', '/')
             report = Report(report_name=testCases_name, path=report_path, relative_testCases=request_testCases_id)
             report.save()
             return JsonResponse(summary, safe=False)

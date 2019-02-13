@@ -196,6 +196,7 @@
                         "request_runStyle": request_runStyle,
                     },
                 success : function(data){
+                    //若Chrome浏览器没有自动跳转页面，需要再Chrome设置里，将弹窗拦截解除
                     if(typeof(data) == 'object'){
                         window.open(data['redirect_url']);
                     }
