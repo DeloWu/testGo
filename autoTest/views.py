@@ -890,18 +890,17 @@ def testCases_run(request):
         if request_runStyle == '1':
             # "1": 立即返回测试报告
             report_path = runner.gen_html_report()
-            report_path.replace('\\', '/')
+            logging.info('report_path: ', report_path)
             report = Report(report_name=testCases_name, path=report_path, relative_testCases=request_testCases_id)
             report.save()
             report_id = str(Report.objects.filter(path=report_path)[0].report_id)
-            redirect_url = r'http://127.0.0.1:8000/' + 'autoTest/report_show/?report_id=' + report_id
+            request_host = request.get_host()
+            redirect_url = request_host + '/autoTest/report_show/?report_id=' + report_id
             return JsonResponse({'request_runStyle':'1', 'redirect_url': redirect_url}, safe=False)
-            # return HttpResponseRedirect("/autoTest/testCases_index/")
 
         if request_runStyle == '2':
             # "2": 后台生成测试报告
             report_path = runner.gen_html_report()
-            report_path.replace('\\', '/')
             report = Report(report_name=testCases_name, path=report_path, relative_testCases=request_testCases_id)
             report.save()
             return JsonResponse(summary, safe=False)

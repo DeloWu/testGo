@@ -198,13 +198,14 @@
                 success : function(data){
                     //若Chrome浏览器没有自动跳转页面，需要再Chrome设置里，将弹窗拦截解除
                     if(typeof(data) == 'object'){
-                        window.open(data['redirect_url']);
+                        var patt = new RegExp('/autoTest/report_show/\\?report_id=\\d+');
+                        var uri = data['redirect_url'].match(patt);
+                        window.open(uri);
                     }
                     else{
                         var add_content = '<font color="lightseagreen"><b>' + data + '</b></font>'
                         $("#response_content div").empty();
                         $("#response_content div").append(add_content);
-                        console.log('add_content: ',add_content);
                     }
                 },
                 error : function(data){

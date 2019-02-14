@@ -223,3 +223,274 @@ Traceback (most recent call last):
   File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
     raise TemplateDoesNotExist(template_name, chain=chain)
 django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550050035.html
+2019-02-13 17:41:09,454 [Thread-4:102019400] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 941, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550050882.html
+2019-02-13 18:06:47,439 [Thread-2:101700168] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 940, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550052420.html
+2019-02-13 18:08:56,154 [Thread-8:101963592] [django.request:118] [ERROR]- Internal Server Error: /autoTest/testCases_run/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 892, in testCases_run
+    report_path = runner.gen_html_report()
+  File "C:\Python36\lib\site-packages\httprunner\api.py", line 250, in gen_html_report
+    raise exceptions.MyBaseError("run method should be called before gen_html_report.")
+httprunner.exceptions.MyBaseError: run method should be called before gen_html_report.
+2019-02-13 18:09:09,155 [Thread-9:87177032] [django.request:118] [ERROR]- Internal Server Error: /autoTest/testCases_run/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 889, in testCases_run
+    return JsonResponse(summary, safe=False)
+UnboundLocalError: local variable 'summary' referenced before assignment
+2019-02-13 18:39:06,145 [Thread-20:87177032] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 940, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550054359.html
+2019-02-13 19:14:52,981 [Thread-2:102146120] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 939, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550056505.html
+2019-02-13 19:27:59,731 [Thread-4:102146888] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 939, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550057292.html
+2019-02-13 20:16:32,813 [Thread-2:101871688] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 938, in report_show
+    report_html_path = "autoTest/reports/" + Report.objects.get(report_id=report_id).path[-15:]
+  File "C:\Python36\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python36\lib\site-packages\django\db\models\query.py", line 403, in get
+    self.model._meta.object_name
+autoTest.models.DoesNotExist: Report matching query does not exist.
+2019-02-13 20:16:45,313 [Thread-9:101874760] [django.request:118] [ERROR]- Internal Server Error: /autoTest/testCases_run/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 892, in testCases_run
+    report_path = runner.gen_html_report()
+  File "C:\Python36\lib\site-packages\httprunner\api.py", line 256, in gen_html_report
+    html_report_template
+  File "C:\Python36\lib\site-packages\httprunner\report.py", line 116, in render_html_report
+    if not os.path.isdir(report_dir_path):
+UnboundLocalError: local variable 'report_dir_path' referenced before assignment
+2019-02-13 20:17:44,360 [Thread-10:101874760] [django.request:118] [ERROR]- Internal Server Error: /autoTest/testCases_run/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 892, in testCases_run
+    report_path = runner.gen_html_report()
+  File "C:\Python36\lib\site-packages\httprunner\api.py", line 256, in gen_html_report
+    html_report_template
+  File "C:\Python36\lib\site-packages\httprunner\report.py", line 116, in render_html_report
+    if not os.path.isdir(report_dir_path):
+UnboundLocalError: local variable 'report_dir_path' referenced before assignment
+2019-02-13 20:19:00,601 [Thread-12:101874760] [django.request:118] [ERROR]- Internal Server Error: /autoTest/testCases_run/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 902, in testCases_run
+    report_path = runner.gen_html_report()
+  File "C:\Python36\lib\site-packages\httprunner\api.py", line 256, in gen_html_report
+    html_report_template
+  File "C:\Python36\lib\site-packages\httprunner\report.py", line 116, in render_html_report
+    if not os.path.isdir(report_dir_path):
+UnboundLocalError: local variable 'report_dir_path' referenced before assignment
+2019-02-13 20:26:18,623 [Thread-9:93360968] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 939, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550060791.html
+2019-02-13 20:30:59,913 [Thread-11:102004552] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 939, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550061073.html
+2019-02-13 20:38:27,104 [Thread-13:93360968] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 939, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550061520.html
+2019-02-13 20:42:48,105 [Thread-7:102223944] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 939, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550061766.html
+2019-02-13 20:47:08,716 [Thread-2:87308104] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 939, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550062041.html
+2019-02-13 20:49:29,472 [Thread-4:87308104] [django.request:118] [ERROR]- Internal Server Error: /autoTest/report_show/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 939, in report_show
+    return render(request, report_html_path,{ })
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/reports/1550062182.html
