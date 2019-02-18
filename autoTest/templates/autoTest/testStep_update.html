@@ -41,14 +41,14 @@
                 <!-- {% csrf_token %} -->
                      <input id="testStep_id" name="testStep_id" value ={{ testStep.testStep_id }} hidden>
                     <div class="form-group">
-                        <label for="testStep_name" class="col-sm-2 control-label"><span style="color: red">* </span>用例名称:</label>
-                        <div class="col-sm-6">
+                        <label for="testStep_name" class="col-md-2 control-label"><span style="color: red">* </span>用例名称:</label>
+                        <div class="col-md-6">
                             <input type="text" name="testStep_name" class="form-control"  id="testStep_name" value={{ testStep.testStep_name }}  placeholder="请输入内容">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span style="color: red">* </span>选择用例所属项目:</label>
-                        <div class="col-sm-6">
+                        <label class="col-md-2 control-label"><span style="color: red">* </span>选择用例所属项目:</label>
+                        <div class="col-md-6">
                             <select id="pro_id" class="form-control">
                                 <option value={{ cur_pro.pro_id }}>{{ cur_pro.pro_name }} </option>
                                 {% for pro in pro_list %}
@@ -58,8 +58,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span style="color: red">* </span>选择接口:</label>
-                        <div class="col-sm-6">
+                        <label class="col-md-2 control-label"><span style="color: red">* </span>选择接口:</label>
+                        <div class="col-md-6">
                             <select id="api_id" class="form-control">
                                 <option value="{{ cur_api.api_id }}"> {{ cur_api.api_name }}</option>
 
@@ -67,15 +67,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="url" class="col-sm-2 control-label"><span style="color: red">* </span>请求地址:</label>
-                        <div class="col-sm-6">
+                        <label for="url" class="col-md-2 control-label"><span style="color: red">* </span>请求地址:</label>
+                        <div class="col-md-6">
                             <input type="text" name="url" class="form-control"  id="url" value="{{ testStep.url }}" placeholder="请输入内容">
                             <span    class="help-block" style="color:red">url写法：①http://127.0.0.1/apiPath/ ②/apiPath/ ③$ip_port_variables/apiPath/</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span style="color: red">* </span>是否无条件跳过此用例:</label>
-                        <div class="col-sm-6">
+                        <label class="col-md-2 control-label"><span style="color: red">* </span>是否无条件跳过此用例:</label>
+                        <div class="col-md-6">
                             <label class="radio-inline">
                                 <input type="radio" name="skip" value="True"> 是
                             </label>
@@ -85,29 +85,29 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="skipIf" class="col-sm-2 control-label">skipIf:</label>
-                        <div class="col-sm-6">
+                        <label for="skipIf" class="col-md-2 control-label">skipIf:</label>
+                        <div class="col-md-6">
                             <input type="text" name="skipIf" class="form-control" id="skipIf" value="{{ testStep.skipIf }}" placeholder="请输入内容,可默认为空">
                             <span    class="help-block" style="color:red">执行函数  e.g. ${functionName(*args, **kwargs)}</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="skipUnless" class="col-sm-2 control-label">skipUnless:</label>
-                        <div class="col-sm-6">
+                        <label for="skipUnless" class="col-md-2 control-label">skipUnless:</label>
+                        <div class="col-md-6">
                             <input type="text" name="skipUnless" class="form-control" id="skipUnless" value="{{ testStep.skipUnless }}" placeholder="请输入内容,可默认为空">
                             <span    class="help-block" style="color:red">执行函数  e.g. ${functionName(*args, **kwargs)}</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="times" class="col-sm-2 control-label"><span style="color: red">* </span>执行次数:</label>
-                        <div class="col-sm-6">
+                        <label for="times" class="col-md-2 control-label"><span style="color: red">* </span>执行次数:</label>
+                        <div class="col-md-6">
                             <input type="text" name="times" class="form-control"  id="times" value="{{ testStep.times }}" placeholder="请输入内容">
                             <span    class="help-block" style="color:red">用例默认执行一次</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span style="color: red">* </span>请求方式:</label>
-                        <div class="col-sm-6">
+                        <label class="col-md-2 control-label"><span style="color: red">* </span>请求方式:</label>
+                        <div class="col-md-6">
                             <label class="radio-inline">
                                 <input type="radio" name="method" value="GET"> GET
                             </label>
@@ -123,8 +123,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span style="color: red">* </span>参数格式:</label>
-                        <div class="col-sm-6">
+                        <label class="col-md-2 control-label"><span style="color: red">* </span>参数格式:</label>
+                        <div class="col-md-6">
                             <label class="radio-inline">
                                 <input type="radio" name="content_type" value="params" onclick=show_table()> params
                             </label>
@@ -140,15 +140,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="description" class="col-sm-2 control-label">用例内容描述:</label>
-                        <div class="col-sm-6">
+                        <label for="description" class="col-md-2 control-label">用例内容描述:</label>
+                        <div class="col-md-6">
                             <textarea name="description" placeholder="请输入内容" class="form-control" id="description" rows="3">{{ testStep.description }}</textarea>
                         </div>
                     </div>
                     <!-- 静态变量 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">静态变量:</label>
-                        <div class="col-sm-6">
+                        <label  class="col-md-2 control-label">静态变量:</label>
+                        <div class="col-md-6">
                             <!-- <input type="text" name="variables" class="form-control"  id="variables" placeholder="请输入内容"> -->
                             <div>
                                 <table class="table table-bordered table-condensed" id="variables-table">
@@ -168,15 +168,15 @@
                                 </table>
                                 <span    class="help-block" style="color:red">引用前面接口提取变量的形式: "$extract_name"</span>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_variables_row()">添加静态变量</button>
                             </div>
                         </div>
                     </div>
                     <!-- 请求头 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">请求头:</label>
-                        <div class="col-sm-6">
+                        <label  class="col-md-2 control-label">请求头:</label>
+                        <div class="col-md-6">
                             <!-- <input type="text" name="headers" class="form-control"  id="headers" placeholder="请输入内容"> -->
                             <div>
                                 <table class="table table-bordered table-condensed" id="headers-table">
@@ -195,18 +195,18 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_headers_row()">添加请求头</button>
                             </div>
                         </div>
                     </div>
                     <!-- 请求体 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">请求体:</label>
-                        <div class="col-sm-6" id="body-textarea-div" hidden="hidden">
+                        <label  class="col-md-2 control-label">请求体:</label>
+                        <div class="col-md-6" id="body-textarea-div" hidden="hidden">
                             <textarea name="body" placeholder="请输入内容" class="form-control" id="body-textarea" rows="4">{{ testStep.body }}</textarea>
                         </div>
-                        <div class="col-sm-6"  id="body-table-div">
+                        <div class="col-md-6"  id="body-table-div">
                             <div>
                                 <table class="table table-bordered table-condensed" id="body-table">
                                     <thead>
@@ -224,15 +224,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_body_row()">添加请求体</button>
                             </div>
                         </div>
                     </div>
                     <!-- 提取参数 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">提取变量:</label>
-                        <div class="col-sm-6">
+                        <label  class="col-md-2 control-label">提取变量:</label>
+                        <div class="col-md-6">
                             <!-- <input type="text" name="extract" class="form-control"  id="extract" placeholder="请输入内容"> -->
                             <div>
                                 <table class="table table-bordered table-condensed" id="extract-table">
@@ -248,15 +248,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_extract_row()">添加提取变量</button>
                             </div>
                         </div>
                     </div>
                     <!-- 校验器 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">校验器:</label>
-                        <div class="col-sm-6">
+                        <label  class="col-md-2 control-label">校验器:</label>
+                        <div class="col-md-6">
                             <!-- <input type="text" name="validate" class="form-control"  id="validate" placeholder="请输入内容"> -->
                             <div>
                                 <table class="table table-bordered table-condensed" id="validate-table">
@@ -275,27 +275,27 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_validate_row()">添加校验器</button>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="setup_hooks" class="col-sm-2 control-label">setup_hooks:</label>
-                        <div class="col-sm-6">
+                        <label for="setup_hooks" class="col-md-2 control-label">setup_hooks:</label>
+                        <div class="col-md-6">
                             <input type="text" name="setup_hooks" class="form-control" id="setup_hooks" value="{{ testStep.setup_hooks }}" placeholder="请输入内容,可默认为空">
                             <span    class="help-block" style="color:red">在整个用例开始执行前触发 hook 函数，主要用于请求前的准备工作。也可以实现对请求的 request 内容进行预处理<br />e.g. ①${hook_print(setup)} ②${setup_hook_prepare_kwargs($request)}</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="teardown_hooks" class="col-sm-2 control-label">teardown_hooks:</label>
-                        <div class="col-sm-6">
+                        <label for="teardown_hooks" class="col-md-2 control-label">teardown_hooks:</label>
+                        <div class="col-md-6">
                             <input type="text" name="teardown_hooks" class="form-control" id="teardown_hooks" value="{{ testStep.teardown_hooks }}" placeholder="请输入内容,可默认为空">
                             <span    class="help-block" style="color:red">在 HTTP 请求发送后执行 hook 函数，主要用于测试后的清理工作；也可以实现对响应的 response 进行修改，例如进行加解密等处理。<br />e.g. ${teardown_hook_sleep_N_secs($response, 2)}</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-4 col-sm-6">
+                        <div class="col-md-offset-4 col-md-6">
                             <button type="submit" class="btn btn-primary" onclick="submit_form()">保存</button>
                             <button type="reset" class="btn btn-primary" id="reset" onclick="reset_form()">重置</button>
                         </div>

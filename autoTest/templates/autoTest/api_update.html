@@ -39,21 +39,21 @@
                 <!-- {% csrf_token %} -->
                     <input id="api_id" name="api_id" value ={{ api.api_id }} hidden>
                     <div class="form-group">
-                        <label for="api_name" class="col-sm-2 control-label"><span style="color: red">* </span>接口名称:</label>
-                        <div class="col-sm-6">
+                        <label for="api_name" class="col-md-2 control-label"><span style="color: red">* </span>接口名称:</label>
+                        <div class="col-md-6">
                             <input type="text" name="api_name" class="form-control"  id="api_name" placeholder="请输入内容" value={{ api.api_name }}>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="api_path" class="col-sm-2 control-label"><span style="color: red">* </span>接口路径:</label>
-                        <div class="col-sm-6">
+                        <label for="api_path" class="col-md-2 control-label"><span style="color: red">* </span>接口路径:</label>
+                        <div class="col-md-6">
                             <input type="text" name="api_path" class="form-control" id="api_path" placeholder="请输入内容" value={{ api.api_path }}>
                             <span id="" class="help-block" style="color:red">格式: /aa/bb/cc</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span style="color: red">* </span>请求方式:</label>
-                        <div class="col-sm-6">
+                        <label class="col-md-2 control-label"><span style="color: red">* </span>请求方式:</label>
+                        <div class="col-md-6">
                             <label class="radio-inline">
                                 <input type="radio" name="method" value="GET"> GET
                             </label>
@@ -69,8 +69,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span style="color: red">* </span>参数格式:</label>
-                        <div class="col-sm-6">
+                        <label class="col-md-2 control-label"><span style="color: red">* </span>参数格式:</label>
+                        <div class="col-md-6">
                             <label class="radio-inline">
                                 <input type="radio" name="content_type" value="params" onclick="show_table()"> params
                             </label>
@@ -86,15 +86,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="description" class="col-sm-2 control-label">接口内容描述:</label>
-                        <div class="col-sm-6">
+                        <label for="description" class="col-md-2 control-label">接口内容描述:</label>
+                        <div class="col-md-6">
                             <textarea name="description" placeholder="请输入内容" class="form-control" id="description" rows="3">{{ api.description }}</textarea>
                         </div>
                     </div>
                     <!-- 请求头 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">请求头:</label>
-                        <div class="col-sm-6">
+                        <label  class="col-md-2 control-label">请求头:</label>
+                        <div class="col-md-6">
                             <!-- <input type="text" name="headers" class="form-control"  id="headers" placeholder="请输入内容"> -->
                             <div>
                                 <table class="table table-bordered table-condensed" id="headers-table">
@@ -113,18 +113,18 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_headers_row()">添加请求头</button>
                             </div>
                         </div>
                     </div>
                     <!-- 请求体 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">请求体:</label>
-                        <div class="col-sm-6" id="body-textarea-div" >
+                        <label  class="col-md-2 control-label">请求体:</label>
+                        <div class="col-md-6" id="body-textarea-div" >
                             <textarea name="body" placeholder="请输入内容" class="form-control" id="body-textarea" rows="4">{{ api.body }}</textarea>
                         </div>
-                        <div class="col-sm-6" id="body-table-div">
+                        <div class="col-md-6" id="body-table-div">
                             <div>
                                 <table class="table table-bordered table-condensed" id="body-table">
                                     <thead>
@@ -142,15 +142,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_body_row()">添加请求体</button>
                             </div>
                         </div>
                     </div>
                     <!-- 校验器 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">校验器:</label>
-                        <div class="col-sm-6">
+                        <label  class="col-md-2 control-label">校验器:</label>
+                        <div class="col-md-6">
                             <!-- <input type="text" name="validate" class="form-control"  id="validate" placeholder="请输入内容"> -->
                             <div>
                                 <table class="table table-bordered table-condensed" id="validate-table">
@@ -169,14 +169,14 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_validate_row()">添加校验器</button>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span style="color: red">* </span>是否加密:</label>
-                        <div class="col-sm-3">
+                        <label class="col-md-2 control-label"><span style="color: red">* </span>是否加密:</label>
+                        <div class="col-md-3">
                             <label class="radio-inline">
                                 <input type="radio" name="encry_flag" value="0" > 不加密
                             </label>
@@ -186,8 +186,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span style="color: red">* </span>加密方式:</label>
-                        <div class="col-sm-6">
+                        <label class="col-md-2 control-label"><span style="color: red">* </span>加密方式:</label>
+                        <div class="col-md-6">
                             <select id="encry_id" class="form-control">
                                 <option value={{ cur_enc.encry_id }}>{{ cur_enc.encry_name }}</option>
                                 {% for encry in encry_list %}
@@ -199,8 +199,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label"><span style="color: red">* </span>所属项目:</label>
-                        <div class="col-sm-6">
+                        <label class="col-md-2 control-label"><span style="color: red">* </span>所属项目:</label>
+                        <div class="col-md-6">
                             <select id="pro_id" class="form-control">
                                 <option value={{ cur_pro.pro_id }}>{{ cur_pro.pro_name }}</option>
                                 {% for pro in pro_list %}
@@ -212,7 +212,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-4 col-sm-6">
+                        <div class="col-md-offset-4 col-md-6">
                             <button type="submit" class="btn btn-primary" id="submit" onclick="submit_form()">保存</button>
                             <button type="reset" class="btn btn-primary" id="reset" onclick="reset_form()">重置</button>
                         </div>

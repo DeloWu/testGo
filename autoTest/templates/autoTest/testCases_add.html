@@ -56,42 +56,42 @@
             <div class="panel-body">
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <label for="testCases_name" class="col-sm-2 control-label"><span style="color: red">* </span>用例集名称:</label>
-                        <div class="col-sm-6">
+                        <label for="testCases_name" class="col-md-2 control-label"><span style="color: red">* </span>用例集名称:</label>
+                        <div class="col-md-6">
                             <input type="text" name="testCases_name" class="form-control"  id="testCases_name" placeholder="请输入内容">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="testSuite_function" class="col-sm-2 control-label"><!-- <span style="color: red">* </span> -->用例集函数:</label>
-                        <div class="col-sm-6">
+                        <label for="testSuite_function" class="col-md-2 control-label"><!-- <span style="color: red">* </span> -->用例集函数:</label>
+                        <div class="col-md-6">
                             <input type="text" name="testSuite_function" class="form-control"  id="testSuite_function" placeholder="请输入内容">
                             <!-- <span    class="help-block" style="color:red">e.g. testSuiteName2($page,$num)  若未填写用例集函数，此用例集便无法作为组件来拼装用例集！ </span> -->
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="description" class="col-sm-2 control-label"><span style="color: red">* </span>内容描述:</label>
-                        <div class="col-sm-6">
+                        <label for="description" class="col-md-2 control-label"><span style="color: red">* </span>内容描述:</label>
+                        <div class="col-md-6">
                             <textarea name="description" placeholder="请输入内容" class="form-control" id="description" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="setup_hooks" class="col-sm-2 control-label">setup_hooks:</label>
-                        <div class="col-sm-6">
+                        <label for="setup_hooks" class="col-md-2 control-label">setup_hooks:</label>
+                        <div class="col-md-6">
                             <input type="text" name="setup_hooks" class="form-control" id="setup_hooks" placeholder="请输入内容,可默认为空">
                             <span    class="help-block" style="color:red">在整个用例开始执行前触发 hook 函数，主要用于请求前的准备工作。也可以实现对请求的 request 内容进行预处理<br />e.g. ①${hook_print(setup)} ②${setup_hook_prepare_kwargs($request)}</span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="teardown_hooks" class="col-sm-2 control-label">teardown_hooks:</label>
-                        <div class="col-sm-6">
+                        <label for="teardown_hooks" class="col-md-2 control-label">teardown_hooks:</label>
+                        <div class="col-md-6">
                             <input type="text" name="teardown_hooks" class="form-control" id="teardown_hooks" placeholder="请输入内容,可默认为空">
                             <span    class="help-block" style="color:red">在 HTTP 请求发送后执行 hook 函数，主要用于测试后的清理工作；也可以实现对响应的 response 进行修改，例如进行加解密等处理。<br />e.g. ${teardown_hook_sleep_N_secs($response, 2)}</span>
                         </div>
                     </div>
                     <!-- 请求头 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">请求头:</label>
-                        <div class="col-sm-6">
+                        <label  class="col-md-2 control-label">请求头:</label>
+                        <div class="col-md-6">
                             <!-- <input type="text" name="headers" class="form-control"  id="headers" placeholder="请输入内容"> -->
                             <div>
                                 <table class="table table-bordered table-condensed" id="headers-table">
@@ -109,15 +109,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_headers_row()">添加请求头</button>
                             </div>
                         </div>
                     </div>
                     <!-- 公共驱动参数 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">公共驱动参数:</label>
-                        <div class="col-sm-6">
+                        <label  class="col-md-2 control-label">公共驱动参数:</label>
+                        <div class="col-md-6">
                             <!-- <input type="text" name="parameters" class="form-control"  id="parameters" placeholder="请输入内容"> -->
                             <div>
                                 <table class="table table-bordered table-condensed" id="parameters-table">
@@ -136,7 +136,7 @@
                                 </table>
                                 <span    class="help-block" style="color:red">数据驱动测试用例 e.g. ①{"user_agent": ["iOS/10.1", "iOS/10.2", "iOS/10.3"]} ②"app_version": "${P(app_version.csv)}"} ③{"os_platform": "${get_os_platform()}"}</span>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_parameters_row()">添加公共参数</button>
                             </div>
                         </div>
@@ -144,8 +144,8 @@
 
                     <!-- 静态变量 -->
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">公共静态变量:</label>
-                        <div class="col-sm-6">
+                        <label  class="col-md-2 control-label">公共静态变量:</label>
+                        <div class="col-md-6">
                             <!-- <input type="text" name="variables" class="form-control"  id="variables" placeholder="请输入内容"> -->
                             <div>
                                 <table class="table table-bordered table-condensed" id="variables-table">
@@ -164,14 +164,14 @@
                                 </table>
                                 <span    class="help-block" style="color:red">引用前面接口提取变量的形式: "$extract_name"</span>
                             </div>
-                            <div class="col-sm-offset-4">
+                            <div class="col-md-offset-4">
                                 <button class="btn btn-primary" onclick="add_variables_row()">添加公共静态变量</button>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="output" class="col-sm-2 control-label">打印参数列表:</label>
-                        <div class="col-sm-6">
+                        <label for="output" class="col-md-2 control-label">打印参数列表:</label>
+                        <div class="col-md-6">
                             <input type="text" name="output" class="form-control" value="[  ]"  id="output" placeholder="请输入内容">
                             <span    class="help-block" style="color:red"> 可输出的参数包括 "公共参数" 和 "公共静态变量" e.g. ["var1", "var2"]</span>
                         </div>
@@ -248,7 +248,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-4 col-sm-6">
+                        <div class="col-md-offset-4 col-md-6">
                             <button type="submit" class="btn btn-primary" onclick="submit_form()">保存</button>
                         </div>
                     </div>

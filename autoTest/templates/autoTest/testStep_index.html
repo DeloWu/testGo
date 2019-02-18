@@ -121,20 +121,20 @@
                 <form class="form-horizontal">
                     <input id="testStep_id" name="testStep_id" hidden>
                     <div class="form-group">
-                        <label for="request_url" class="col-sm-2 control-label"><font size="2">请求接口<br >地址：</font></label>
-                        <div class="col-sm-9">
+                        <label for="request_url" class="col-md-2 control-label"><font size="2">请求接口<br >地址：</font></label>
+                        <div class="col-md-9">
                             <input type="text" class="form-control" id="request_url" placeholder="请输入请求接口地址">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="request_header" class="col-sm-2 control-label">Headers：</label>
-                        <div class="col-sm-9">
+                        <label for="request_header" class="col-md-2 control-label">Headers：</label>
+                        <div class="col-md-9">
                             <textarea class="form-control" rows="2" id="request_headers"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="request_body" class="col-sm-2 control-label">Body：</label>
-                        <div class="col-sm-9">
+                        <label for="request_body" class="col-md-2 control-label">Body：</label>
+                        <div class="col-md-9">
                             <textarea class="form-control" rows="4" id="request_body"></textarea>
                         </div>
                     </div>
@@ -142,8 +142,8 @@
                         <!-- 请求完成后填充模块 -->
                     </div>
                     <!-- <div class="form-group">
-                        <label for="runStyle" class="col-sm-2 control-label"><font size="2">执行方式：</font></label>
-                        <div class="col-sm-9">
+                        <label for="runStyle" class="col-md-2 control-label"><font size="2">执行方式：</font></label>
+                        <div class="col-md-9">
                             <select class="form-control" name="runStyle" id="runStyle">
                                 <option>执行用例 | 不生成测试报告</option>
                                 <option>执行用例 | 立即返回测试报告</option>
@@ -214,23 +214,23 @@
                     var headers_html = '';
                     var body_html = '';
                     if(resp_status_code[0]==2){
-                        status_html = '<div class="form-group" style="color:#2bc787">' + '<div name="status" class="col-sm-4 control-label">' + '<font size="4"><b>' + resp_status_code + '  ' + resp_reason + '</b></font><br >' + '</div></div>' ;
+                        status_html = '<div class="form-group" style="color:#2bc787">' + '<div name="status" class="col-md-4 control-label">' + '<font size="4"><b>' + resp_status_code + '  ' + resp_reason + '</b></font><br >' + '</div></div>' ;
                     }
                     else if(resp_status_code[0]==4 || resp_status_code[0]==5){
 
-                        status_html = '<div class="form-group" style="color:red">' + '<label  name="status" class="col-sm-4 control-label">' + '<font size="4"><b>' + resp_status_code + '  ' + resp_reason + '</b></font><br >' + '</label></div>';
+                        status_html = '<div class="form-group" style="color:red">' + '<label  name="status" class="col-md-4 control-label">' + '<font size="4"><b>' + resp_status_code + '  ' + resp_reason + '</b></font><br >' + '</label></div>';
                     }
                     else{
-                        status_html = '<div class="form-group" style="color:blue">' + '<label name="status" class="col-sm-4 control-label">' + '<font size="4"><b>' + resp_status_code + '  ' + resp_reason + '</b></font><br >' + '</label></div>';
+                        status_html = '<div class="form-group" style="color:blue">' + '<label name="status" class="col-md-4 control-label">' + '<font size="4"><b>' + resp_status_code + '  ' + resp_reason + '</b></font><br >' + '</label></div>';
                     }
                     // 拼装返回请求头
                     console.log('获取的headers: ', resp_headers);
-                    headers_html = '<div class="form-group">' + '<label for="response_headers" class="col-sm-2 control-label">Headers:' + '</label>' + '<div class="col-sm-9">' + '<textarea class="form-control" rows="3" id="response_headers">';
+                    headers_html = '<div class="form-group">' + '<label for="response_headers" class="col-md-2 control-label">Headers:' + '</label>' + '<div class="col-md-9">' + '<textarea class="form-control" rows="3" id="response_headers">';
                         headers_html = headers_html + resp_headers;
                         headers_html = headers_html + '</textarea></div></div>';
                     // 拼装返回请求体
                     console.log('获取的body: ', resp_body);
-                    body_html = '<div class="form-group">' + '<label for="response_body" class="col-sm-2 control-label">body:' + '</label>' + '<div class="col-sm-9">' + '<textarea class="form-control" rows="5" id="response_body">';
+                    body_html = '<div class="form-group">' + '<label for="response_body" class="col-md-2 control-label">body:' + '</label>' + '<div class="col-md-9">' + '<textarea class="form-control" rows="5" id="response_body">';
 
                         body_html = body_html + resp_body;
                         body_html = body_html + '</textarea></div></div>';

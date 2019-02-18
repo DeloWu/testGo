@@ -198,12 +198,21 @@
             var api_id = ele.parentNode.parentNode.children[2].getAttribute('value');
             var api_flag = 'save_default_mockServer';//区分多个不同接口标志
             var default_mockServer_id = ele.parentNode.parentNode.children[4].children[0].value;
+            var mock_status_class = ele.parentNode.parentNode.children[5].children[0].className;
+            var mock_status = new String;
+            if(mock_status_class.search('bootstrap-switch-off')==-1){
+                mock_status = '1';
+            }
+            else{
+                mock_status = '0';
+            }
             $.ajax({
                 url: "/autoTest/mockServer_update/",
                 type: "post",
                 data:{
                     "api_id": api_id,
                     "api_flag": api_flag,
+                    "mock_status": mock_status,
                     "default_mockServer_id": default_mockServer_id,
                 },
                 success : function(data){

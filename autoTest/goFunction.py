@@ -30,22 +30,6 @@ def run_Case():
     content = os.system(file_path)
 
 
-def wpt_encode():
-    key = '6f4965f5d8bc1010ff67ca792e335f67'
-    operator = 'WUDLB'
-    AppID = 'WPT-test'    #开发环境：WPT-dev(不做校验), 测试环境：WPT-test, 生产环境：WPT-production
-    AppID_md5 = hashlib.md5(AppID.encode('utf-8')).hexdigest().encode('utf-8')
-    SerialNo = ''
-    for i in range(8):
-        SerialNo  = SerialNo + random.choice(string.ascii_letters)
-    Timestamp = str(time.time())[:10]
-    resource_string = (AppID + SerialNo + Timestamp)
-    resource_string_bytes  = resource_string.encode('utf-8')
-    Signature = hmac.new(AppID_md5,resource_string_bytes,hashlib.sha1).digest()
-    print('SerialNo: ',SerialNo)
-    print('Timestamp: ',Timestamp)
-    print('Signature: ',base64.b64encode(Signature))
-
 def check_listFormat(getString):
     '''
     检测参数是否为[ ]格式，以"["开头, 以"]"结尾，若不是则补充[ 或 ]

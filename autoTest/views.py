@@ -991,18 +991,22 @@ def plan_index(request):
 
     # 映射时间配置
     intervalschedule_list = ['', ]
-    for intervalschedule in IntervalSchedule.objects.all().order_by('id'):
+    for index, intervalschedule in  enumerate(IntervalSchedule.objects.all().order_by('id')[current_page * 10 - 10: ]):
         time_str = str(intervalschedule.every) + ' ' + intervalschedule.period
         intervalschedule_list.append(time_str)
         time_str = ''
+        if index == 9:
+            break
 
     crontabschedule_list = ['', ]
-    for crontabschedule in CrontabSchedule.objects.all().order_by('id'):
+    for index, crontabschedule in enumerate(CrontabSchedule.objects.all().order_by('id')[current_page * 10 - 10: ]):
         time_str = str(crontabschedule.minute) + ' ' + str(crontabschedule.hour) + ' ' + str(
             crontabschedule.day_of_week) + ' ' + str(crontabschedule.day_of_month) + ' ' + str(
             crontabschedule.month_of_year) + '(m/h/d/dM/dY)'
         crontabschedule_list.append(time_str)
         time_str = ''
+        if index == 9:
+            break
 
     return render(request, 'autoTest/plan_index.html', context={'plan_list': plan_list,
                                                                'paginator': paginator,
@@ -1303,10 +1307,11 @@ def mockServer_update(request):
     if request.method == 'POST':
         api_id = request.POST.get('api_id', '')
         api_flag = request.POST.get('api_flag', '')
+        api_mock_status = request.POST.get('mock_status','')
         default_mockServer_id = request.POST.get('default_mockServer_id', '')
         if api_flag == 'save_default_mockServer':
             #  保存关联api的默认mockServer响应
-            Api.objects.filter(api_id=api_id).update(default_mockServer_id=default_mockServer_id)
+            Api.objects.filter(api_id=api_id).update(default_mockServer_id=default_mockServer_id, mock_status=api_mock_status)
             return JsonResponse({'api_id':api_id},safe=False)
 
 def mockServer_delete(request):

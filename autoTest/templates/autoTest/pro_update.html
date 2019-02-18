@@ -36,19 +36,19 @@
                     {% csrf_token %}
                     <input name="pro_id" value ={{ pro.pro_id }} hidden>
                     <div class="form-group">
-                        <label for="pro_name" class="col-sm-2 control-label"><span style="color: red">* </span>项目名称:</label>
-                        <div class="col-sm-6">
+                        <label for="pro_name" class="col-md-2 control-label"><span style="color: red">* </span>项目名称:</label>
+                        <div class="col-md-6">
                             <input type="text" name="pro_name" value ={{ pro.pro_name }} class="form-control" id="pro_name">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="pro_description" class="col-sm-2 control-label">项目描述</label>
-                        <div class="col-sm-6">
+                        <label for="pro_description" class="col-md-2 control-label">项目描述</label>
+                        <div class="col-md-6">
                             <textarea name="description" placeholder="请输入内容" class="form-control" id="pro_description" rows="3">{{ pro.description }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-4 col-sm-6">
+                        <div class="col-md-offset-4 col-md-6">
                             <button type="submit" class="btn btn-primary">保存</button>
                             <button type="reset" class="btn btn-primary">重置</button>
                         </div>
