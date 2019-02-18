@@ -26,7 +26,6 @@
     }
 </style>
 {% endblock %}
-</style>
 {% block body %}
 <div class="row">
     <div class="col-md-12">
@@ -166,7 +165,41 @@
                                     </thead>
                                     <tbody>
                                         <!-- 默认添加请求状态码的校验 -->
-                                        <tr><td contenteditable="true" name="key">status_code</td><td contenteditable="true" name="comparator"><select name="comparator" class="form-control"><option value="eq">eq</option><option value="eq"> = </option><option value="gt"> &gt; </option><option value="ge"> &gt;= </option><option value="lt"> &lt; </option><option value="le"> &lt;= </option><option value="len_eq">长度等于</option><option value="len_gt">长度大于</option><option value="len_lt">长度小于</option><option value="contains">包含</option><option value="contained_by">被包含</option><option value="startswith">startswith</option><option value="endswith">endswith</option></select></td><td contenteditable="true" name="value">200</td><td contenteditable="true" name="validate_data_type"><select name="validate_data_type" class="form-control"><option value="int">int </option><option value="string"> string </option><option value="int"> int </option><option value="double"> double </option><option value="list"> list </option><option value="dict"> dict </option></select></td><td contenteditable="true" name="validate_description">状态码</td><td><button class="btn btn-danger" onclick="del_row(this)">删除</button></td></tr>
+                                        <tr>
+                                            <td contenteditable="true" name="key">status_code</td>
+                                            <td contenteditable="true" name="comparator">
+                                                <select name="comparator" class="form-control">
+                                                    <option value="eq">eq</option>
+                                                    <option value="eq"> = </option>
+                                                    <option value="gt"> &gt; </option>
+                                                    <option value="ge"> &gt;= </option>
+                                                    <option value="lt"> &lt; </option>
+                                                    <option value="le"> &lt;= </option>
+                                                    <option value="len_eq">长度等于</option>
+                                                    <option value="len_gt">长度大于</option>
+                                                    <option value="len_lt">长度小于</option>
+                                                    <option value="contains">包含</option>
+                                                    <option value="contained_by">被包含</option>
+                                                    <option value="startswith">startswith</option>
+                                                    <option value="endswith">endswith</option>
+                                                </select>
+                                            </td>
+                                            <td contenteditable="true" name="value">200</td>
+                                            <td contenteditable="true" name="validate_data_type">
+                                                <select name="validate_data_type" class="form-control">
+                                                    <option value="int">int </option>
+                                                    <option value="string"> string </option>
+                                                    <option value="int"> int </option>
+                                                    <option value="double"> double </option>
+                                                    <option value="list"> list </option>
+                                                    <option value="dict"> dict </option>
+                                                </select>
+                                            </td>
+                                            <td contenteditable="true" name="validate_description">状态码</td>
+                                            <td>
+                                                <button class="btn btn-danger" onclick="del_row(this)">删除</button>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

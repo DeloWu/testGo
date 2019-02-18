@@ -1,0 +1,602 @@
+2019-02-15 18:37:57,437 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 18:37:57,446 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 18:37:57,454 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 18:37:57,734 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 18:37:57,909 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.174) SHOW FULL TABLES; args=None
+2019-02-15 18:37:57,923 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.011) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2019-02-15 18:38:05,789 [Thread-2:102084680] [django.server:124] [INFO]- "GET / HTTP/1.1" 200 7831
+2019-02-15 18:38:05,818 [Thread-3:102084680] [django.server:124] [INFO]- "GET /static/css/main.css HTTP/1.1" 304 0
+2019-02-15 18:38:07,341 [Thread-4:87242568] [django.db.backends:111] [DEBUG]- (0.009) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 18:38:07,353 [Thread-4:87242568] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 18:38:07,362 [Thread-4:87242568] [django.db.backends:111] [DEBUG]- (0.008) SELECT COUNT(*) AS `__count` FROM `autoTest_project`; args=()
+2019-02-15 18:38:07,375 [Thread-4:87242568] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project` ORDER BY `autoTest_project`.`pro_id` ASC LIMIT 2; args=()
+2019-02-15 18:38:07,381 [Thread-4:87242568] [django.server:124] [INFO]- "GET /autoTest/pro_index/ HTTP/1.1" 200 10719
+2019-02-15 18:38:42,632 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 18:38:42,641 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.009) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 18:38:42,650 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.008) SELECT COUNT(*) AS `__count` FROM `autoTest_api`; args=()
+2019-02-15 18:38:42,662 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.011) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` LIMIT 3; args=()
+2019-02-15 18:38:42,676 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 18:38:42,687 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 1; args=(1,)
+2019-02-15 18:38:42,699 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE `autoTest_mockserver`.`mockServer_id` = 2; args=(2,)
+2019-02-15 18:38:42,711 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE (`autoTest_mockserver`.`relative_api` = '1' AND `autoTest_mockserver`.`conditions` = ''); args=('1', '')
+2019-02-15 18:38:42,724 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.011) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 3; args=(3,)
+2019-02-15 18:38:42,735 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE (`autoTest_mockserver`.`relative_api` = '3' AND `autoTest_mockserver`.`conditions` = ''); args=('3', '')
+2019-02-15 18:38:42,747 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 4; args=(4,)
+2019-02-15 18:38:42,760 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.011) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE (`autoTest_mockserver`.`relative_api` = '4' AND `autoTest_mockserver`.`conditions` = ''); args=('4', '')
+2019-02-15 18:38:42,774 [Thread-6:87242568] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 18:38:42,776 [Thread-6:87242568] [django.template:878] [DEBUG]- Exception while resolving variable 'pro_id' in template 'autoTest/mockServer_index.html'.
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 835, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [pro_id] in None
+2019-02-15 18:38:42,779 [Thread-6:87242568] [django.server:124] [INFO]- "GET /autoTest/mockServer_index/ HTTP/1.1" 200 18584
+2019-02-15 18:38:44,078 [Thread-7:102084680] [django.db.backends:111] [DEBUG]- (0.009) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 18:38:44,087 [Thread-7:102084680] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 18:38:44,097 [Thread-7:102084680] [django.db.backends:111] [DEBUG]- (0.009) SELECT COUNT(*) AS `__count` FROM `django_celery_beat_periodictask`; args=()
+2019-02-15 18:38:44,108 [Thread-7:102084680] [django.db.backends:111] [DEBUG]- (0.010) SELECT `django_celery_beat_intervalschedule`.`id`, `django_celery_beat_intervalschedule`.`every`, `django_celery_beat_intervalschedule`.`period` FROM `django_celery_beat_intervalschedule` ORDER BY `django_celery_beat_intervalschedule`.`id` ASC; args=()
+2019-02-15 18:38:44,125 [Thread-7:102084680] [django.db.backends:111] [DEBUG]- (0.016) SELECT `django_celery_beat_crontabschedule`.`id`, `django_celery_beat_crontabschedule`.`minute`, `django_celery_beat_crontabschedule`.`hour`, `django_celery_beat_crontabschedule`.`day_of_week`, `django_celery_beat_crontabschedule`.`day_of_month`, `django_celery_beat_crontabschedule`.`month_of_year`, `django_celery_beat_crontabschedule`.`timezone` FROM `django_celery_beat_crontabschedule` ORDER BY `django_celery_beat_crontabschedule`.`id` ASC; args=()
+2019-02-15 18:38:44,141 [Thread-7:102084680] [django.db.backends:111] [DEBUG]- (0.011) SELECT `django_celery_beat_periodictask`.`id`, `django_celery_beat_periodictask`.`name`, `django_celery_beat_periodictask`.`task`, `django_celery_beat_periodictask`.`interval_id`, `django_celery_beat_periodictask`.`crontab_id`, `django_celery_beat_periodictask`.`solar_id`, `django_celery_beat_periodictask`.`args`, `django_celery_beat_periodictask`.`kwargs`, `django_celery_beat_periodictask`.`queue`, `django_celery_beat_periodictask`.`exchange`, `django_celery_beat_periodictask`.`routing_key`, `django_celery_beat_periodictask`.`priority`, `django_celery_beat_periodictask`.`expires`, `django_celery_beat_periodictask`.`one_off`, `django_celery_beat_periodictask`.`start_time`, `django_celery_beat_periodictask`.`enabled`, `django_celery_beat_periodictask`.`last_run_at`, `django_celery_beat_periodictask`.`total_run_count`, `django_celery_beat_periodictask`.`date_changed`, `django_celery_beat_periodictask`.`description` FROM `django_celery_beat_periodictask` ORDER BY `django_celery_beat_periodictask`.`id` ASC LIMIT 3; args=()
+2019-02-15 18:38:44,144 [Thread-7:102084680] [django.server:124] [INFO]- "GET /autoTest/plan_index/ HTTP/1.1" 200 13446
+2019-02-15 18:38:45,076 [Thread-8:87242568] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 18:38:45,086 [Thread-8:87242568] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 18:38:45,095 [Thread-8:87242568] [django.db.backends:111] [DEBUG]- (0.009) SELECT COUNT(*) AS `__count` FROM `autoTest_report`; args=()
+2019-02-15 18:38:45,109 [Thread-8:87242568] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_report`.`report_id`, `autoTest_report`.`report_name`, `autoTest_report`.`path`, `autoTest_report`.`relative_testCases`, `autoTest_report`.`create_time` FROM `autoTest_report` ORDER BY `autoTest_report`.`report_id` ASC LIMIT 10; args=()
+2019-02-15 18:38:45,113 [Thread-8:87242568] [django.server:124] [INFO]- "GET /autoTest/report_index/ HTTP/1.1" 200 16855
+2019-02-15 18:39:32,847 [Thread-10:87242568] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 18:39:32,853 [Thread-10:87242568] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 18:39:32,862 [Thread-10:87242568] [django.db.backends:111] [DEBUG]- (0.009) SELECT COUNT(*) AS `__count` FROM `autoTest_project`; args=()
+2019-02-15 18:39:32,890 [Thread-10:87242568] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project` ORDER BY `autoTest_project`.`pro_id` ASC LIMIT 2; args=()
+2019-02-15 18:39:32,892 [Thread-10:87242568] [django.server:124] [INFO]- "GET /autoTest/pro_index/ HTTP/1.1" 200 10719
+2019-02-15 18:43:51,337 [Thread-12:87242568] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 18:43:51,343 [Thread-12:87242568] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 18:43:51,349 [Thread-12:87242568] [django.db.backends:111] [DEBUG]- (0.005) SELECT COUNT(*) AS `__count` FROM `autoTest_api`; args=()
+2019-02-15 18:43:51,359 [Thread-12:87242568] [django.db.backends:111] [DEBUG]- (0.005) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 18:43:51,369 [Thread-12:87242568] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` ORDER BY `autoTest_api`.`api_id` ASC LIMIT 3; args=()
+2019-02-15 18:43:51,370 [Thread-12:87242568] [django.template:878] [DEBUG]- Exception while resolving variable 'pro_id' in template 'autoTest/api_index.html'.
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 835, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [pro_id] in None
+2019-02-15 18:43:51,373 [Thread-12:87242568] [django.server:124] [INFO]- "GET /autoTest/api_index/ HTTP/1.1" 200 12447
+2019-02-15 18:44:04,062 [Thread-14:87242568] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 18:44:04,067 [Thread-14:87242568] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 18:44:04,073 [Thread-14:87242568] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_encryption`.`encry_id`, `autoTest_encryption`.`encry_name`, `autoTest_encryption`.`encry_function`, `autoTest_encryption`.`description` FROM `autoTest_encryption`; args=()
+2019-02-15 18:44:04,080 [Thread-14:87242568] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 18:44:04,081 [Thread-14:87242568] [django.server:124] [INFO]- "GET /autoTest/api_add/ HTTP/1.1" 200 33028
+2019-02-15 19:12:47,399 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:12:47,408 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:12:47,420 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 19:12:47,747 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:12:47,756 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.008) SHOW FULL TABLES; args=None
+2019-02-15 19:12:47,766 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.008) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2019-02-15 19:13:07,264 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:13:07,272 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:13:07,281 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 19:13:07,566 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:13:07,576 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.009) SHOW FULL TABLES; args=None
+2019-02-15 19:13:07,589 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.010) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2019-02-15 19:14:06,786 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:14:06,792 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:14:06,797 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.005) SELECT VERSION(); args=None
+2019-02-15 19:14:07,076 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:14:07,086 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.010) SHOW FULL TABLES; args=None
+2019-02-15 19:14:07,102 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.011) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2019-02-15 19:15:10,968 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:15:10,974 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:15:10,980 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.005) SELECT VERSION(); args=None
+2019-02-15 19:15:11,254 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:15:11,264 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.010) SHOW FULL TABLES; args=None
+2019-02-15 19:15:11,281 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.010) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2019-02-15 19:19:36,631 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:19:36,640 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:19:36,646 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.006) SELECT VERSION(); args=None
+2019-02-15 19:19:36,906 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:19:36,915 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.008) SHOW FULL TABLES; args=None
+2019-02-15 19:19:36,927 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.009) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2019-02-15 19:20:24,555 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:20:24,564 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:20:24,573 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.009) SELECT VERSION(); args=None
+2019-02-15 19:20:24,866 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:20:24,876 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.010) SHOW FULL TABLES; args=None
+2019-02-15 19:20:24,888 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.010) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2019-02-15 19:21:12,183 [Thread-2:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:21:12,192 [Thread-2:87177032] [django.db.backends:111] [DEBUG]- (0.009) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:21:12,202 [Thread-2:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT COUNT(*) AS `__count` FROM `autoTest_teststep`; args=()
+2019-02-15 19:21:12,235 [Thread-2:87177032] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:21:12,254 [Thread-2:87177032] [django.db.backends:111] [DEBUG]- (0.012) SELECT `autoTest_teststep`.`testStep_id`, `autoTest_teststep`.`testStep_name`, `autoTest_teststep`.`skip`, `autoTest_teststep`.`skipIf`, `autoTest_teststep`.`skipUnless`, `autoTest_teststep`.`times`, `autoTest_teststep`.`variables`, `autoTest_teststep`.`url`, `autoTest_teststep`.`headers`, `autoTest_teststep`.`content_type`, `autoTest_teststep`.`method`, `autoTest_teststep`.`body`, `autoTest_teststep`.`description`, `autoTest_teststep`.`extract`, `autoTest_teststep`.`validate`, `autoTest_teststep`.`setup_hooks`, `autoTest_teststep`.`teardown_hooks`, `autoTest_teststep`.`necessaryFlag_dict`, `autoTest_teststep`.`dataType_dict`, `autoTest_teststep`.`description_dict`, `autoTest_teststep`.`relative_api`, `autoTest_teststep`.`relative_pro` FROM `autoTest_teststep` ORDER BY `autoTest_teststep`.`testStep_id` ASC LIMIT 3; args=()
+2019-02-15 19:21:12,257 [Thread-2:87177032] [django.server:124] [INFO]- "GET /autoTest/testStep_index/ HTTP/1.1" 200 20735
+2019-02-15 19:21:14,664 [Thread-3:101937736] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:21:14,670 [Thread-3:101937736] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:21:14,678 [Thread-3:101937736] [django.db.backends:111] [DEBUG]- (0.006) SELECT COUNT(*) AS `__count` FROM `autoTest_api`; args=()
+2019-02-15 19:21:14,689 [Thread-3:101937736] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:21:14,698 [Thread-3:101937736] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` ORDER BY `autoTest_api`.`api_id` ASC LIMIT 3; args=()
+2019-02-15 19:21:14,700 [Thread-3:101937736] [django.template:878] [DEBUG]- Exception while resolving variable 'pro_id' in template 'autoTest/api_index.html'.
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 835, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [pro_id] in None
+2019-02-15 19:21:14,702 [Thread-3:101937736] [django.server:124] [INFO]- "GET /autoTest/api_index/ HTTP/1.1" 200 12447
+2019-02-15 19:21:17,009 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:21:17,017 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:21:17,027 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 19:21:17,062 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:21:17,071 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 1; args=(1,)
+2019-02-15 19:21:17,078 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_encryption`.`encry_id`, `autoTest_encryption`.`encry_name`, `autoTest_encryption`.`encry_function`, `autoTest_encryption`.`description` FROM `autoTest_encryption` WHERE `autoTest_encryption`.`encry_id` = 1; args=(1,)
+2019-02-15 19:21:17,085 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project` WHERE `autoTest_project`.`pro_id` = 1; args=(1,)
+2019-02-15 19:21:17,097 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_encryption`.`encry_id`, `autoTest_encryption`.`encry_name`, `autoTest_encryption`.`encry_function`, `autoTest_encryption`.`description` FROM `autoTest_encryption`; args=()
+2019-02-15 19:21:17,104 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:21:17,106 [Thread-4:87177032] [django.server:124] [INFO]- "GET /autoTest/api_update/?api_id=1 HTTP/1.1" 200 40765
+2019-02-15 19:25:20,908 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:25:20,918 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.009) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:25:20,927 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT VERSION(); args=None
+2019-02-15 19:25:21,187 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:25:21,197 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 1; args=(1,)
+2019-02-15 19:25:21,204 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_encryption`.`encry_id`, `autoTest_encryption`.`encry_name`, `autoTest_encryption`.`encry_function`, `autoTest_encryption`.`description` FROM `autoTest_encryption` WHERE `autoTest_encryption`.`encry_id` = 1; args=(1,)
+2019-02-15 19:25:21,211 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project` WHERE `autoTest_project`.`pro_id` = 1; args=(1,)
+2019-02-15 19:25:21,224 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_encryption`.`encry_id`, `autoTest_encryption`.`encry_name`, `autoTest_encryption`.`encry_function`, `autoTest_encryption`.`description` FROM `autoTest_encryption`; args=()
+2019-02-15 19:25:21,230 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:25:21,232 [Thread-6:87177032] [django.server:124] [INFO]- "GET /autoTest/api_update/?api_id=1 HTTP/1.1" 200 40870
+2019-02-15 19:32:23,617 [Thread-8:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:32:23,625 [Thread-8:87177032] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:32:23,634 [Thread-8:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT COUNT(*) AS `__count` FROM `autoTest_teststep`; args=()
+2019-02-15 19:32:23,648 [Thread-8:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:32:23,660 [Thread-8:87177032] [django.db.backends:111] [DEBUG]- (0.011) SELECT `autoTest_teststep`.`testStep_id`, `autoTest_teststep`.`testStep_name`, `autoTest_teststep`.`skip`, `autoTest_teststep`.`skipIf`, `autoTest_teststep`.`skipUnless`, `autoTest_teststep`.`times`, `autoTest_teststep`.`variables`, `autoTest_teststep`.`url`, `autoTest_teststep`.`headers`, `autoTest_teststep`.`content_type`, `autoTest_teststep`.`method`, `autoTest_teststep`.`body`, `autoTest_teststep`.`description`, `autoTest_teststep`.`extract`, `autoTest_teststep`.`validate`, `autoTest_teststep`.`setup_hooks`, `autoTest_teststep`.`teardown_hooks`, `autoTest_teststep`.`necessaryFlag_dict`, `autoTest_teststep`.`dataType_dict`, `autoTest_teststep`.`description_dict`, `autoTest_teststep`.`relative_api`, `autoTest_teststep`.`relative_pro` FROM `autoTest_teststep` ORDER BY `autoTest_teststep`.`testStep_id` ASC LIMIT 3; args=()
+2019-02-15 19:32:23,663 [Thread-8:87177032] [django.server:124] [INFO]- "GET /autoTest/testStep_index/ HTTP/1.1" 200 20735
+2019-02-15 19:32:24,884 [Thread-9:101937736] [django.db.backends:111] [DEBUG]- (0.009) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:32:24,894 [Thread-9:101937736] [django.db.backends:111] [DEBUG]- (0.009) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:32:24,905 [Thread-9:101937736] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:32:24,910 [Thread-9:101937736] [django.server:124] [INFO]- "GET /autoTest/testStep_add/ HTTP/1.1" 200 56085
+2019-02-15 19:42:22,764 [Thread-11:87177032] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:42:22,770 [Thread-11:87177032] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:42:22,777 [Thread-11:87177032] [django.db.backends:111] [DEBUG]- (0.005) SELECT VERSION(); args=None
+2019-02-15 19:42:22,781 [Thread-12:101937736] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:42:22,793 [Thread-12:101937736] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:42:22,801 [Thread-12:101937736] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 19:42:22,815 [Thread-11:87177032] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:42:22,824 [Thread-11:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`relative_pro` = '1'; args=('1',)
+2019-02-15 19:42:22,826 [Thread-11:87177032] [django.server:124] [INFO]- "POST /autoTest/find_data/ HTTP/1.1" 200 1277
+2019-02-15 19:42:22,860 [Thread-12:101937736] [django.db.backends:111] [DEBUG]- (0.010) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:42:22,871 [Thread-12:101937736] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_environment`.`env_id`, `autoTest_environment`.`env_name`, `autoTest_environment`.`relative_pro`, `autoTest_environment`.`description`, `autoTest_environment`.`url`, `autoTest_environment`.`port` FROM `autoTest_environment` WHERE `autoTest_environment`.`relative_pro` = '1' LIMIT 21; args=('1',)
+2019-02-15 19:42:22,884 [Thread-12:101937736] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_environment`.`env_id`, `autoTest_environment`.`env_name`, `autoTest_environment`.`relative_pro`, `autoTest_environment`.`description`, `autoTest_environment`.`url`, `autoTest_environment`.`port` FROM `autoTest_environment` WHERE `autoTest_environment`.`relative_pro` = '1'; args=('1',)
+2019-02-15 19:42:22,886 [Thread-12:101937736] [django.server:124] [INFO]- "POST /autoTest/find_data/ HTTP/1.1" 200 180
+2019-02-15 19:45:35,174 [Thread-13:87177032] [django.db.backends:111] [DEBUG]- (0.007) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:45:35,177 [Thread-14:100917832] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:45:35,183 [Thread-13:87177032] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:45:35,185 [Thread-14:100917832] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:45:35,192 [Thread-13:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 19:45:35,194 [Thread-14:100917832] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 19:45:35,242 [Thread-13:87177032] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:45:35,253 [Thread-14:100917832] [django.db.backends:111] [DEBUG]- (0.010) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:45:35,254 [Thread-13:87177032] [django.db.backends:111] [DEBUG]- (0.011) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 1; args=(1,)
+2019-02-15 19:45:35,255 [Thread-13:87177032] [django.server:124] [INFO]- "POST /autoTest/find_data/ HTTP/1.1" 200 648
+2019-02-15 19:45:35,265 [Thread-14:100917832] [django.db.backends:111] [DEBUG]- (0.012) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 1; args=(1,)
+2019-02-15 19:45:35,266 [Thread-14:100917832] [django.server:124] [INFO]- "POST /autoTest/find_data/ HTTP/1.1" 200 648
+2019-02-15 19:50:10,408 [Thread-15:100917832] [django.db.backends:111] [DEBUG]- (0.007) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:50:10,415 [Thread-15:100917832] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:50:10,422 [Thread-15:100917832] [django.db.backends:111] [DEBUG]- (0.006) SELECT COUNT(*) AS `__count` FROM `autoTest_teststep`; args=()
+2019-02-15 19:50:10,437 [Thread-15:100917832] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:50:10,447 [Thread-15:100917832] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_teststep`.`testStep_id`, `autoTest_teststep`.`testStep_name`, `autoTest_teststep`.`skip`, `autoTest_teststep`.`skipIf`, `autoTest_teststep`.`skipUnless`, `autoTest_teststep`.`times`, `autoTest_teststep`.`variables`, `autoTest_teststep`.`url`, `autoTest_teststep`.`headers`, `autoTest_teststep`.`content_type`, `autoTest_teststep`.`method`, `autoTest_teststep`.`body`, `autoTest_teststep`.`description`, `autoTest_teststep`.`extract`, `autoTest_teststep`.`validate`, `autoTest_teststep`.`setup_hooks`, `autoTest_teststep`.`teardown_hooks`, `autoTest_teststep`.`necessaryFlag_dict`, `autoTest_teststep`.`dataType_dict`, `autoTest_teststep`.`description_dict`, `autoTest_teststep`.`relative_api`, `autoTest_teststep`.`relative_pro` FROM `autoTest_teststep` ORDER BY `autoTest_teststep`.`testStep_id` ASC LIMIT 3; args=()
+2019-02-15 19:50:10,451 [Thread-15:100917832] [django.server:124] [INFO]- "GET /autoTest/testStep_index/ HTTP/1.1" 200 20735
+2019-02-15 19:50:14,565 [Thread-16:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:50:14,572 [Thread-16:87177032] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:50:14,578 [Thread-16:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT COUNT(*) AS `__count` FROM `autoTest_api`; args=()
+2019-02-15 19:50:14,589 [Thread-16:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:50:14,599 [Thread-16:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` ORDER BY `autoTest_api`.`api_id` ASC LIMIT 3; args=()
+2019-02-15 19:50:14,600 [Thread-16:87177032] [django.template:878] [DEBUG]- Exception while resolving variable 'pro_id' in template 'autoTest/api_index.html'.
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 835, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [pro_id] in None
+2019-02-15 19:50:14,602 [Thread-16:87177032] [django.server:124] [INFO]- "GET /autoTest/api_index/ HTTP/1.1" 200 12447
+2019-02-15 19:50:15,619 [Thread-17:100917832] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:50:15,628 [Thread-17:100917832] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:50:15,637 [Thread-17:100917832] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 19:50:15,680 [Thread-17:100917832] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:50:15,689 [Thread-17:100917832] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 1; args=(1,)
+2019-02-15 19:50:15,698 [Thread-17:100917832] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_encryption`.`encry_id`, `autoTest_encryption`.`encry_name`, `autoTest_encryption`.`encry_function`, `autoTest_encryption`.`description` FROM `autoTest_encryption` WHERE `autoTest_encryption`.`encry_id` = 1; args=(1,)
+2019-02-15 19:50:15,706 [Thread-17:100917832] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project` WHERE `autoTest_project`.`pro_id` = 1; args=(1,)
+2019-02-15 19:50:15,718 [Thread-17:100917832] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_encryption`.`encry_id`, `autoTest_encryption`.`encry_name`, `autoTest_encryption`.`encry_function`, `autoTest_encryption`.`description` FROM `autoTest_encryption`; args=()
+2019-02-15 19:50:15,726 [Thread-17:100917832] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:50:15,727 [Thread-17:100917832] [django.server:124] [INFO]- "GET /autoTest/api_update/?api_id=1 HTTP/1.1" 200 40870
+2019-02-15 19:50:18,242 [Thread-18:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:50:18,251 [Thread-18:87177032] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:50:18,261 [Thread-18:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT COUNT(*) AS `__count` FROM `autoTest_api`; args=()
+2019-02-15 19:50:18,275 [Thread-18:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:50:18,287 [Thread-18:87177032] [django.db.backends:111] [DEBUG]- (0.011) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` ORDER BY `autoTest_api`.`api_id` ASC LIMIT 3; args=()
+2019-02-15 19:50:18,289 [Thread-18:87177032] [django.template:878] [DEBUG]- Exception while resolving variable 'pro_id' in template 'autoTest/api_index.html'.
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 835, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [pro_id] in None
+2019-02-15 19:50:18,291 [Thread-18:87177032] [django.server:124] [INFO]- "GET /autoTest/api_index/ HTTP/1.1" 200 12447
+2019-02-15 19:50:19,825 [Thread-19:100917832] [django.db.backends:111] [DEBUG]- (0.009) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:50:19,835 [Thread-19:100917832] [django.db.backends:111] [DEBUG]- (0.009) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:50:19,847 [Thread-19:100917832] [django.db.backends:111] [DEBUG]- (0.009) SELECT VERSION(); args=None
+2019-02-15 19:50:19,881 [Thread-19:100917832] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:50:19,889 [Thread-19:100917832] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 4; args=(4,)
+2019-02-15 19:50:19,896 [Thread-19:100917832] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_encryption`.`encry_id`, `autoTest_encryption`.`encry_name`, `autoTest_encryption`.`encry_function`, `autoTest_encryption`.`description` FROM `autoTest_encryption` WHERE `autoTest_encryption`.`encry_id` = 1; args=(1,)
+2019-02-15 19:50:19,903 [Thread-19:100917832] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project` WHERE `autoTest_project`.`pro_id` = 2; args=(2,)
+2019-02-15 19:50:19,918 [Thread-19:100917832] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_encryption`.`encry_id`, `autoTest_encryption`.`encry_name`, `autoTest_encryption`.`encry_function`, `autoTest_encryption`.`description` FROM `autoTest_encryption`; args=()
+2019-02-15 19:50:19,925 [Thread-19:100917832] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:50:19,926 [Thread-19:100917832] [django.server:124] [INFO]- "GET /autoTest/api_update/?api_id=4 HTTP/1.1" 200 41154
+2019-02-15 19:51:25,554 [Thread-21:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:51:25,561 [Thread-21:87177032] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:51:25,567 [Thread-21:87177032] [django.db.backends:111] [DEBUG]- (0.005) SELECT COUNT(*) AS `__count` FROM `autoTest_teststep`; args=()
+2019-02-15 19:51:25,578 [Thread-21:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:51:25,587 [Thread-21:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_teststep`.`testStep_id`, `autoTest_teststep`.`testStep_name`, `autoTest_teststep`.`skip`, `autoTest_teststep`.`skipIf`, `autoTest_teststep`.`skipUnless`, `autoTest_teststep`.`times`, `autoTest_teststep`.`variables`, `autoTest_teststep`.`url`, `autoTest_teststep`.`headers`, `autoTest_teststep`.`content_type`, `autoTest_teststep`.`method`, `autoTest_teststep`.`body`, `autoTest_teststep`.`description`, `autoTest_teststep`.`extract`, `autoTest_teststep`.`validate`, `autoTest_teststep`.`setup_hooks`, `autoTest_teststep`.`teardown_hooks`, `autoTest_teststep`.`necessaryFlag_dict`, `autoTest_teststep`.`dataType_dict`, `autoTest_teststep`.`description_dict`, `autoTest_teststep`.`relative_api`, `autoTest_teststep`.`relative_pro` FROM `autoTest_teststep` ORDER BY `autoTest_teststep`.`testStep_id` ASC LIMIT 3; args=()
+2019-02-15 19:51:25,589 [Thread-21:87177032] [django.server:124] [INFO]- "GET /autoTest/testStep_index/ HTTP/1.1" 200 20735
+2019-02-15 19:51:31,482 [Thread-22:100917832] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:51:31,491 [Thread-22:100917832] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:51:31,500 [Thread-22:100917832] [django.db.backends:111] [DEBUG]- (0.009) SELECT VERSION(); args=None
+2019-02-15 19:51:31,545 [Thread-22:100917832] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:51:31,555 [Thread-22:100917832] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_teststep`.`testStep_id`, `autoTest_teststep`.`testStep_name`, `autoTest_teststep`.`skip`, `autoTest_teststep`.`skipIf`, `autoTest_teststep`.`skipUnless`, `autoTest_teststep`.`times`, `autoTest_teststep`.`variables`, `autoTest_teststep`.`url`, `autoTest_teststep`.`headers`, `autoTest_teststep`.`content_type`, `autoTest_teststep`.`method`, `autoTest_teststep`.`body`, `autoTest_teststep`.`description`, `autoTest_teststep`.`extract`, `autoTest_teststep`.`validate`, `autoTest_teststep`.`setup_hooks`, `autoTest_teststep`.`teardown_hooks`, `autoTest_teststep`.`necessaryFlag_dict`, `autoTest_teststep`.`dataType_dict`, `autoTest_teststep`.`description_dict`, `autoTest_teststep`.`relative_api`, `autoTest_teststep`.`relative_pro` FROM `autoTest_teststep` WHERE `autoTest_teststep`.`testStep_id` = 2; args=(2,)
+2019-02-15 19:51:31,563 [Thread-22:100917832] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project` WHERE `autoTest_project`.`pro_id` = 1; args=(1,)
+2019-02-15 19:51:31,576 [Thread-22:100917832] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 1; args=(1,)
+2019-02-15 19:51:31,588 [Thread-22:100917832] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 19:51:31,590 [Thread-22:100917832] [django.server:124] [INFO]- "GET /autoTest/testStep_update/?testStep_id=2 HTTP/1.1" 200 55279
+2019-02-15 19:58:12,914 [Thread-25:100917832] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 19:58:12,922 [Thread-25:100917832] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:58:12,931 [Thread-25:100917832] [django.db.backends:111] [DEBUG]- (0.006) SELECT VERSION(); args=None
+2019-02-15 19:58:12,983 [Thread-25:100917832] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 19:58:12,994 [Thread-25:100917832] [django.db.backends:111] [DEBUG]- (0.011) SELECT `autoTest_teststep`.`testStep_id`, `autoTest_teststep`.`testStep_name`, `autoTest_teststep`.`skip`, `autoTest_teststep`.`skipIf`, `autoTest_teststep`.`skipUnless`, `autoTest_teststep`.`times`, `autoTest_teststep`.`variables`, `autoTest_teststep`.`url`, `autoTest_teststep`.`headers`, `autoTest_teststep`.`content_type`, `autoTest_teststep`.`method`, `autoTest_teststep`.`body`, `autoTest_teststep`.`description`, `autoTest_teststep`.`extract`, `autoTest_teststep`.`validate`, `autoTest_teststep`.`setup_hooks`, `autoTest_teststep`.`teardown_hooks`, `autoTest_teststep`.`necessaryFlag_dict`, `autoTest_teststep`.`dataType_dict`, `autoTest_teststep`.`description_dict`, `autoTest_teststep`.`relative_api`, `autoTest_teststep`.`relative_pro` FROM `autoTest_teststep` WHERE `autoTest_teststep`.`testStep_id` = 1; args=(1,)
+2019-02-15 19:58:12,998 [Thread-25:100917832] [django.server:124] [INFO]- "POST /autoTest/find_data/ HTTP/1.1" 200 127
+2019-02-15 20:07:30,709 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:07:30,716 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:07:30,723 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.006) SELECT VERSION(); args=None
+2019-02-15 20:07:31,005 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.009) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:07:31,016 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.011) SHOW FULL TABLES; args=None
+2019-02-15 20:07:31,030 [DummyThread-1:87373128] [django.db.backends:111] [DEBUG]- (0.012) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2019-02-15 20:07:33,354 [Thread-2:99376456] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:07:33,362 [Thread-2:99376456] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:07:33,370 [Thread-2:99376456] [django.db.backends:111] [DEBUG]- (0.008) SELECT COUNT(*) AS `__count` FROM `autoTest_testcases`; args=()
+2019-02-15 20:07:33,403 [Thread-2:99376456] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_testcases`.`testCases_id`, `autoTest_testcases`.`testCases_name`, `autoTest_testcases`.`testSuite_function`, `autoTest_testcases`.`parameters`, `autoTest_testcases`.`variables`, `autoTest_testcases`.`headers`, `autoTest_testcases`.`description`, `autoTest_testcases`.`setup_hooks`, `autoTest_testcases`.`teardown_hooks`, `autoTest_testcases`.`output`, `autoTest_testcases`.`testCases_list`, `autoTest_testcases`.`dataType_dict`, `autoTest_testcases`.`description_dict`, `autoTest_testcases`.`file_path` FROM `autoTest_testcases` ORDER BY `autoTest_testcases`.`testCases_id` ASC LIMIT 3; args=()
+2019-02-15 20:07:33,409 [Thread-2:99376456] [django.server:124] [INFO]- "GET /autoTest/testCases_index/ HTTP/1.1" 200 18302
+2019-02-15 20:07:36,188 [Thread-3:99376712] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:07:36,196 [Thread-3:99376712] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:07:36,207 [Thread-3:99376712] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_teststep`.`testStep_id`, `autoTest_teststep`.`testStep_name`, `autoTest_teststep`.`skip`, `autoTest_teststep`.`skipIf`, `autoTest_teststep`.`skipUnless`, `autoTest_teststep`.`times`, `autoTest_teststep`.`variables`, `autoTest_teststep`.`url`, `autoTest_teststep`.`headers`, `autoTest_teststep`.`content_type`, `autoTest_teststep`.`method`, `autoTest_teststep`.`body`, `autoTest_teststep`.`description`, `autoTest_teststep`.`extract`, `autoTest_teststep`.`validate`, `autoTest_teststep`.`setup_hooks`, `autoTest_teststep`.`teardown_hooks`, `autoTest_teststep`.`necessaryFlag_dict`, `autoTest_teststep`.`dataType_dict`, `autoTest_teststep`.`description_dict`, `autoTest_teststep`.`relative_api`, `autoTest_teststep`.`relative_pro` FROM `autoTest_teststep` ORDER BY `autoTest_teststep`.`testStep_id` ASC; args=()
+2019-02-15 20:07:36,223 [Thread-3:99376712] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_testcases`.`testCases_id`, `autoTest_testcases`.`testCases_name`, `autoTest_testcases`.`testSuite_function`, `autoTest_testcases`.`parameters`, `autoTest_testcases`.`variables`, `autoTest_testcases`.`headers`, `autoTest_testcases`.`description`, `autoTest_testcases`.`setup_hooks`, `autoTest_testcases`.`teardown_hooks`, `autoTest_testcases`.`output`, `autoTest_testcases`.`testCases_list`, `autoTest_testcases`.`dataType_dict`, `autoTest_testcases`.`description_dict`, `autoTest_testcases`.`file_path` FROM `autoTest_testcases` ORDER BY `autoTest_testcases`.`testCases_id` ASC; args=()
+2019-02-15 20:07:36,227 [Thread-3:99376712] [django.template:878] [DEBUG]- Exception while resolving variable 'testStep_id' in template 'autoTest/testCases_add.html'.
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 835, in _resolve_lookup
+    current = current[bit]
+TypeError: string indices must be integers
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'str' object has no attribute 'testStep_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'testStep_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [testStep_id] in '<li name="testStep" value="1">ËÑË÷¹ÅÊ«´Ê×÷Õß¡ª¡ªÀî°×</li><li name="testStep" value="2">ËÑË÷¹ÅÊ«´Ê×÷Õß¡ª¡ª¶Å¸¦</li><li name="testStep" value="5">Ëæ»úÒ»Ê×Ê«´ÊÍÆ¼ö</li>'
+2019-02-15 20:07:36,228 [Thread-3:99376712] [django.template:878] [DEBUG]- Exception while resolving variable 'testStep_name' in template 'autoTest/testCases_add.html'.
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 835, in _resolve_lookup
+    current = current[bit]
+TypeError: string indices must be integers
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'str' object has no attribute 'testStep_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'testStep_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [testStep_name] in '<li name="testStep" value="1">ËÑË÷¹ÅÊ«´Ê×÷Õß¡ª¡ªÀî°×</li><li name="testStep" value="2">ËÑË÷¹ÅÊ«´Ê×÷Õß¡ª¡ª¶Å¸¦</li><li name="testStep" value="5">Ëæ»úÒ»Ê×Ê«´ÊÍÆ¼ö</li>'
+2019-02-15 20:07:36,230 [Thread-3:99376712] [django.server:124] [INFO]- "GET /autoTest/testCases_add/ HTTP/1.1" 200 45188
+2019-02-15 20:23:17,440 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:23:17,445 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:23:17,450 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.005) SELECT VERSION(); args=None
+2019-02-15 20:23:17,747 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:23:17,779 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.010) SHOW FULL TABLES; args=None
+2019-02-15 20:23:17,793 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.011) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2019-02-15 20:23:27,680 [Thread-2:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:23:27,687 [Thread-2:87177032] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:23:27,701 [Thread-2:87177032] [django.db.backends:111] [DEBUG]- (0.007) SELECT COUNT(*) AS `__count` FROM `autoTest_testcases`; args=()
+2019-02-15 20:23:27,732 [Thread-2:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_testcases`.`testCases_id`, `autoTest_testcases`.`testCases_name`, `autoTest_testcases`.`testSuite_function`, `autoTest_testcases`.`parameters`, `autoTest_testcases`.`variables`, `autoTest_testcases`.`headers`, `autoTest_testcases`.`description`, `autoTest_testcases`.`setup_hooks`, `autoTest_testcases`.`teardown_hooks`, `autoTest_testcases`.`output`, `autoTest_testcases`.`testCases_list`, `autoTest_testcases`.`dataType_dict`, `autoTest_testcases`.`description_dict`, `autoTest_testcases`.`file_path` FROM `autoTest_testcases` ORDER BY `autoTest_testcases`.`testCases_id` ASC LIMIT 3; args=()
+2019-02-15 20:23:27,737 [Thread-2:87177032] [django.server:124] [INFO]- "GET /autoTest/testCases_index/ HTTP/1.1" 200 18302
+2019-02-15 20:25:21,916 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:25:21,923 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:25:21,933 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.009) SELECT COUNT(*) AS `__count` FROM `autoTest_report`; args=()
+2019-02-15 20:25:21,946 [Thread-4:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_report`.`report_id`, `autoTest_report`.`report_name`, `autoTest_report`.`path`, `autoTest_report`.`relative_testCases`, `autoTest_report`.`create_time` FROM `autoTest_report` ORDER BY `autoTest_report`.`report_id` ASC LIMIT 10; args=()
+2019-02-15 20:25:21,953 [Thread-4:87177032] [django.server:124] [INFO]- "GET /autoTest/report_index/ HTTP/1.1" 200 16855
+2019-02-15 20:25:23,038 [Thread-5:101831496] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:25:23,044 [Thread-5:101831496] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:25:23,050 [Thread-5:101831496] [django.db.backends:111] [DEBUG]- (0.005) SELECT COUNT(*) AS `__count` FROM `django_celery_beat_periodictask`; args=()
+2019-02-15 20:25:23,057 [Thread-5:101831496] [django.db.backends:111] [DEBUG]- (0.006) SELECT `django_celery_beat_intervalschedule`.`id`, `django_celery_beat_intervalschedule`.`every`, `django_celery_beat_intervalschedule`.`period` FROM `django_celery_beat_intervalschedule` ORDER BY `django_celery_beat_intervalschedule`.`id` ASC; args=()
+2019-02-15 20:25:23,068 [Thread-5:101831496] [django.db.backends:111] [DEBUG]- (0.010) SELECT `django_celery_beat_crontabschedule`.`id`, `django_celery_beat_crontabschedule`.`minute`, `django_celery_beat_crontabschedule`.`hour`, `django_celery_beat_crontabschedule`.`day_of_week`, `django_celery_beat_crontabschedule`.`day_of_month`, `django_celery_beat_crontabschedule`.`month_of_year`, `django_celery_beat_crontabschedule`.`timezone` FROM `django_celery_beat_crontabschedule` ORDER BY `django_celery_beat_crontabschedule`.`id` ASC; args=()
+2019-02-15 20:25:23,083 [Thread-5:101831496] [django.db.backends:111] [DEBUG]- (0.009) SELECT `django_celery_beat_periodictask`.`id`, `django_celery_beat_periodictask`.`name`, `django_celery_beat_periodictask`.`task`, `django_celery_beat_periodictask`.`interval_id`, `django_celery_beat_periodictask`.`crontab_id`, `django_celery_beat_periodictask`.`solar_id`, `django_celery_beat_periodictask`.`args`, `django_celery_beat_periodictask`.`kwargs`, `django_celery_beat_periodictask`.`queue`, `django_celery_beat_periodictask`.`exchange`, `django_celery_beat_periodictask`.`routing_key`, `django_celery_beat_periodictask`.`priority`, `django_celery_beat_periodictask`.`expires`, `django_celery_beat_periodictask`.`one_off`, `django_celery_beat_periodictask`.`start_time`, `django_celery_beat_periodictask`.`enabled`, `django_celery_beat_periodictask`.`last_run_at`, `django_celery_beat_periodictask`.`total_run_count`, `django_celery_beat_periodictask`.`date_changed`, `django_celery_beat_periodictask`.`description` FROM `django_celery_beat_periodictask` ORDER BY `django_celery_beat_periodictask`.`id` ASC LIMIT 3; args=()
+2019-02-15 20:25:23,086 [Thread-5:101831496] [django.server:124] [INFO]- "GET /autoTest/plan_index/ HTTP/1.1" 200 13446
+2019-02-15 20:25:23,885 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:25:23,892 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:25:23,899 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT COUNT(*) AS `__count` FROM `autoTest_api`; args=()
+2019-02-15 20:25:23,908 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` LIMIT 3; args=()
+2019-02-15 20:25:23,917 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.007) SELECT VERSION(); args=None
+2019-02-15 20:25:23,927 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 1; args=(1,)
+2019-02-15 20:25:23,937 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE `autoTest_mockserver`.`mockServer_id` = 2; args=(2,)
+2019-02-15 20:25:23,948 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE (`autoTest_mockserver`.`relative_api` = '1' AND `autoTest_mockserver`.`conditions` = ''); args=('1', '')
+2019-02-15 20:25:23,958 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 3; args=(3,)
+2019-02-15 20:25:23,968 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE (`autoTest_mockserver`.`relative_api` = '3' AND `autoTest_mockserver`.`conditions` = ''); args=('3', '')
+2019-02-15 20:25:23,978 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 4; args=(4,)
+2019-02-15 20:25:23,988 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE (`autoTest_mockserver`.`relative_api` = '4' AND `autoTest_mockserver`.`conditions` = ''); args=('4', '')
+2019-02-15 20:25:24,000 [Thread-6:87177032] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 20:25:24,002 [Thread-6:87177032] [django.template:878] [DEBUG]- Exception while resolving variable 'pro_id' in template 'autoTest/mockServer_index.html'.
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 835, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [pro_id] in None
+2019-02-15 20:25:24,009 [Thread-6:87177032] [django.server:124] [INFO]- "GET /autoTest/mockServer_index/ HTTP/1.1" 200 18584
+2019-02-15 20:25:24,854 [Thread-7:100840008] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:25:24,861 [Thread-7:100840008] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:25:24,867 [Thread-7:100840008] [django.db.backends:111] [DEBUG]- (0.006) SELECT COUNT(*) AS `__count` FROM `django_celery_beat_periodictask`; args=()
+2019-02-15 20:25:24,874 [Thread-7:100840008] [django.db.backends:111] [DEBUG]- (0.006) SELECT `django_celery_beat_intervalschedule`.`id`, `django_celery_beat_intervalschedule`.`every`, `django_celery_beat_intervalschedule`.`period` FROM `django_celery_beat_intervalschedule` ORDER BY `django_celery_beat_intervalschedule`.`id` ASC; args=()
+2019-02-15 20:25:24,882 [Thread-7:100840008] [django.db.backends:111] [DEBUG]- (0.007) SELECT `django_celery_beat_crontabschedule`.`id`, `django_celery_beat_crontabschedule`.`minute`, `django_celery_beat_crontabschedule`.`hour`, `django_celery_beat_crontabschedule`.`day_of_week`, `django_celery_beat_crontabschedule`.`day_of_month`, `django_celery_beat_crontabschedule`.`month_of_year`, `django_celery_beat_crontabschedule`.`timezone` FROM `django_celery_beat_crontabschedule` ORDER BY `django_celery_beat_crontabschedule`.`id` ASC; args=()
+2019-02-15 20:25:24,895 [Thread-7:100840008] [django.db.backends:111] [DEBUG]- (0.008) SELECT `django_celery_beat_periodictask`.`id`, `django_celery_beat_periodictask`.`name`, `django_celery_beat_periodictask`.`task`, `django_celery_beat_periodictask`.`interval_id`, `django_celery_beat_periodictask`.`crontab_id`, `django_celery_beat_periodictask`.`solar_id`, `django_celery_beat_periodictask`.`args`, `django_celery_beat_periodictask`.`kwargs`, `django_celery_beat_periodictask`.`queue`, `django_celery_beat_periodictask`.`exchange`, `django_celery_beat_periodictask`.`routing_key`, `django_celery_beat_periodictask`.`priority`, `django_celery_beat_periodictask`.`expires`, `django_celery_beat_periodictask`.`one_off`, `django_celery_beat_periodictask`.`start_time`, `django_celery_beat_periodictask`.`enabled`, `django_celery_beat_periodictask`.`last_run_at`, `django_celery_beat_periodictask`.`total_run_count`, `django_celery_beat_periodictask`.`date_changed`, `django_celery_beat_periodictask`.`description` FROM `django_celery_beat_periodictask` ORDER BY `django_celery_beat_periodictask`.`id` ASC LIMIT 3; args=()
+2019-02-15 20:25:24,897 [Thread-7:100840008] [django.server:124] [INFO]- "GET /autoTest/plan_index/ HTTP/1.1" 200 13446
+2019-02-15 20:25:26,150 [Thread-8:101833544] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:25:26,155 [Thread-8:101833544] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:25:26,162 [Thread-8:101833544] [django.db.backends:111] [DEBUG]- (0.006) SELECT COUNT(*) AS `__count` FROM `autoTest_report`; args=()
+2019-02-15 20:25:26,172 [Thread-8:101833544] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_report`.`report_id`, `autoTest_report`.`report_name`, `autoTest_report`.`path`, `autoTest_report`.`relative_testCases`, `autoTest_report`.`create_time` FROM `autoTest_report` ORDER BY `autoTest_report`.`report_id` ASC LIMIT 10; args=()
+2019-02-15 20:25:26,178 [Thread-8:101833544] [django.server:124] [INFO]- "GET /autoTest/report_index/ HTTP/1.1" 200 16855
+2019-02-15 20:27:29,550 [Thread-10:100840008] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:27:29,556 [Thread-10:100840008] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:29,566 [Thread-10:100840008] [django.db.backends:111] [DEBUG]- (0.006) SELECT COUNT(*) AS `__count` FROM `autoTest_report`; args=()
+2019-02-15 20:27:29,578 [Thread-10:100840008] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_report`.`report_id`, `autoTest_report`.`report_name`, `autoTest_report`.`path`, `autoTest_report`.`relative_testCases`, `autoTest_report`.`create_time` FROM `autoTest_report` ORDER BY `autoTest_report`.`report_id` ASC LIMIT 10; args=()
+2019-02-15 20:27:29,582 [Thread-10:100840008] [django.server:124] [INFO]- "GET /autoTest/report_index/ HTTP/1.1" 200 16695
+2019-02-15 20:27:29,651 [Thread-11:101833800] [django.server:124] [INFO]- "GET /static/img/yjsLogo.jpg HTTP/1.1" 200 9596
+2019-02-15 20:27:40,632 [Thread-12:100840008] [django.db.backends:111] [DEBUG]- (0.009) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:27:40,641 [Thread-12:100840008] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:40,650 [Thread-12:100840008] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 20:27:40,706 [Thread-12:100840008] [django.db.backends:111] [DEBUG]- (0.009) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:40,716 [Thread-12:100840008] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_report`.`report_id`, `autoTest_report`.`report_name`, `autoTest_report`.`path`, `autoTest_report`.`relative_testCases`, `autoTest_report`.`create_time` FROM `autoTest_report` WHERE `autoTest_report`.`report_id` = 22; args=(22,)
+2019-02-15 20:27:40,748 [Thread-12:100840008] [django.server:124] [ERROR]- "GET /autoTest/report_show/?report_id=22 HTTP/1.1" 500 82879
+2019-02-15 20:27:46,993 [Thread-13:101833800] [django.db.backends:111] [DEBUG]- (0.008) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:27:47,002 [Thread-13:101833800] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:47,011 [Thread-13:101833800] [django.db.backends:111] [DEBUG]- (0.008) SELECT COUNT(*) AS `__count` FROM `autoTest_report`; args=()
+2019-02-15 20:27:47,024 [Thread-13:101833800] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_report`.`report_id`, `autoTest_report`.`report_name`, `autoTest_report`.`path`, `autoTest_report`.`relative_testCases`, `autoTest_report`.`create_time` FROM `autoTest_report` ORDER BY `autoTest_report`.`report_id` ASC LIMIT 9 OFFSET 10; args=()
+2019-02-15 20:27:47,028 [Thread-13:101833800] [django.server:124] [INFO]- "GET /autoTest/report_index/?page=2 HTTP/1.1" 200 16007
+2019-02-15 20:27:48,019 [Thread-14:100840008] [django.db.backends:111] [DEBUG]- (0.007) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:27:48,025 [Thread-14:100840008] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:48,036 [Thread-14:100840008] [django.db.backends:111] [DEBUG]- (0.006) SELECT VERSION(); args=None
+2019-02-15 20:27:48,074 [Thread-14:100840008] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:48,081 [Thread-14:100840008] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_report`.`report_id`, `autoTest_report`.`report_name`, `autoTest_report`.`path`, `autoTest_report`.`relative_testCases`, `autoTest_report`.`create_time` FROM `autoTest_report` WHERE `autoTest_report`.`report_id` = 38; args=(38,)
+2019-02-15 20:27:48,112 [Thread-14:100840008] [django.server:124] [ERROR]- "GET /autoTest/report_show/?report_id=38 HTTP/1.1" 500 82657
+2019-02-15 20:27:53,048 [Thread-15:101833800] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:27:53,054 [Thread-15:101833800] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:53,060 [Thread-15:101833800] [django.db.backends:111] [DEBUG]- (0.005) SELECT COUNT(*) AS `__count` FROM `autoTest_testcases`; args=()
+2019-02-15 20:27:53,073 [Thread-15:101833800] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_testcases`.`testCases_id`, `autoTest_testcases`.`testCases_name`, `autoTest_testcases`.`testSuite_function`, `autoTest_testcases`.`parameters`, `autoTest_testcases`.`variables`, `autoTest_testcases`.`headers`, `autoTest_testcases`.`description`, `autoTest_testcases`.`setup_hooks`, `autoTest_testcases`.`teardown_hooks`, `autoTest_testcases`.`output`, `autoTest_testcases`.`testCases_list`, `autoTest_testcases`.`dataType_dict`, `autoTest_testcases`.`description_dict`, `autoTest_testcases`.`file_path` FROM `autoTest_testcases` ORDER BY `autoTest_testcases`.`testCases_id` ASC LIMIT 3; args=()
+2019-02-15 20:27:53,075 [Thread-15:101833800] [django.server:124] [INFO]- "GET /autoTest/testCases_index/ HTTP/1.1" 200 18302
+2019-02-15 20:27:54,100 [Thread-16:100840008] [django.db.backends:111] [DEBUG]- (0.014) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:27:54,107 [Thread-16:100840008] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:54,117 [Thread-16:100840008] [django.db.backends:111] [DEBUG]- (0.007) SELECT VERSION(); args=None
+2019-02-15 20:27:54,170 [Thread-16:100840008] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:54,181 [Thread-16:100840008] [django.db.backends:111] [DEBUG]- (0.010) SELECT `autoTest_testcases`.`testCases_id`, `autoTest_testcases`.`testCases_name`, `autoTest_testcases`.`testSuite_function`, `autoTest_testcases`.`parameters`, `autoTest_testcases`.`variables`, `autoTest_testcases`.`headers`, `autoTest_testcases`.`description`, `autoTest_testcases`.`setup_hooks`, `autoTest_testcases`.`teardown_hooks`, `autoTest_testcases`.`output`, `autoTest_testcases`.`testCases_list`, `autoTest_testcases`.`dataType_dict`, `autoTest_testcases`.`description_dict`, `autoTest_testcases`.`file_path` FROM `autoTest_testcases` WHERE `autoTest_testcases`.`testCases_id` = 21; args=(21,)
+2019-02-15 20:27:54,201 [Thread-16:100840008] [django.db.backends:111] [DEBUG]- (0.014) SELECT `autoTest_teststep`.`testStep_id`, `autoTest_teststep`.`testStep_name`, `autoTest_teststep`.`skip`, `autoTest_teststep`.`skipIf`, `autoTest_teststep`.`skipUnless`, `autoTest_teststep`.`times`, `autoTest_teststep`.`variables`, `autoTest_teststep`.`url`, `autoTest_teststep`.`headers`, `autoTest_teststep`.`content_type`, `autoTest_teststep`.`method`, `autoTest_teststep`.`body`, `autoTest_teststep`.`description`, `autoTest_teststep`.`extract`, `autoTest_teststep`.`validate`, `autoTest_teststep`.`setup_hooks`, `autoTest_teststep`.`teardown_hooks`, `autoTest_teststep`.`necessaryFlag_dict`, `autoTest_teststep`.`dataType_dict`, `autoTest_teststep`.`description_dict`, `autoTest_teststep`.`relative_api`, `autoTest_teststep`.`relative_pro` FROM `autoTest_teststep` WHERE `autoTest_teststep`.`testStep_id` = 2; args=(2,)
+2019-02-15 20:27:54,220 [Thread-16:100840008] [django.server:124] [INFO]- "POST /autoTest/find_data/ HTTP/1.1" 200 202
+2019-02-15 20:27:55,402 [Thread-17:100840008] [django.db.backends:111] [DEBUG]- (0.007) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:27:55,409 [Thread-17:100840008] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:55,417 [Thread-17:100840008] [django.db.backends:111] [DEBUG]- (0.007) SELECT VERSION(); args=None
+2019-02-15 20:27:55,472 [Thread-17:100840008] [django.db.backends:111] [DEBUG]- (0.009) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:55,484 [Thread-17:100840008] [django.db.backends:111] [DEBUG]- (0.011) SELECT `autoTest_testcases`.`testCases_id`, `autoTest_testcases`.`testCases_name`, `autoTest_testcases`.`testSuite_function`, `autoTest_testcases`.`parameters`, `autoTest_testcases`.`variables`, `autoTest_testcases`.`headers`, `autoTest_testcases`.`description`, `autoTest_testcases`.`setup_hooks`, `autoTest_testcases`.`teardown_hooks`, `autoTest_testcases`.`output`, `autoTest_testcases`.`testCases_list`, `autoTest_testcases`.`dataType_dict`, `autoTest_testcases`.`description_dict`, `autoTest_testcases`.`file_path` FROM `autoTest_testcases` WHERE `autoTest_testcases`.`testCases_id` = 21; args=(21,)
+2019-02-15 20:27:55,487 [Thread-17:100840008] [testGo.app:905] [ERROR]- <class 'Exception'>
+2019-02-15 20:27:55,499 [Thread-17:100840008] [django.server:124] [ERROR]- "POST /autoTest/testCases_run/ HTTP/1.1" 500 16281
+2019-02-15 20:27:58,891 [Thread-18:100840008] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:27:58,898 [Thread-18:100840008] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:58,904 [Thread-18:100840008] [django.db.backends:111] [DEBUG]- (0.005) SELECT VERSION(); args=None
+2019-02-15 20:27:58,961 [Thread-18:100840008] [django.db.backends:111] [DEBUG]- (0.009) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:27:58,973 [Thread-18:100840008] [django.db.backends:111] [DEBUG]- (0.011) SELECT `autoTest_testcases`.`testCases_id`, `autoTest_testcases`.`testCases_name`, `autoTest_testcases`.`testSuite_function`, `autoTest_testcases`.`parameters`, `autoTest_testcases`.`variables`, `autoTest_testcases`.`headers`, `autoTest_testcases`.`description`, `autoTest_testcases`.`setup_hooks`, `autoTest_testcases`.`teardown_hooks`, `autoTest_testcases`.`output`, `autoTest_testcases`.`testCases_list`, `autoTest_testcases`.`dataType_dict`, `autoTest_testcases`.`description_dict`, `autoTest_testcases`.`file_path` FROM `autoTest_testcases` WHERE `autoTest_testcases`.`testCases_id` = 21; args=(21,)
+2019-02-15 20:27:58,977 [Thread-18:100840008] [testGo.app:905] [ERROR]- <class 'Exception'>
+2019-02-15 20:27:58,989 [Thread-18:100840008] [django.server:124] [ERROR]- "POST /autoTest/testCases_run/ HTTP/1.1" 500 16441
+2019-02-15 20:29:20,589 [Thread-19:100840008] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:29:20,594 [Thread-19:100840008] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:29:20,600 [Thread-19:100840008] [django.db.backends:111] [DEBUG]- (0.005) SELECT COUNT(*) AS `__count` FROM `django_celery_beat_periodictask`; args=()
+2019-02-15 20:29:20,606 [Thread-19:100840008] [django.db.backends:111] [DEBUG]- (0.005) SELECT `django_celery_beat_intervalschedule`.`id`, `django_celery_beat_intervalschedule`.`every`, `django_celery_beat_intervalschedule`.`period` FROM `django_celery_beat_intervalschedule` ORDER BY `django_celery_beat_intervalschedule`.`id` ASC; args=()
+2019-02-15 20:29:20,613 [Thread-19:100840008] [django.db.backends:111] [DEBUG]- (0.006) SELECT `django_celery_beat_crontabschedule`.`id`, `django_celery_beat_crontabschedule`.`minute`, `django_celery_beat_crontabschedule`.`hour`, `django_celery_beat_crontabschedule`.`day_of_week`, `django_celery_beat_crontabschedule`.`day_of_month`, `django_celery_beat_crontabschedule`.`month_of_year`, `django_celery_beat_crontabschedule`.`timezone` FROM `django_celery_beat_crontabschedule` ORDER BY `django_celery_beat_crontabschedule`.`id` ASC; args=()
+2019-02-15 20:29:20,628 [Thread-19:100840008] [django.db.backends:111] [DEBUG]- (0.008) SELECT `django_celery_beat_periodictask`.`id`, `django_celery_beat_periodictask`.`name`, `django_celery_beat_periodictask`.`task`, `django_celery_beat_periodictask`.`interval_id`, `django_celery_beat_periodictask`.`crontab_id`, `django_celery_beat_periodictask`.`solar_id`, `django_celery_beat_periodictask`.`args`, `django_celery_beat_periodictask`.`kwargs`, `django_celery_beat_periodictask`.`queue`, `django_celery_beat_periodictask`.`exchange`, `django_celery_beat_periodictask`.`routing_key`, `django_celery_beat_periodictask`.`priority`, `django_celery_beat_periodictask`.`expires`, `django_celery_beat_periodictask`.`one_off`, `django_celery_beat_periodictask`.`start_time`, `django_celery_beat_periodictask`.`enabled`, `django_celery_beat_periodictask`.`last_run_at`, `django_celery_beat_periodictask`.`total_run_count`, `django_celery_beat_periodictask`.`date_changed`, `django_celery_beat_periodictask`.`description` FROM `django_celery_beat_periodictask` ORDER BY `django_celery_beat_periodictask`.`id` ASC LIMIT 3; args=()
+2019-02-15 20:29:20,631 [Thread-19:100840008] [django.server:124] [INFO]- "GET /autoTest/plan_index/ HTTP/1.1" 200 13446
+2019-02-15 20:38:50,858 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.007) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:38:50,865 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:38:50,876 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.009) SELECT COUNT(*) AS `__count` FROM `autoTest_api`; args=()
+2019-02-15 20:38:50,886 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` LIMIT 3; args=()
+2019-02-15 20:38:50,893 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.006) SELECT VERSION(); args=None
+2019-02-15 20:38:50,903 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 1; args=(1,)
+2019-02-15 20:38:50,912 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE `autoTest_mockserver`.`mockServer_id` = 2; args=(2,)
+2019-02-15 20:38:50,922 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE (`autoTest_mockserver`.`relative_api` = '1' AND `autoTest_mockserver`.`conditions` = ''); args=('1', '')
+2019-02-15 20:38:50,932 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 3; args=(3,)
+2019-02-15 20:38:50,942 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE (`autoTest_mockserver`.`relative_api` = '3' AND `autoTest_mockserver`.`conditions` = ''); args=('3', '')
+2019-02-15 20:38:50,952 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.009) SELECT `autoTest_api`.`api_id`, `autoTest_api`.`api_name`, `autoTest_api`.`api_path`, `autoTest_api`.`method`, `autoTest_api`.`headers`, `autoTest_api`.`content_type`, `autoTest_api`.`body`, `autoTest_api`.`description`, `autoTest_api`.`validate`, `autoTest_api`.`encry_flag`, `autoTest_api`.`necessaryFlag_dict`, `autoTest_api`.`dataType_dict`, `autoTest_api`.`description_dict`, `autoTest_api`.`relative_enc`, `autoTest_api`.`relative_pro`, `autoTest_api`.`mock_status`, `autoTest_api`.`default_mockServer_id` FROM `autoTest_api` WHERE `autoTest_api`.`api_id` = 4; args=(4,)
+2019-02-15 20:38:50,962 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.008) SELECT `autoTest_mockserver`.`mockServer_id`, `autoTest_mockserver`.`mockServer_name`, `autoTest_mockserver`.`uri`, `autoTest_mockserver`.`relative_pro`, `autoTest_mockserver`.`relative_api`, `autoTest_mockserver`.`setup_hooks`, `autoTest_mockserver`.`teardown_hooks`, `autoTest_mockserver`.`expect_status_code`, `autoTest_mockserver`.`expect_headers`, `autoTest_mockserver`.`expect_response_content_type`, `autoTest_mockserver`.`expect_response`, `autoTest_mockserver`.`mock_status`, `autoTest_mockserver`.`conditions`, `autoTest_mockserver`.`description` FROM `autoTest_mockserver` WHERE (`autoTest_mockserver`.`relative_api` = '4' AND `autoTest_mockserver`.`conditions` = ''); args=('4', '')
+2019-02-15 20:38:50,975 [Thread-21:100840008] [django.db.backends:111] [DEBUG]- (0.007) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 20:38:50,977 [Thread-21:100840008] [django.template:878] [DEBUG]- Exception while resolving variable 'pro_id' in template 'autoTest/mockServer_index.html'.
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 835, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'pro_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [pro_id] in None
+2019-02-15 20:38:50,980 [Thread-21:100840008] [django.server:124] [INFO]- "GET /autoTest/mockServer_index/ HTTP/1.1" 200 18584
+2019-02-15 20:39:12,844 [Thread-23:87177032] [django.db.backends:111] [DEBUG]- (0.005) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:39:12,850 [Thread-23:87177032] [django.db.backends:111] [DEBUG]- (0.005) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:39:12,856 [Thread-23:87177032] [django.db.backends:111] [DEBUG]- (0.006) SELECT `autoTest_project`.`pro_id`, `autoTest_project`.`pro_name`, `autoTest_project`.`description` FROM `autoTest_project`; args=()
+2019-02-15 20:39:12,861 [Thread-23:87177032] [django.server:124] [INFO]- "GET /autoTest/mockServer_add/ HTTP/1.1" 200 15751
+2019-02-15 20:44:21,238 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.009) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:44:21,247 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.008) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:44:21,256 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.008) SELECT VERSION(); args=None
+2019-02-15 20:44:21,534 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.007) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:44:21,543 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.009) SHOW FULL TABLES; args=None
+2019-02-15 20:44:21,560 [DummyThread-1:87242056] [django.db.backends:111] [DEBUG]- (0.011) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2019-02-15 20:45:45,124 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.006) SELECT @@SQL_AUTO_IS_NULL; args=None
+2019-02-15 20:45:45,131 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.006) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:45:45,137 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.006) SELECT VERSION(); args=None
+2019-02-15 20:45:45,437 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.009) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None
+2019-02-15 20:45:45,447 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.010) SHOW FULL TABLES; args=None
+2019-02-15 20:45:45,461 [DummyThread-1:87176520] [django.db.backends:111] [DEBUG]- (0.011) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()

@@ -20,7 +20,7 @@ import pprint
 import requests
 import time
 
-# logger = logging.getLogger('testGo.app')
+logger = logging.getLogger('testGo.app')
 hrun_base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), r'httprunner/tests/testcases')
 
 '''
@@ -242,13 +242,17 @@ def api_add(request):
         dataType_dict = request.POST['dataType_dict']
         description_dict = request.POST['description_dict']
         # 若content_type 为json或者x-www-form-urlencoded格式，自动添加请求头参数
-        headers_eval = literal_eval(headers)
+        # headers_eval = literal_eval(headers)
+        headers_eval = json.loads(headers)
         if content_type == 'json':
             headers_eval['Content-Type'] = 'application/json'
             body = body.replace(' ','')
-            body_eval = literal_eval(body)
-            dataType_dict_eval = literal_eval(dataType_dict)
-            necessaryFlag_dict_eval = literal_eval(necessaryFlag_dict)
+            # body_eval = literal_eval(body)
+            body_eval = json.loads(body)
+            # dataType_dict_eval = literal_eval(dataType_dict)
+            dataType_dict_eval = json.loads(dataType_dict)
+            # necessaryFlag_dict_eval = literal_eval(necessaryFlag_dict)
+            necessaryFlag_dict_eval = json.loads(necessaryFlag_dict)
             for item in list(body_eval.values()):
                 necessaryFlag_dict_eval['body'].append('1')
                 if isinstance(item,str):
@@ -261,11 +265,14 @@ def api_add(request):
                     dataType_dict_eval['body'].append('list')
                 if isinstance(item,dict):
                     dataType_dict_eval['body'].append('dict')
-            necessaryFlag_dict = str(necessaryFlag_dict_eval).replace("'", '"')
-            dataType_dict = str(dataType_dict_eval).replace("'", '"')
+            # necessaryFlag_dict = str(necessaryFlag_dict_eval).replace("'", '"')
+            # dataType_dict = str(dataType_dict_eval).replace("'", '"')
+            necessaryFlag_dict = json.dumps(necessaryFlag_dict_eval)
+            dataType_dict = json.dumps(dataType_dict_eval)
         if content_type == 'x-www-form-urlencoded':
             headers_eval['Content-Type'] = 'application/x-www-form-urlencoded'
-        headers_eval = str(headers_eval).replace("'", '"')
+        # headers_eval = str(headers_eval).replace("'", '"')
+        headers_eval = json.dumps(headers_eval)
         api = Api(api_name=api_name, api_path=api_path, method=method, content_type=content_type, headers=headers_eval,
                   body=body, description=description, validate=validate, encry_flag=encry_flag, relative_enc=encry_id,
                   relative_pro=pro_id, necessaryFlag_dict=necessaryFlag_dict, dataType_dict=dataType_dict,
@@ -306,13 +313,13 @@ def api_update(request):
         dataType_dict = request.POST['dataType_dict']
         description_dict = request.POST['description_dict']
         # 若content_type 为json或者x-www-form-urlencoded格式，自动添加请求头参数
-        headers_eval = literal_eval(headers)
+        headers_eval = json.loads(headers)
         if content_type == 'json':
             headers_eval['Content-Type'] = 'application/json'
-            body = body.replace(' ', '')
-            body_eval = literal_eval(body)
-            dataType_dict_eval = literal_eval(dataType_dict)
-            necessaryFlag_dict_eval = literal_eval(necessaryFlag_dict)
+            # body = body.replace(' ', '')
+            body_eval = json.loads(body)
+            dataType_dict_eval = json.loads(dataType_dict)
+            necessaryFlag_dict_eval = json.loads(necessaryFlag_dict)
             for item in list(body_eval.values()):
                 necessaryFlag_dict_eval['body'].append('1')
                 if isinstance(item, str):
@@ -325,11 +332,13 @@ def api_update(request):
                     dataType_dict_eval['body'].append('list')
                 if isinstance(item, dict):
                     dataType_dict_eval['body'].append('dict')
-            necessaryFlag_dict = str(necessaryFlag_dict_eval).replace("'", '"')
-            dataType_dict = str(dataType_dict_eval).replace("'", '"')
+            # necessaryFlag_dict = str(necessaryFlag_dict_eval).replace("'", '"')
+            # dataType_dict = str(dataType_dict_eval).replace("'", '"')
+            necessaryFlag_dict = json.loads(necessaryFlag_dict_eval)
+            dataType_dict = json.loads(dataType_dict_eval)
         if content_type == 'x-www-form-urlencoded':
             headers_eval['Content-Type'] = 'application/x-www-form-urlencoded'
-        headers_eval = str(headers_eval).replace("'", '"')
+        headers_eval = json.loads(headers_eval)
         Api.objects.filter(api_id=api_id).update(api_name=api_name, api_path=api_path, method=method,
                                                  content_type=content_type, headers=headers_eval, body=body,
                                                  description=description, validate=validate, encry_flag=encry_flag,
@@ -482,13 +491,13 @@ def testStep_add(request):
         setup_hooks = goFunction.replace_chinese_brackets(setup_hooks)
         teardown_hooks = goFunction.replace_chinese_brackets(teardown_hooks)
         # 若content_type 为json或者x-www-form-urlencoded格式，自动添加请求头参数
-        headers_eval = literal_eval(headers)
+        headers_eval = json.loads(headers)
         if content_type == 'json':
             headers_eval['Content-Type'] = 'application/json'
-            body = body.replace(' ', '')
-            body_eval = literal_eval(body)
-            dataType_dict_eval = literal_eval(dataType_dict)
-            necessaryFlag_dict_eval = literal_eval(necessaryFlag_dict)
+            # body = body.replace(' ', '')
+            body_eval = json.loads(body)
+            dataType_dict_eval = json.loads(dataType_dict)
+            necessaryFlag_dict_eval = json.loads(necessaryFlag_dict)
             for item in list(body_eval.values()):
                 necessaryFlag_dict_eval['body'].append('1')
                 if isinstance(item, str):
@@ -501,11 +510,14 @@ def testStep_add(request):
                     dataType_dict_eval['body'].append('list')
                 if isinstance(item, dict):
                     dataType_dict_eval['body'].append('dict')
-            necessaryFlag_dict = str(necessaryFlag_dict_eval).replace("'", '"')
-            dataType_dict = str(dataType_dict_eval).replace("'", '"')
+            # necessaryFlag_dict = str(necessaryFlag_dict_eval).replace("'", '"')
+            necessaryFlag_dict = json.loads(necessaryFlag_dict_eval)
+            # dataType_dict = str(dataType_dict_eval).replace("'", '"')
+            dataType_dict = json.loads(dataType_dict_eval)
         if content_type == 'x-www-form-urlencoded':
             headers_eval['Content-Type'] = 'application/x-www-form-urlencoded'
-        headers_eval = str(headers_eval).replace("'", '"')
+        # headers_eval = str(headers_eval).replace("'", '"')
+        headers_eval = json.loads(headers_eval)
         testStep = TestStep(testStep_name=testStep_name, skip=skip, skipIf=skipIf, skipUnless=skipUnless, times=times,
                             variables=variables, url=url, headers=headers_eval, method=method, content_type=content_type, body=body,
                             description=description, extract=extract, validate=validate, setup_hooks=setup_hooks,
@@ -553,13 +565,13 @@ def testStep_update(request):
         setup_hooks = goFunction.replace_chinese_brackets(setup_hooks)
         teardown_hooks = goFunction.replace_chinese_brackets(teardown_hooks)
         # 若content_type 为json或者x-www-form-urlencoded格式，自动添加请求头参数
-        headers_eval = literal_eval(headers)
+        headers_eval = json.loads(headers)
         if content_type == 'json':
             headers_eval['Content-Type'] = 'application/json'
-            body = body.replace(' ', '')
-            body_eval = literal_eval(body)
-            dataType_dict_eval = literal_eval(dataType_dict)
-            necessaryFlag_dict_eval = literal_eval(necessaryFlag_dict)
+            # body = body.replace(' ', '')
+            body_eval = json.loads(body)
+            dataType_dict_eval = json.loads(dataType_dict)
+            necessaryFlag_dict_eval = json.loads(necessaryFlag_dict)
             for item in list(body_eval.values()):
                 necessaryFlag_dict_eval['body'].append('1')
                 if isinstance(item, str):
@@ -572,11 +584,14 @@ def testStep_update(request):
                     dataType_dict_eval['body'].append('list')
                 if isinstance(item, dict):
                     dataType_dict_eval['body'].append('dict')
-            necessaryFlag_dict = str(necessaryFlag_dict_eval).replace("'", '"')
-            dataType_dict = str(dataType_dict_eval).replace("'", '"')
+            # necessaryFlag_dict = str(necessaryFlag_dict_eval).replace("'", '"')
+            # dataType_dict = str(dataType_dict_eval).replace("'", '"')
+            necessaryFlag_dict = json.loads(necessaryFlag_dict_eval)
+            dataType_dict = json.loads(dataType_dict_eval)
         if content_type == 'x-www-form-urlencoded':
             headers_eval['Content-Type'] = 'application/x-www-form-urlencoded'
-        headers_eval = str(headers_eval).replace("'", '"')
+        # headers_eval = str(headers_eval).replace("'", '"')
+        headers_eval = json.loads(headers_eval)
         TestStep.objects.filter(testStep_id=testStep_id).update(testStep_name=testStep_name, skip=skip, skipIf=skipIf,
                                                                 skipUnless=skipUnless, times=times, variables=variables,
                                                                 url=url, headers=headers_eval, method=method, content_type=content_type, body=body,
@@ -687,8 +702,10 @@ def testCases_add(request):
         output = goFunction.check_listFormat(output)
         setup_hooks = goFunction.replace_chinese_brackets(setup_hooks)
         teardown_hooks = goFunction.replace_chinese_brackets(teardown_hooks)
-        headers = headers.replace("'", '"')
-        dataType_dict = dataType_dict.replace("'", '"')
+        # headers = headers.replace("'", '"')
+        # dataType_dict = dataType_dict.replace("'", '"')
+        headers = json.loads(headers)
+        dataType_dict = json.loads(dataType_dict)
         if testSuite_function:
             # 去掉中文括号
             testSuite_function = goFunction.replace_chinese_brackets(testSuite_function)
@@ -775,8 +792,10 @@ def testCases_update(request):
         output = goFunction.check_listFormat(output)
         setup_hooks = goFunction.replace_chinese_brackets(setup_hooks)
         teardown_hooks = goFunction.replace_chinese_brackets(teardown_hooks)
-        headers = headers.replace("'", '"')
-        dataType_dict = dataType_dict.replace("'", '"')
+        # headers = headers.replace("'", '"')
+        # dataType_dict = dataType_dict.replace("'", '"')
+        headers = json.loads(headers)
+        dataType_dict = json.loads(dataType_dict)
         if testSuite_function:
             # 去掉中文括号
             testSuite_function = goFunction.replace_chinese_brackets(testSuite_function)
@@ -841,7 +860,7 @@ def testCases_update(request):
         testCases_id = request.GET['testCases_id']
         testCases = TestCases.objects.get(testCases_id=testCases_id)
         testCases_list = []
-        testCases_sum = literal_eval(testCases.testCases_list)
+        testCases_sum = json.loads(testCases.testCases_list)
         for testStep_id in testCases_sum:
             testCases_list.append(TestStep.objects.get(testStep_id=testStep_id))
 
@@ -883,14 +902,14 @@ def testCases_run(request):
             runner.run(file_path)
             summary = json.dumps(runner.summary['stat'])
         except Exception:
-            logging.error(Exception)
+            logger.error(Exception)
         if request_runStyle == '0':
             # "0": 不生成测试报告
             return JsonResponse(summary, safe=False)
         if request_runStyle == '1':
             # "1": 立即返回测试报告
             report_path = runner.gen_html_report()
-            logging.info('report_path: ', report_path)
+            logger.info('report_path: ', report_path)
             report = Report(report_name=testCases_name, path=report_path, relative_testCases=request_testCases_id)
             report.save()
             report_id = str(Report.objects.filter(path=report_path)[0].report_id)
@@ -1039,7 +1058,7 @@ def combine_response(return_mockServer):
     expect_headers = return_mockServer.expect_headers
     expect_response = return_mockServer.expect_response
     if setup_hooks:
-        #  在请求响应 产生前发生
+        #  在请求响应 产生前发生(可对request object做处理)
         #  如果有setup函数，先执行setup函数
         #  暂时不做
         pass
@@ -1048,7 +1067,7 @@ def combine_response(return_mockServer):
         expect_status_code=expect_status_code, expect_headers=expect_headers,
         expect_response=expect_response)
     if teardown_hooks:
-        # 在请求响应 产生后发生
+        # 先响应，在做回调函数，目前位置不对
         #  如果有teardown函数，先执行teardown函数
         #  暂时不做
         pass
@@ -1429,7 +1448,7 @@ def find_data(request):
                 testCases_dict['variables'] = testCases_object.variables
                 testCases_list = testCases_object.testCases_list
                 testStep_name_list_html = ''
-                for testStep_id in literal_eval(testCases_list):
+                for testStep_id in json.loads(testCases_list):
                     try:
                         temp_html = '<li>' + TestStep.objects.get(testStep_id=testStep_id).testStep_name + '</li>'
                         testStep_name_list_html = testStep_name_list_html + temp_html
@@ -1500,7 +1519,7 @@ def find_data(request):
                         #  如果响应匹配条件有值
                             conditions = mockServer_object.conditions.lstrip('[').rstrip(']').split(',')
                             try:
-                                expect_args_list = literal_eval(api_object.body).keys()
+                                expect_args_list = json.loads(api_object.body).keys()
                             except:
                                 expect_args_list = [ ]
                             row_01 = r'<td contenteditable="true" name="request_args"><select class="form-control">'
@@ -1534,7 +1553,7 @@ def find_data(request):
             if data_id and data_name == 'add_mockServer_condition':
                 api_object = Api.objects.get(api_id=data_id)
                 try:
-                    expect_args_list = literal_eval(api_object.body).keys()
+                    expect_args_list = json.loads(api_object.body).keys()
                 except:
                     expect_args_list = []
                 mockServer_default_condition_html = r'<td contenteditable="true" name="request_args"><select class="form-control"><option value=""></option>'

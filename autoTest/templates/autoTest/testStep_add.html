@@ -18,6 +18,14 @@
         </div>
     </div>
 {% endblock %}
+{% block beforehead %}
+<style type="text/css">
+    .table th{ 
+        text-align: center;
+        vertical-align: middle!important;
+    }
+</style>
+{% endblock %}
 {% block body %}
 <div class="row">
     <div class="col-md-12">
@@ -57,8 +65,7 @@
                         <label for="url" class="col-sm-2 control-label"><span style="color: red" >* </span>请求地址:</label>
                         <div class="col-sm-3">
                             <input type="url" list="url_list" id="url" class="form-control" name="link" />
-                                <datalist id="url_list">          
-                                </datalist>
+                            <datalist id="url_list"> </datalist>
                         </div>
                         <div class="col-sm-3" style="margin-left: -30px;">
                             <input type="text" name="uri" class="form-control"  id="uri" placeholder="请输入uri地址">
@@ -397,7 +404,7 @@
                 },
                 success : function(data){
                     var data_list = eval(data);
-                    console.log('----data_list: ',data_list);
+                    // console.log('----data_list: ',data_list);
                     var row_content = new String;
                     var method = data_list[0]["method"];
                     var content_type = data_list[0]["content_type"];

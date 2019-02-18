@@ -29,6 +29,15 @@ celery相关
     nginx访问日志路径:          /app/testGo/logs/nginx.access.log
     nginx错误日志路径:          /app/testGo/logs/nginx.error.log
 
+项目展示：
+======
+![avatar](/static/img/testStep_index.png)
+![avatar](/static/img/testStep_run.png)
+![avatar](/static/img/testCases_run.png)
+![avatar](/static/img/report.png)
+![avatar](/static/img/plan_index.png)
+![avatar](/static/img/mockServer_index.png)
+![avatar](/static/img/mockServer_update.png)
 源码修改备注
 ======
     \testGo\manager.py

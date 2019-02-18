@@ -229,7 +229,7 @@ LOGGING = {
         },
         'testGo.app':{
             'handlers': ['default','console'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': True
         },
         'django.request': {
