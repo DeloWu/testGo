@@ -600,3 +600,43 @@ Traceback (most recent call last):
   File "C:\Python36\lib\site-packages\django\db\models\options.py", line 568, in get_field
     raise FieldDoesNotExist("%s has no field named '%s'" % (self.object_name, field_name))
 django.core.exceptions.FieldDoesNotExist: Api has no field named 'api_mock_status'
+2019-02-23 15:22:57,137 [Thread-46:120993352] [django.request:93] [WARNING]- Not Found: /searchAuthors/
+2019-02-23 15:30:01,028 [Thread-3:98163016] [django.request:118] [ERROR]- Internal Server Error: /searchAuthors/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 1152, in run_mock_server
+    return combine_response(default_mockServer, request)
+  File "E:\github\testGo\autoTest\views.py", line 1079, in combine_response
+    expect_status_code=expect_status_code, expect_headers=expect_headers,expect_response=return_value_list)  # 发送响应结果给客户端
+TypeError: 'JsonResponse' object is not callable
+2019-02-23 15:31:50,209 [Thread-2:87373640] [django.request:118] [ERROR]- Internal Server Error: /searchAuthors/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 1151, in run_mock_server
+    return combine_response(default_mockServer, request)
+  File "E:\github\testGo\autoTest\views.py", line 1077, in combine_response
+    return_response.setdefault(expect_response=return_value_list)
+TypeError: setdefault() got an unexpected keyword argument 'expect_response'
+2019-02-23 15:32:01,578 [Thread-10:98097480] [django.request:118] [ERROR]- Internal Server Error: /searchAuthors/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 1151, in run_mock_server
+    return combine_response(default_mockServer, request)
+  File "E:\github\testGo\autoTest\views.py", line 1077, in combine_response
+    return_response.setdefault(expect_response=return_value_list)
+TypeError: setdefault() got an unexpected keyword argument 'expect_response'

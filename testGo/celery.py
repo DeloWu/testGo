@@ -17,8 +17,8 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "testGo.settings")
 
 if platform.system() == 'Windows':
     app = Celery('testGo',
-                 broker='redis://guest@172.30.3.60:6379//',
-                 backend='redis://guest@172.30.3.60:6379',
+                 broker='redis://guest@47.112.22.9:6379//',
+                 backend='redis://guest@47.112.22.9:6379',
                  include=['testGo.tasks'])
 
 else:

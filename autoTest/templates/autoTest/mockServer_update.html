@@ -56,7 +56,7 @@
             <label class="control-label">默认响应：</label>
             <select class="form-control" style="width: 300px;height: 34px;" id="default_mockServer" name="mockServer_select">
             {% if default_mockServer %}
-                <option value="{{ default_mockServer.mockServer_value }}">{{ default_mockServer.mockServer_name }}}</option>
+                <option value="{{ default_mockServer.mockServer_value }}">{{ default_mockServer.mockServer_name }}</option>
             {% endif %}
             </select>
         </div>
@@ -64,11 +64,11 @@
     <div class="row">
         <div class="col-md-6 form-inline" style="padding-left:35px;">
             <label class="control-label" for="setup_hooks">setup_hooks：</label>
-            <input type="text" class="form-control" name="setup_hooks" placeholder="若无setUp函数，可为空" id="setup_hooks" style="width: 300px;">
+            <input type="text" class="form-control" name="setup_hooks" placeholder="若无setUp函数，可为空" id="setup_hooks" style="width: 300px;" value="{{ default_mockServer.setup_hooks }}">
         </div>
         <div class="col-md-6 form-inline col-md-pull-2" style="padding-left:35px;">
             <label class="control-label" for="teardown_hooks">teardown_hooks：</label>
-            <input type="text" class="form-control" name="teardown_hooks" placeholder="若无setUp函数，可为空" id="teardown_hooks" style="width: 300px;">
+            <input type="text" class="form-control" name="teardown_hooks" placeholder="若无setUp函数，可为空" id="teardown_hooks" style="width: 300px;" value="{{ default_mockServer.teardown_hooks }}">
         </div>
     </div>
     <div class="row">

@@ -1,21 +1,22 @@
 # -*- coding:utf-8 -*-
 from ast import literal_eval
+from autoTest import utils
 from autoTest.models import Project, Environment, Api, TestStep, TestCases, Report, Encryption
 import base64
 import codecs
 from decorator import decorator
 from django.http import HttpResponse, Http404, JsonResponse
-
-import httprunner
-import hmac
 import hashlib
+import hmac
+from httprunner import parser
 import json
 import logging
 from multiprocessing import Pool
 import os
 import pprint
-import requests
 import random
+from redis import StrictRedis
+import requests
 import string
 import time
 import re
@@ -23,7 +24,7 @@ import requests
 
 
 hrun_base_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), r'httprunner\tests\testcases')
-
+logger = logging.getLogger('testGo.app')
 
 def run_Case():
     file_path = 'hrun ' + r'E:\github\djangoProject\testGoFunction\自动生成的案例.json'
@@ -421,11 +422,63 @@ def getResponse(expect_response_content_type, expect_status_code, expect_headers
     else:
         print(expect_response_content_type, ' not in [json, text, xml, html]')
 
+def run_hook(request_or_response=None, hooks=None):
+    #  运行setup_hooks or teardown_hooks
+    #  hooks = [${func1($request, 1,2)}, ${func2(key=value)}]
+    function_regexp = re.compile(r"\$\{([\w_]+\([\$\w\.\-/_ =,]*\))\}")
+    return_value_list = []
+    if hooks:
+        utils_functions_mapping = utils.get_functions_mapping()
+        functions_string_list = re.findall(function_regexp, hooks)
+        for function_string in functions_string_list:
+            #  e.g. function_string = 'func1(1,2)'
+            #  e.g. function_parse_dict = {'func_name': 'func1', 'args': [1, 2], 'kwargs': {}}
+            function_parse_dict = parser.parse_function(function_string)
+            try:
+                function_name = function_parse_dict['func_name']
+                args = function_parse_dict['args']  # args:  (1,2)
+                for index, arg in enumerate(args):
+                    if arg in ['$response', '$request']:
+                        args[index] = request_or_response
+                kwargs = function_parse_dict['kwargs']  # kwargs:  {'a': 1}
+                return_value = utils_functions_mapping[function_name](*args, **kwargs)
+                logger.info('执行回调函数: {},获得返回值: {}'.format(function_parse_dict, return_value))
+                return_value_list.append(return_value)
+            except Exception as e:
+                logger.error('执行回调函数报错：', 'function_parse_dict : {}'.format(function_parse_dict))
+                logger.error(e)
+        return return_value_list
+
+def run_setup_hooks(request=None, setup_hooks=None):
+    return run_hook(request, setup_hooks)
+
+def run_teardown_hooks(response=None, teardown_hooks=None):
+    #  主要作为mock响应后的回调函数
+    #  teardown_hooks = [${func1($request, 1,2)}, ${func2(key=value)}]
+    return run_hook(response, teardown_hooks)
+    # function_regexp = re.compile(r"\$\{([\w_]+\([\$\w\.\-/_ =,]*\))\}")
+    # return_value_list = []
+    # if teardown_hooks:
+    #     utils_functions_mapping = utils.get_functions_mapping()
+    #     functions_string_list = re.findall(function_regexp, teardown_hooks)
+    #     for function_string in functions_string_list:
+    #         #  e.g. function_string = 'func1(1,2)'
+    #         #  e.g. function_parse_dict = {'func_name': 'func1', 'args': [1, 2], 'kwargs': {}}
+    #         function_parse_dict = parser.parse_function(function_string)
+    #         try:
+    #             function_name = function_parse_dict['func_name']
+    #             args = function_parse_dict['args']  # args:  (1,2)
+    #             for index, arg in enumerate(args):
+    #                 if arg == '$response':
+    #                     args[index] = response
+    #             kwargs = function_parse_dict['kwargs']  # kwargs:  {'a': 1}
+    #             return_value = utils_functions_mapping[function_name](*args, **kwargs)
+    #             logger.info('执行回调函数: {},获得返回值: {}'.format(function_parse_dict, return_value))
+    #             return_value_list.append(return_value)
+    #         except Exception as e:
+    #             logger.error('执行回调函数报错：', 'function_parse_dict : {}'.format(function_parse_dict))
+    #             logger.error(e)
+    #     return return_value_list
 
 if __name__ == '__main__':
-    # createJsonFile(ob)
-    # run_Case()
-    # wpt_encode()
-    # pass
-    # print(check_listFormat('123213dsfds'))
-    pass
+    run_teardown_hooks(teardown_hooks='[${add(1,2,3,4)}]')

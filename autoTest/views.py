@@ -713,9 +713,9 @@ def testCases_add(request):
             testSuite_function = 'suiteFunction' + str(time.time())[:10] + '()'
         try:
             exist_testCases = TestCases.objects.get(testSuite_function=testSuite_function)
-            print('testSuite_function用例集函数已存在 : ',exist_testCases.testSuite_function)
+            logger.info('testSuite_function用例集函数已存在 : {} '.format(exist_testCases.testSuite_function))
             testSuite_function = 'suiteFunction' + str(time.time())[:10] + '()'
-            print('该用例集函数已自动命名为： ', testSuite_function)
+            logger.info('该用例集函数已自动命名为：{} '.format(testSuite_function))
         except:
             pass
         file_name = testCases_name + '_' + str(time.time())[:10] + '.json'
@@ -803,9 +803,9 @@ def testCases_update(request):
             testSuite_function = 'suiteFunction' + str(time.time())[:10] + '()'
         try:
             exist_testCases = TestCases.objects.get(testSuite_function=testSuite_function)
-            print('testSuite_function用例集函数已存在 : ',exist_testCases.testSuite_function)
+            logger.info('testSuite_function用例集函数已存在 : {}'.format(exist_testCases.testSuite_function))
             testSuite_function = 'suiteFunction' + str(time.time())[:10] + '()'
-            print('该用例集函数已自动命名为： ', testSuite_function)
+            logger.info('该用例集函数已自动命名为：{} '.format(testSuite_function))
         except:
             pass
         file_name = testCases_name + '_' + str(time.time())[:10] + '.json'
@@ -909,7 +909,7 @@ def testCases_run(request):
         if request_runStyle == '1':
             # "1": 立即返回测试报告
             report_path = runner.gen_html_report()
-            logger.info('report_path: ', report_path)
+            logger.info('report_path: '.format(report_path))
             report = Report(report_name=testCases_name, path=report_path, relative_testCases=request_testCases_id)
             report.save()
             report_id = str(Report.objects.filter(path=report_path)[0].report_id)
@@ -965,7 +965,7 @@ def report_delete(request):
         Report.objects.filter(report_id=report_id).delete()
         if (os.path.exists(file_path)):
             os.remove(file_path)
-            print('成功删除测试报告文件： ', file_path)
+            logger.info('成功删除测试报告文件：{} '.format(file_path))
         return HttpResponseRedirect("/autoTest/report_index/")
 
 
@@ -1033,7 +1033,7 @@ def getResponse(expect_response_content_type, expect_status_code, expect_headers
             #  如果有请求头，则添加至响应头部里
             for key, value in json.loads(expect_headers):
                 response[key] = value
-        print('mock服务返回HttpResponse:', response)
+        logger.info('mock服务返回HttpResponse: {}'.format(response))
         return response
     elif expect_response_content_type == 'json':
         json_data = json.loads(expect_response)
@@ -1043,16 +1043,16 @@ def getResponse(expect_response_content_type, expect_status_code, expect_headers
             #  如果有请求头，则添加至响应头部里
             for key, value in json.loads(expect_headers).items():
                 response[key] = value
-        print('mock服务返回JsonResponse:', response)
+        logger.info('mock服务返回JsonResponse: {}'.format(response))
         return response
     elif expect_response_content_type == 'xml':
         raise Http404
     elif expect_response_content_type == 'html':
         raise Http404
     else:
-        print(expect_response_content_type, ' not in [json, text, xml, html]')
+        logger.info('{}  not in [json, text, xml, html]'.format(expect_response_content_type))
 
-def combine_response(return_mockServer):
+def combine_response(return_mockServer, request):
     #  根据mockServer，生成并返回HttpResponse objects
     #如果请求参数条件匹配失败，给予默认响应
     setup_hooks = return_mockServer.setup_hooks
@@ -1064,17 +1064,19 @@ def combine_response(return_mockServer):
     if setup_hooks:
         #  在请求响应 产生前发生(可对request object做处理)
         #  如果有setup函数，先执行setup函数
-        #  暂时不做
-        pass
+        setup_hooks_return_values = goFunction.run_setup_hooks(request, setup_hooks)
+        logging.info('执行回调函数的返回列表: {}'.format(setup_hooks_return_values))
+
     return_response = getResponse(
         expect_response_content_type=expect_response_content_type,
         expect_status_code=expect_status_code, expect_headers=expect_headers,
         expect_response=expect_response)
+
     if teardown_hooks:
-        # 先响应，在做回调函数，目前位置不对
         #  如果有teardown函数，先执行teardown函数
-        #  暂时不做
-        pass
+        # 在响应返回给客户端前，做回调函数，或者对响应做修改
+        teardown_hooks_return_values = goFunction.run_teardown_hooks(return_response, teardown_hooks)
+        logging.info('执行回调函数的返回列表: {}'.format(teardown_hooks_return_values))
     return return_response  # 发送响应结果给客户端
 
 def run_mock_server(request):
@@ -1124,14 +1126,14 @@ def run_mock_server(request):
                         #请求参数条件匹配判断
                         if goFunction.validate(check_value=check_value, comparator=conditions[1], expected_value=conditions[2], content_type=conditions[3]):
                             #如果请求参数条件匹配成功
-                            return combine_response(set_conditions_mockServer)
+                            return combine_response(set_conditions_mockServer, request)
                         else:
                             #  判断该循环是否是最后一个，如果是并且匹配失败，返回默认响应，否则跳过这次循环
                             if loop_index == set_conditions_mockServer_suite_length:
                                 if default_mockServer:
-                                    return combine_response(default_mockServer)
+                                    return combine_response(default_mockServer, request)
                                 else:
-                                    print('uri: ', request.path, '该接口没有设置默认响应！')
+                                    logger.info('uri: {}该接口没有设置默认响应！ '.format(request.path))
                                     raise Http404("您所访问的页面不存在！")
                             else:
                                 continue
@@ -1140,23 +1142,23 @@ def run_mock_server(request):
                         #  判断该循环是否是最后一个，如果是并且匹配失败，返回默认响应，否则跳过这次循环
                         if loop_index == set_conditions_mockServer_suite_length:
                             if default_mockServer:
-                                return combine_response(default_mockServer)
+                                return combine_response(default_mockServer, request)
                             else:
-                                print('uri: ', request.path, '该接口没有设置默认响应！')
+                                logger.info('uri: {} 该接口没有设置默认响应'.format(request.path))
                                 raise Http404("您所访问的页面不存在！")
                         else:
                             continue
             else:
                 if default_mockServer:
-                    return combine_response(default_mockServer)
+                    return combine_response(default_mockServer, request)
                 else:
-                    print('uri: ', request.path, '该接口没有设置默认响应！')
+                    logger.info('uri: {} 该接口没有设置默认响应'.format(request.path))
                     raise Http404("您所访问的页面不存在！")
         else:
-            print('uri: ', request.path, '该mockServer服务尚未配置或者未开启服务！')
+            logger.info('uri: {} ,该mockServer服务尚未配置或者未开启服务'.format(request.path))
             raise Http404("您所访问的页面不存在！")
     else:
-        print('uri: ', request.path, '该api-mock服务尚未配置或者未开启服务！')
+        logger.info('uri: {} ,mock服务尚未配置或者未开启服务'.format(request.path))
         raise Http404("您所访问的页面不存在！")
 
 def mockServer_index(request):
@@ -1284,7 +1286,7 @@ def mockServer_add(request):
                 mockServer_name = MockServer.objects.get(mockServer_id=new_mockServer_object_id).mockServer_name
                 return JsonResponse({'mockServer_id': new_mockServer_object_id, 'mockServer_name': mockServer_name}, safe=False)
             except Exception as e:
-                print('新匹配响应条件保存失败, ', e)
+                logger.info('新匹配响应条件保存失败,{} '.format(e))
 
 def mockServer_update(request):
     if request.method == 'GET':
@@ -1330,7 +1332,6 @@ def find_data(request):
         if model.lower() == 'api':
             if data_id:
                 data = Api.objects.filter(api_id=data_id).values()
-                # print('--------------------',data,'-----------------------')
                 return JsonResponse(list(data), safe=False)
         if model.lower() == 'pro':
             # 切换项目，获取接口列表
@@ -1338,7 +1339,6 @@ def find_data(request):
                 try:
                     # project = Project.objects.get(pro_id=data_id)
                     api_list = Api.objects.filter(relative_pro=data_id).values()
-                    # print('--------------------', api_list, '-----------------------')
                 except:
                     api_list = []
                 return JsonResponse(list(api_list), safe=False)
@@ -1347,7 +1347,6 @@ def find_data(request):
                 try:
                     # project = Project.objects.get(pro_id=data_id)
                     env_list = Environment.objects.filter(relative_pro=data_id).values()
-                    print('----------env_list:  ', env_list)
                 except:
                     env_list = []
                 return JsonResponse(list(env_list), safe=False)
@@ -1368,7 +1367,6 @@ def find_data(request):
                         li_list = ''
                     if count == len(testStep_sum):
                         testStep_list.append(li_list)
-                print('testStep_list: ', testStep_list)
                 return JsonResponse(testStep_list, safe=False)
             if data_id and data_name == 'testStep_list':
                 testStep1 = TestStep.objects.filter(testStep_name__contains=data_id)
@@ -1387,7 +1385,6 @@ def find_data(request):
                         li_list = ''
                     if count == len(testStep_sum):
                         testStep_list.append(li_list)
-                print('testStep_list: ', testStep_list)
                 return JsonResponse(testStep_list, safe=False)
             if data_id and data_name == 'testStep_dict':
                 # 查找单个测试用例接口
@@ -1419,7 +1416,6 @@ def find_data(request):
                         li_list = ''
                     if count == len(testSuite_sum):
                         testSuite_list.append(li_list)
-                print('testSuite_list: ', testSuite_list)
                 return JsonResponse(testSuite_list, safe=False)
 
             if data_id and data_name == 'testSuite_list':
@@ -1437,11 +1433,9 @@ def find_data(request):
                         li_list = ''
                     if count == len(testSuite_sum):
                         testSuite_list.append(li_list)
-                print('testSuite_list: ', testSuite_list)
                 return JsonResponse(testSuite_list, safe=False)
             if data_id and data_name == 'testStep_list':
                 testStep_list = TestCases.objects.get(testCases_id=data_id).testCases_list
-                # print(testStep_list)
                 return JsonResponse(testStep_list, safe=False)
             if data_id and data_name == 'testCases_dict':
                 # 运行测试用例集调用，获取单个测试用例集信息
@@ -1458,7 +1452,7 @@ def find_data(request):
                         temp_html = '<li>' + TestStep.objects.get(testStep_id=testStep_id).testStep_name + '</li>'
                         testStep_name_list_html = testStep_name_list_html + temp_html
                     except:
-                        print('erroe occur!!')
+                        logger.error('error occur!!')
                 testStep_name_list_html = '<ul>' + testStep_name_list_html + "</ul>"
                 testCases_dict['testStep_name_list_html'] = testStep_name_list_html
                 return JsonResponse(testCases_dict, safe=False)
@@ -1550,7 +1544,7 @@ def find_data(request):
                             mockServer_conditions_table_html = mockServer_conditions_table_html + temp_content2
                     final_data = {'default_mockServer_html':default_mockServer_html, 'mockServer_table_html':mockServer_table_html, 'mockServer_conditions_table_html':mockServer_conditions_table_html}
                 except Exception as e:
-                    print('报错信息： ', e)
+                    logger.error('报错信息： {}'.format(e))
                     final_data = {'default_mockServer_html':default_mockServer_html, 'mockServer_table_html': '','mockServer_conditions_table_html': ''}
 
                 return JsonResponse(final_data, safe=False)
