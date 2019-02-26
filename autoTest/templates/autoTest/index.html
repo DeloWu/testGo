@@ -3,9 +3,42 @@
 {% block beforehead %}
 {% endblock %}
 {% block body %}
-	<div class="form-group" id="response_result">
-
-    </div>
+<div class="row">
+	<div class="form-group col-md-12" id="summary">
+		<p>统计概要：</p>
+		<table class="table table-bordered">
+	        <thead>
+	            <tr>
+		            <th>项目数量</th>
+		            <th>环境数量</th>
+		            <th>接口数量</th>
+		            <th>用例数量</th>
+		            <th>用例集数量</th>
+		            <th>测试报告数量</th>
+		            <th>执行计划数量</th>
+		            <th>mock服务数量</th>
+	       		</tr>
+	        </thead>
+	        <tbody>
+	        	<tr>
+	            	<td>{{ pro_count }}</td>
+	            	<td>{{ env_count }}</td>
+	            	<td>{{ api_count }}</td>
+	            	<td>{{ testStep_count }}</td>
+	            	<td>{{ testCases_count }}</td>
+	            	<td>{{ report_count }}</td>
+	            	<td>{{ plan_count }}</td>
+	            	<td>{{ mockServer_count }}</td>
+	        	</tr>
+	        </tbody>
+	    </table>
+	</div>
+</div>
+<div class="row">
+	<!-- <p>近期测试用例执行情况：</p> -->
+	<div class="col-md-12" id="summary_table" style="height:400px">
+	</div>
+</div>
 {% endblock %}
 {% block javascript %} 
 <script type="text/javascript">
@@ -13,4 +46,81 @@
 		$("#sidebar-nav > div:eq(0) > div > nav > ul > li:eq(0) >a").attr("class","active");
 	});
 </script>
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+<script>
+        var myChart = echarts.init(document.getElementById('summary_table'));
+        option = {
+				    title : {
+				        text: '近期用例执行情况',
+				        subtext: ''
+				    },
+				    color : [ '#CCFF99', '#FF6666'],
+				    tooltip : {
+				        trigger: 'axis'
+				    },
+				    legend: {
+				        data:['成功','失败']
+				    },
+				    toolbox: {
+				        show : true,
+				        feature : {
+				            mark : {show: true},
+				            dataView : {show: true, readOnly: false},
+				            magicType : {show: true, type: ['line', 'bar']},
+				            restore : {show: true},
+				            saveAsImage : {show: true}
+				        }
+				    },
+				    calculable : true,
+				    xAxis : [
+				        {
+				            type : 'category',
+				            data : {{ summary_col_name_list| safe }}
+				        }
+				    ],
+				    yAxis : [
+				        {
+				            type : 'value'
+				        }
+				    ],
+				    series : [
+				        {
+				            name:'成功',
+				            type:'bar',
+				            data: {{ success_list| safe }},
+				            markPoint : {
+				                data : [
+				                    {type : 'max', name: '最大值'},
+				                    {type : 'min', name: '最小值'}
+				                ]
+				            },
+				            markLine : {
+				                data : [
+				                    {type : 'average', name: '平均值'}
+				                ]
+				            }
+				        },
+				        {
+				            name:'失败',
+				            type:'bar',
+				            data:{{ fail_list| safe }},
+				            markPoint : {
+				                data : [
+				                    
+				                ]
+				            },
+				            markLine : {
+				                data : [
+				                    {type : 'average', name : '平均值'}
+				                ]
+				            }
+				        }
+				    ]
+				};
+                    
+		                    
+                    
+                    
+        myChart.setOption(option);
+    </script>
 {% endblock %}

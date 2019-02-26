@@ -22,10 +22,10 @@ urlpatterns = [
     path(r'api_update/', views.api_update, name='api_update'),
     path(r'api_delete/', views.api_delete, name='api_delete'),
 
-    path(r'encry_index/', views.encry_index, name='encry_index'),
-    path(r'encry_add/', views.encry_add, name='encry_add'),
-    path(r'encry_update/', views.encry_update, name='encry_update'),
-    path(r'encry_delete/', views.encry_delete, name='encry_delete'),
+    path(r'function_index/', views.function_index, name='function_index'),
+    path(r'function_add/', views.function_add, name='function_add'),
+    path(r'function_update/', views.function_update, name='function_update'),
+    path(r'function_delete/', views.function_delete, name='function_delete'),
 
     path(r'testStep_index/', views.testStep_index, name='testStep_index'),
     path(r'testStep_add/', views.testStep_add, name='testStep_add'),

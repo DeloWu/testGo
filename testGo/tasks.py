@@ -4,6 +4,10 @@ from .celery import app
 from autoTest.models import TestCases
 import requests
 import time
+import numpy
+import pandas
+import matplotlib.pyplot as plt
+
 
 @app.task
 def add(x, y):
@@ -36,3 +40,9 @@ def run_testCases(testCases_id):
     headers = {'Content-Type':'application/x-www-form-urlencoded'}
     response = requests.post(url=url, data=data, headers=headers)
     print('*****  run_testCases-', testCases_id, ' task worked!')
+
+@app.task
+def create_summary_img():
+    #  定时创建近期测试情况汇总图
+    # dataFrame = pandas.DataFrame()
+    pass

@@ -222,10 +222,10 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label"><span style="color: red">* </span>加密方式:</label>
                         <div class="col-md-6">
-                            <select id="encry_id" class="form-control">
+                            <select id="function_id" class="form-control">
                                 <!-- <option value=""> </option> -->
-                                {% for encry in encry_list %}
-                                    <option value={{ encry.encry_id }}>{{ encry.encry_name }}</option>
+                                {% for function in function_list %}
+                                    <option value={{ function.function_id }}>{{ function.function_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -302,7 +302,7 @@
         var content_type = $("input[name='content_type']:checked").val();
         var description = $("#description").val();
         var encry_flag = $("input[name='encry_flag']:checked").val();
-        var encry_id = $("#encry_id").val();
+        var function_id = $("#function_id").val();
         var pro_id = $("#pro_id").val();
 
         var headers = new Object();
@@ -445,7 +445,7 @@
                         "description": description,
                         "validate": validate_str,
                         "encry_flag": encry_flag,
-                        "encry_id": encry_id,
+                        "function_id": function_id,
                         "pro_id": pro_id,
                         "necessaryFlag_dict": necessaryFlag_dict_str,
                         "dataType_dict": dataType_dict_str,
@@ -469,7 +469,7 @@
                             "\ndescription: ", description,
                             "\nvalidate: ", validate_str,
                             "\nencry_flag: ", encry_flag,
-                            "\nencry_id: ", encry_id,
+                            "\nfunction_id: ", function_id,
                             "\npro_id: ", pro_id,
                             "\nnecessaryFlag_dict: ", necessaryFlag_dict_str,
                             "\ndataType_dict: ", dataType_dict_str,

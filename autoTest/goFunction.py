@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 from ast import literal_eval
 from autoTest import utils
-from autoTest.models import Project, Environment, Api, TestStep, TestCases, Report, Encryption
+from autoTest.models import Project, Environment, Api, TestStep, TestCases, Report, Function
 import base64
 import codecs
 from decorator import decorator

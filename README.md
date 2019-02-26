@@ -30,7 +30,8 @@ celery相关
     nginx错误日志路径:          /app/testGo/logs/nginx.error.log
 
 项目展示：
-======
+=====
+![avatar](/static/img/index.png)
 ![avatar](/static/img/testStep_index.png)
 ![avatar](/static/img/testStep_run.png)
 ![avatar](/static/img/testCases_run.png)

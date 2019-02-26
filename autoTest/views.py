@@ -1,8 +1,9 @@
 from ast import literal_eval
 from autoTest import goFunction
+import datetime
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
-from .models import Project, Environment, Api, TestStep, TestCases, Report, Encryption, MockServer
+from .models import Project, Environment, Api, TestStep, TestCases, Report, MockServer, Function
 from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
@@ -34,9 +35,60 @@ def login_check(func):
     return wrapper
 '''
 
-# @cache_page(60 * 5)
+# @cache_page(60 * 10)
 def index(request):
-    return render(request, 'autoTest/index.html', context={})
+    pro_count = Project.objects.count()
+    env_count = Environment.objects.count()
+    api_count = Api.objects.count()
+    testStep_count = TestStep.objects.count()
+    testCases_count = TestCases.objects.count()
+    report_count = Report.objects.count()
+    plan_count = PeriodicTask.objects.count()
+    mockServer_count = MockServer.objects.count()
+    # 最近五天的日期列表
+    summary_col_name_list = []
+    today = datetime.datetime.now()
+    today_format = today.strftime('%Y-%m-%d')
+    summary_col_name_list.append(today_format)
+    for day in range(1,5):
+        loop_day = today + datetime.timedelta(days=-day)
+        loop_day_format = loop_day.strftime('%Y-%m-%d')
+        summary_col_name_list.append(loop_day_format)
+    #  列表翻转，左边是过去时间，最右边是当天 e.g. ['2019-01-01','2019-01-02','2019-01-03','2019-01-04','2019-01-05',]
+    summary_col_name_list.reverse()
+
+    success_list = []
+    fail_list = []
+    for date in summary_col_name_list:
+        filter_report = Report.objects.filter(create_time__startswith=date)
+        successes = 0
+        failures = 0
+        for report in filter_report:
+            try:
+                #  e.g. run_stat = [3,2,1]
+                run_stat = json.loads(report.run_stat)
+                successes += int(run_stat[1])
+                failures += int(run_stat[2])
+            except Exception as e:
+                logger.warning(e)
+                continue
+        success_list.append(successes)
+        fail_list.append(failures)
+
+
+    return render(request, 'autoTest/index.html', context={
+        'pro_count': pro_count,
+        'env_count': env_count,
+        'api_count': api_count,
+        'testStep_count': testStep_count,
+        'testCases_count': testCases_count,
+        'report_count': report_count,
+        'plan_count': plan_count,
+        'mockServer_count': mockServer_count,
+        'summary_col_name_list': summary_col_name_list,
+        'success_list': success_list,
+        'fail_list': fail_list
+    })
 
 
 def pro_index(request):
@@ -236,7 +288,7 @@ def api_add(request):
         description = request.POST['description']
         validate = request.POST['validate']
         encry_flag = request.POST['encry_flag']
-        encry_id = request.POST['encry_id']
+        function_id = request.POST['function_id']
         pro_id = request.POST['pro_id']
         necessaryFlag_dict = request.POST['necessaryFlag_dict']
         dataType_dict = request.POST['dataType_dict']
@@ -247,11 +299,8 @@ def api_add(request):
         if content_type == 'json':
             headers_eval['Content-Type'] = 'application/json'
             body = body.replace(' ','')
-            # body_eval = literal_eval(body)
             body_eval = json.loads(body)
-            # dataType_dict_eval = literal_eval(dataType_dict)
             dataType_dict_eval = json.loads(dataType_dict)
-            # necessaryFlag_dict_eval = literal_eval(necessaryFlag_dict)
             necessaryFlag_dict_eval = json.loads(necessaryFlag_dict)
             for item in list(body_eval.values()):
                 necessaryFlag_dict_eval['body'].append('1')
@@ -265,25 +314,22 @@ def api_add(request):
                     dataType_dict_eval['body'].append('list')
                 if isinstance(item,dict):
                     dataType_dict_eval['body'].append('dict')
-            # necessaryFlag_dict = str(necessaryFlag_dict_eval).replace("'", '"')
-            # dataType_dict = str(dataType_dict_eval).replace("'", '"')
             necessaryFlag_dict = json.dumps(necessaryFlag_dict_eval)
             dataType_dict = json.dumps(dataType_dict_eval)
         if content_type == 'x-www-form-urlencoded':
             headers_eval['Content-Type'] = 'application/x-www-form-urlencoded'
-        # headers_eval = str(headers_eval).replace("'", '"')
         headers_eval = json.dumps(headers_eval)
         api = Api(api_name=api_name, api_path=api_path, method=method, content_type=content_type, headers=headers_eval,
-                  body=body, description=description, validate=validate, encry_flag=encry_flag, relative_enc=encry_id,
+                  body=body, description=description, validate=validate, encry_flag=encry_flag, relative_enc=function_id,
                   relative_pro=pro_id, necessaryFlag_dict=necessaryFlag_dict, dataType_dict=dataType_dict,
                   description_dict=description_dict)
         api.save()
         return HttpResponseRedirect("/autoTest/api_index/")
     if request.method == 'GET':
         pro_list = Project.objects.all()
-        encry_list = Encryption.objects.all()
+        function_list = Function.objects.all()
         return render(request, 'autoTest/api_add.html', context={"pro_list": pro_list,
-                                                                 "encry_list": encry_list, })
+                                                                 "function_list": function_list, })
 
 
 def api_delete(request):
@@ -307,7 +353,7 @@ def api_update(request):
         description = request.POST['description']
         validate = request.POST['validate']
         encry_flag = request.POST['encry_flag']
-        encry_id = request.POST['encry_id']
+        function_id = request.POST['function_id']
         pro_id = request.POST['pro_id']
         necessaryFlag_dict = request.POST['necessaryFlag_dict']
         dataType_dict = request.POST['dataType_dict']
@@ -342,7 +388,7 @@ def api_update(request):
         Api.objects.filter(api_id=api_id).update(api_name=api_name, api_path=api_path, method=method,
                                                  content_type=content_type, headers=headers_eval, body=body,
                                                  description=description, validate=validate, encry_flag=encry_flag,
-                                                 relative_enc=encry_id, relative_pro=pro_id,
+                                                 relative_enc=function_id, relative_pro=pro_id,
                                                  necessaryFlag_dict=necessaryFlag_dict, dataType_dict=dataType_dict,
                                                  description_dict=description_dict)
         return HttpResponseRedirect("/autoTest/api_index/")
@@ -351,38 +397,38 @@ def api_update(request):
         api = Api.objects.get(api_id=api_id)
         cur_enc_id = api.relative_enc
         cur_pro_id = api.relative_pro
-        cur_enc = Encryption.objects.get(encry_id=cur_enc_id)
+        cur_function = Function.objects.get(function_id=cur_enc_id)
         cur_pro = Project.objects.get(pro_id=cur_pro_id)
         pro_list = Project.objects.all()
-        encry_list = Encryption.objects.all()
+        function_list = Function.objects.all()
         return render(request, "autoTest/api_update.html", {"api": api,
                                                             "pro_list": pro_list,
-                                                            "encry_list": encry_list,
-                                                            "cur_enc": cur_enc,
+                                                            "function_list": function_list,
+                                                            "cur_function": cur_function,
                                                             "cur_pro": cur_pro,
                                                             })
 
 
-def encry_index(request):
-    encry_sum = Encryption.objects.all().order_by('encry_id')
-    paginator = Paginator(encry_sum, 10)
+def function_index(request):
+    function_sum = Function.objects.all().order_by('function_id')
+    paginator = Paginator(function_sum, 10)
     page = request.GET.get('page', 1)
     current_page = int(page)
     try:
-        encry_list = paginator.page(page)  # 获取当前页码的记录
+        function_list = paginator.page(page)  # 获取当前页码的记录
     except PageNotAnInteger:
-        encry_list = paginator.page(1)  # 如果用户输入的页码不是整数时,显示第1页的内容
+        function_list = paginator.page(1)  # 如果用户输入的页码不是整数时,显示第1页的内容
     except EmptyPage:
-        encry_list = paginator.page(paginator.num_pages)  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
-    if encry_list.has_previous():
-        previous_page_index = encry_list.previous_page_number()
+        function_list = paginator.page(paginator.num_pages)  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
+    if function_list.has_previous():
+        previous_page_index = function_list.previous_page_number()
     else:
         previous_page_index = None
-    if encry_list.has_next():
-        next_page_index = encry_list.next_page_number()
+    if function_list.has_next():
+        next_page_index = function_list.next_page_number()
     else:
         next_page_index = None
-    return render(request, 'autoTest/encry_index.html', context={'encry_list': encry_list,
+    return render(request, 'autoTest/function_index.html', context={'function_list': function_list,
                                                                  'paginator': paginator,
                                                                  'current_page': current_page,
                                                                  'previous_page_index': previous_page_index,
@@ -390,39 +436,37 @@ def encry_index(request):
                                                                  })
 
 
-def encry_add(request):
+def function_add(request):
     if request.method == 'POST':
-        encry_name = request.POST['encry_name']
-        encry_function = request.POST['encry_function']
+        function_name = request.POST['function_name']
+        # encry_function = request.POST['encry_function']
         description = request.POST['description']
-        encry = Encryption(encry_name=encry_name, encry_function=encry_function, description=description)
-        encry.save()
-        return HttpResponseRedirect("/autoTest/encry_index/")
+        function = Function(function_name=function_name, description=description)
+        function.save()
+        return HttpResponseRedirect("/autoTest/function_index/")
     if request.method == 'GET':
-        return render(request, "autoTest/encry_add.html", {})
+        return render(request, "autoTest/function_add.html", {})
 
 
 
-def encry_update(request):
+def function_update(request):
     if request.method == 'POST':
-        encry_id = request.POST['encry_id']
-        encry_name = request.POST['encry_name']
-        encry_function = request.POST['encry_function']
+        function_id = request.POST['function_id']
+        function_name = request.POST['function_name']
         description = request.POST['description']
-        Encryption.objects.filter(encry_id=encry_id).update(encry_name=encry_name, encry_function=encry_function,
-                                                            description=description)
-        return HttpResponseRedirect("/autoTest/encry_index/")
+        Function.objects.filter(function_id=function_id).update(function_name=function_name,description=description)
+        return HttpResponseRedirect("/autoTest/function_index/")
     if request.method == 'GET':
-        encry_id = request.GET['encry_id']
-        encry = Encryption.objects.get(encry_id=encry_id)
-        return render(request, 'autoTest/encry_update.html', context={"encry": encry})
+        function_id = request.GET['function_id']
+        function = Function.objects.get(function_id=function_id)
+        return render(request, 'autoTest/function_update.html', context={"function": function})
 
 
-def encry_delete(request):
+def function_delete(request):
     if request.method == 'GET':
-        encry_id = request.GET['encry_id']
-        Encryption.objects.filter(encry_id=encry_id).delete()
-        return HttpResponseRedirect("/autoTest/encry_index/")
+        function_id = request.GET['function_id']
+        Function.objects.filter(function_id=function_id).delete()
+        return HttpResponseRedirect("/autoTest/function_index/")
 
 
 def testStep_index(request):
@@ -901,8 +945,13 @@ def testCases_run(request):
         try:
             runner.run(file_path)
             summary = json.dumps(runner.summary['stat'])
+            summary_sum = runner.summary['stat']['testsRun']
+            summary_success = runner.summary['stat']['successes']
+            summary_failures = summary_sum - summary_success
+            run_stat = json.dumps([summary_sum, summary_success, summary_failures])
         except Exception:
             logger.error(Exception)
+            run_stat = '[]'
         if request_runStyle == '0':
             # "0": 不生成测试报告
             return JsonResponse(summary, safe=False)
@@ -910,7 +959,7 @@ def testCases_run(request):
             # "1": 立即返回测试报告
             report_path = runner.gen_html_report()
             logger.info('report_path: '.format(report_path))
-            report = Report(report_name=testCases_name, path=report_path, relative_testCases=request_testCases_id)
+            report = Report(report_name=testCases_name, path=report_path, relative_testCases=request_testCases_id, run_stat=run_stat)
             report.save()
             report_id = str(Report.objects.filter(path=report_path)[0].report_id)
             request_host = request.get_host()
@@ -920,7 +969,7 @@ def testCases_run(request):
         if request_runStyle == '2':
             # "2": 后台生成测试报告
             report_path = runner.gen_html_report()
-            report = Report(report_name=testCases_name, path=report_path, relative_testCases=request_testCases_id)
+            report = Report(report_name=testCases_name, path=report_path, relative_testCases=request_testCases_id, run_stat=run_stat)
             report.save()
             return JsonResponse(summary, safe=False)
         return HttpResponseRedirect("/autoTest/testCases_index/")
@@ -1015,6 +1064,32 @@ def plan_index(request):
                                                                'next_page_index': next_page_index,
                                                                'intervalschedule_list': intervalschedule_list,
                                                                 'crontabschedule_list': crontabschedule_list,
+                                                               })
+
+def function_index(request):
+    function_sum = Function.objects.all().order_by('function_id')
+    paginator = Paginator(function_sum, 10)
+    page = request.GET.get('page', 1)
+    current_page = int(page)
+    try:
+        function_list = paginator.page(page)  # 获取当前页码的记录
+    except PageNotAnInteger:
+        function_list = paginator.page(1)  # 如果用户输入的页码不是整数时,显示第1页的内容
+    except EmptyPage:
+        function_list = paginator.page(paginator.num_pages)  # 如果用户输入的页数不在系统的页码列表中时,显示最后一页的内容
+    if function_list.has_previous():
+        previous_page_index = function_list.previous_page_number()
+    else:
+        previous_page_index = None
+    if function_list.has_next():
+        next_page_index = function_list.next_page_number()
+    else:
+        next_page_index = None
+    return render(request, 'autoTest/function_index.html', context={'function_list': function_list,
+                                                               'paginator': paginator,
+                                                               'current_page': current_page,
+                                                               'previous_page_index': previous_page_index,
+                                                               'next_page_index': next_page_index
                                                                })
 
 def getResponse(expect_response_content_type, expect_status_code, expect_headers, expect_response):

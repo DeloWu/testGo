@@ -1,5 +1,5 @@
 {% extends 'autoTest/base.html' %}
-{% block title %} 编辑签名 {% endblock %}
+{% block title %} 编辑公共函数 {% endblock %}
 {% block crumbs %}
     <div class="row">
         <div class="col-md-12">
@@ -11,7 +11,7 @@
                     <a class="this">基础信息</a>
                 </li>
                 <li class="active">
-                    <a class="this-page">编辑签名</a>
+                    <a class="this-page">编辑公共函数</a>
                 </li>
             </ol>
 
@@ -24,35 +24,35 @@
     <div class="col-md-12">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">编辑签名</h3>
+                <h3 class="panel-title">编辑公共函数</h3>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" method="post" action="{% url 'autoTest:encry_update' %}">
+                <form class="form-horizontal" method="post" action="{% url 'autoTest:function_update' %}">
                     {% csrf_token %}
-                    <input name="encry_id" value ={{ encry.encry_id }} hidden>
+                    <input name="function_id" value ={{ function.function_id }} hidden>
                     <div class="form-group">
-                        <label for="encry_name" class="col-md-2 control-label"><span style="color: red">* </span>签名名称:</label>
+                        <label for="function_name" class="col-md-2 control-label"><span style="color: red">* </span>公共函数函数:</label>
                         <div class="col-md-6">
-                            <input type="text" name="encry_name" value={{ encry.encry_name }} class="form-control"  id="encry_name" >
+                            <input type="text" name="function_name" value={{ function.function_name }} class="form-control"  id="function_name" >
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="encry_function" class="col-md-2 control-label"><span style="color: red">* </span>签名函数:</label>
+<!--                     <div class="form-group">
+                        <label for="function_function" class="col-md-2 control-label"><span style="color: red">* </span>公共函数函数:</label>
                         <div class="col-md-6">
-                            <input type="text" name="encry_function" value={{ encry.encry_function }} class="form-control" id="encry_function">
+                            <input type="text" name="function_function" value={{ function.function_function }} class="form-control" id="function_function">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
-                        <label for="description" class="col-md-2 control-label">签名描述:</label>
+                        <label for="description" class="col-md-2 control-label">公共函数描述:</label>
                         <div class="col-md-6">
-                            <textarea name="description" class="form-control" id="description" rows="3">{{ encry.description }}</textarea>
+                            <textarea name="description" class="form-control" id="description" rows="3">{{ function.description }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-6">
                             <button type="submit" class="btn btn-primary">保存</button>
                             <button type="reset" class="btn btn-primary">重置</button>
-                            <p style="color: red">ps: 添加或者修改签名后，请联系管理人员修改签名代码！</p>
+                            <p style="color: red">ps: 添加或者修改公共函数后，请联系管理人员修改公共函数代码！</p>
                         </div>
                     </div>
                 </form>

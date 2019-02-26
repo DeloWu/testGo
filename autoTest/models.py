@@ -189,14 +189,14 @@ class TestCases(models.Model):
     __repr__ = __str__
 
 
-class Encryption(models.Model):
-    encry_id = models.AutoField(primary_key=True, null=False)
-    encry_name = models.CharField(max_length=20)  # 加密名称
-    encry_function = models.CharField(max_length=200)  # 加密函数名称
+class Function(models.Model):
+    function_id = models.AutoField(primary_key=True, null=False)
+    function_name = models.CharField(max_length=50,  blank=True, default="")  # 加密名称
+    # function = models.CharField(max_length=200)  # 加密函数名称
     description = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
-        return self.encry_name
+        return self.function_name
 
     __repr__ = __str__
 
@@ -207,6 +207,7 @@ class Report(models.Model):
     path = models.CharField(max_length=100)  # 报告文件路径
     relative_testCases = models.CharField(max_length=10)
     create_time = models.DateTimeField(default=django.utils.timezone.now)
+    run_stat = models.CharField(max_length=30, blank=True, default="")  # 执行结果 [testsRun,successes,failures] e.g.[3,2,1]
 
     def __str__(self):
         return self.report_name

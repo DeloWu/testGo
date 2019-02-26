@@ -640,3 +640,190 @@ Traceback (most recent call last):
   File "E:\github\testGo\autoTest\views.py", line 1077, in combine_response
     return_response.setdefault(expect_response=return_value_list)
 TypeError: setdefault() got an unexpected keyword argument 'expect_response'
+2019-02-25 17:09:27,516 [Thread-33:96843592] [django.request:93] [WARNING]- Not Found: /autoTest/templates/autoTest/reports/summary.png
+2019-02-26 09:45:59,783 [Thread-2:96858440] [django.request:118] [ERROR]- Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 54, in index
+    loop_day = today + datetime.timedelta(day=-day)
+TypeError: 'day' is an invalid keyword argument for this function
+2019-02-26 09:47:47,979 [Thread-2:96854344] [django.request:118] [ERROR]- Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 54, in index
+    loop_day = today + datetime.timedelta(day=-(day))
+TypeError: 'day' is an invalid keyword argument for this function
+2019-02-26 11:25:03,529 [django.request:118] [ERROR]- Internal Server Error: /autoTest/function_index/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 1092, in function_index
+    'next_page_index': next_page_index
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/function_index.html
+2019-02-26 11:32:38,255 [django.request:118] [ERROR]- Internal Server Error: /autoTest/function_index/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 1092, in function_index
+    'next_page_index': next_page_index
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: autoTest/function_index.html
+2019-02-26 11:35:20,519 [django.request:118] [ERROR]- Internal Server Error: /autoTest/function_index/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 1092, in function_index
+    'next_page_index': next_page_index
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Python36\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Python36\lib\site-packages\django\template\loader_tags.py", line 155, in render
+    return compiled_parent._render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Python36\lib\site-packages\django\template\loader_tags.py", line 67, in render
+    result = block.nodelist.render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Python36\lib\site-packages\django\template\defaulttags.py", line 168, in render
+    len_values = len(values)
+  File "C:\Python36\lib\site-packages\django\core\paginator.py", line 141, in __len__
+    return len(self.object_list)
+  File "C:\Python36\lib\site-packages\django\db\models\query.py", line 254, in __len__
+    self._fetch_all()
+  File "C:\Python36\lib\site-packages\django\db\models\query.py", line 1179, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "C:\Python36\lib\site-packages\django\db\models\query.py", line 54, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 1051, in execute_sql
+    sql, params = self.as_sql()
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 446, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup()
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 51, in pre_sql_setup
+    order_by = self.get_order_by()
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 316, in get_order_by
+    field, self.query.get_meta(), default_order=asc))
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 661, in find_ordering_name
+    field, targets, alias, joins, path, opts = self._setup_joins(pieces, opts, alias)
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 694, in _setup_joins
+    pieces, opts, alias)
+  File "C:\Python36\lib\site-packages\django\db\models\sql\query.py", line 1448, in setup_joins
+    names, opts, allow_many, fail_on_missing=True)
+  File "C:\Python36\lib\site-packages\django\db\models\sql\query.py", line 1379, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'func_id' into field. Choices are: description, function_id, function_name
+2019-02-26 11:36:11,851 [django.request:118] [ERROR]- Internal Server Error: /autoTest/function_index/
+Traceback (most recent call last):
+  File "C:\Python36\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python36\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\github\testGo\autoTest\views.py", line 1092, in function_index
+    'next_page_index': next_page_index
+  File "C:\Python36\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python36\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Python36\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Python36\lib\site-packages\django\template\loader_tags.py", line 155, in render
+    return compiled_parent._render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Python36\lib\site-packages\django\template\loader_tags.py", line 67, in render
+    result = block.nodelist.render(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Python36\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Python36\lib\site-packages\django\template\defaulttags.py", line 168, in render
+    len_values = len(values)
+  File "C:\Python36\lib\site-packages\django\core\paginator.py", line 141, in __len__
+    return len(self.object_list)
+  File "C:\Python36\lib\site-packages\django\db\models\query.py", line 254, in __len__
+    self._fetch_all()
+  File "C:\Python36\lib\site-packages\django\db\models\query.py", line 1179, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "C:\Python36\lib\site-packages\django\db\models\query.py", line 54, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 1051, in execute_sql
+    sql, params = self.as_sql()
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 446, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup()
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 51, in pre_sql_setup
+    order_by = self.get_order_by()
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 316, in get_order_by
+    field, self.query.get_meta(), default_order=asc))
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 661, in find_ordering_name
+    field, targets, alias, joins, path, opts = self._setup_joins(pieces, opts, alias)
+  File "C:\Python36\lib\site-packages\django\db\models\sql\compiler.py", line 694, in _setup_joins
+    pieces, opts, alias)
+  File "C:\Python36\lib\site-packages\django\db\models\sql\query.py", line 1448, in setup_joins
+    names, opts, allow_many, fail_on_missing=True)
+  File "C:\Python36\lib\site-packages\django\db\models\sql\query.py", line 1379, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'func_id' into field. Choices are: description, function_id, function_name
