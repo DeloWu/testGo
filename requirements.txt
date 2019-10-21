@@ -68,6 +68,6 @@ urllib3==1.22
 venusian==1.1.0
 vine==1.1.4
 WebOb==1.8.4
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 zope.deprecation==4.4.0
 zope.interface==4.6.0
