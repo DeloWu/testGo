@@ -30,7 +30,7 @@ HttpRunner==1.5.15
 hupper==1.4.2
 idna==2.6
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 jsonschema==2.6.0
 kombu==4.2.2
 locustio==0.8.1
